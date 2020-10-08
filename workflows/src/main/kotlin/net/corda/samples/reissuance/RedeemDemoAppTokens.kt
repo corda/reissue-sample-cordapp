@@ -32,7 +32,7 @@ class RedeemDemoAppTokens(
 
         val tokensToRedeem = if(tokensNum != null) {
             // split tokens into token to redeem and optional change token
-            subFlow(MoveDemoAppTokens(demoAppTokenType, issuer, holderParty, tokensNum))
+            subFlow(MoveDemoAppToken(demoAppTokenType, issuer, holderParty, tokensNum))
             val availableTokens = subFlow(ListAvailableTokens(demoAppTokenType, holderParty, encumbered))
             listOf(availableTokens.first { it.state.data.amount.quantity == tokensNum })
         } else {

@@ -16,7 +16,7 @@ import net.corda.core.transactions.TransactionBuilder
 
 @InitiatingFlow
 @StartableByRPC
-class MoveDemoAppTokens(
+class MoveDemoAppToken(
     private val demoAppTokenType: TokenType,
     private val issuer: Party,
     private val newTokenHolderParty: Party,
@@ -86,7 +86,7 @@ class MoveDemoAppTokens(
 }
 
 
-@InitiatedBy(MoveDemoAppTokens::class)
+@InitiatedBy(MoveDemoAppToken::class)
 class MoveDemoAppTokensResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {
