@@ -17,14 +17,14 @@ import net.corda.core.transactions.TransactionBuilder
 
 @InitiatingFlow
 @StartableByRPC
-class IssueDemoAppToken(
-    private val demoAppTokenType: TokenType,
+class IssueDemoAppTokens(
     private val tokenHolderParty: Party,
     private val tokenAmount: Long
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable
     override fun call(): SecureHash {
+        val demoAppTokenType = TokenType("DemoAppToken", 0)
         val issuerParty: Party = ourIdentity
         val issuedDemoAppTokenType = IssuedTokenType(issuerParty, demoAppTokenType)
         val demoAppTokenAmount = amount(tokenAmount, issuedDemoAppTokenType)
@@ -44,7 +44,7 @@ class IssueDemoAppToken(
     }
 }
 
-@InitiatedBy(IssueDemoAppToken::class)
+@InitiatedBy(IssueDemoAppTokens::class)
 class IssueDemoAppTokensResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {

@@ -3,7 +3,7 @@ package net.corda.samples.reissuance
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
-import com.r3.dr.ledgergraph.services.LedgerGraphService
+//import com.r3.dr.ledgergraph.services.LedgerGraphService
 import com.r3.corda.lib.reissuance.flows.*
 import com.r3.corda.lib.reissuance.states.ReIssuanceLock
 import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
@@ -69,7 +69,7 @@ abstract class AbstractDemoAppFlowTest {
                 findCordapp("com.r3.corda.lib.ci.workflows"),
                 findCordapp("com.r3.corda.lib.reissuance.flows"),
                 findCordapp("com.r3.corda.lib.reissuance.contracts"),
-                findCordapp("com.r3.dr.ledgergraph"),
+//                findCordapp("com.r3.dr.ledgergraph"),
                 findCordapp("net.corda.samples.reissuance")
             ),
             notarySpecs = listOf(MockNetworkNotarySpec(DUMMY_NOTARY_NAME, false)),
@@ -99,7 +99,7 @@ abstract class AbstractDemoAppFlowTest {
 
         issuedTokenType = IssuedTokenType(bankParty, demoAppTokenType)
 
-        aliceNode.services.cordaService(LedgerGraphService::class.java).waitForInitialization()
+//        aliceNode.services.cordaService(LedgerGraphService::class.java).waitForInitialization()
 
     }
 
@@ -127,7 +127,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             bankNode,
-            IssueDemoAppTokens(demoAppTokenType, holder, tokenAmount)
+            IssueDemoAppTokens(holder, tokenAmount)
         )
     }
 
@@ -138,7 +138,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             node,
-            MoveDemoAppTokens(demoAppTokenType, bankParty, newHolder, tokenAmount)
+            MoveDemoAppTokens(bankParty, newHolder, tokenAmount)
         )
     }
 
@@ -150,7 +150,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             node,
-            RedeemDemoAppTokens(demoAppTokenType, bankParty, encumbered, tokenAmount, tokenRefs)
+            RedeemDemoAppTokens(bankParty, encumbered, tokenAmount, tokenRefs)
         )
     }
 
@@ -160,7 +160,7 @@ abstract class AbstractDemoAppFlowTest {
     ): List<StateAndRef<FungibleToken>> {
         return runFlow(
             node,
-            ListAvailableTokens(demoAppTokenType, node.info.singleIdentity(), encumbered)
+            ListAvailableDemoAppTokens(node.info.singleIdentity(), encumbered)
         )
     }
 
@@ -289,8 +289,9 @@ abstract class AbstractDemoAppFlowTest {
         node: TestStartedNode,
         txId: SecureHash
     ): Set<SecureHash> {
-        val ledgerGraphService = node.services.cordaService(LedgerGraphService::class.java)
-        return ledgerGraphService.getBackchain(setOf(txId))
+        return setOf()
+//        val ledgerGraphService = node.services.cordaService(LedgerGraphService::class.java)
+//        return ledgerGraphService.getBackchain(setOf(txId))
     }
 
     fun <T> runFlow(

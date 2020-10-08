@@ -4,7 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3155fb98-ebde-41c0-a3d5-b772cf30989c" name="Default Changelist" comment="" />
+    <list default="true" id="3155fb98-ebde-41c0-a3d5-b772cf30989c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/IssueDemoAppTokens.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/IssueDemoAppTokens.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/ListAvailableTokens$call$tokenHolderCriteria$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/ListAvailableTokens$call$tokenTypeCriteria$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/ListAvailableTokens.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/MoveDemoAppTokens.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/MoveDemoAppTokens.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/MoveDemoAppTokensResponder.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/MoveDemoAppTokensResponder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/RedeemDemoAppTokens.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/RedeemDemoAppTokens.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/RedeemDemoAppTokensResponder$call$signTransactionFlow$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/RedeemDemoAppTokensResponder$call$signTransactionFlow$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/RedeemDemoAppTokensResponder.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/main/net/corda/samples/reissuance/RedeemDemoAppTokensResponder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/test/net/corda/samples/reissuance/AbstractDemoAppFlowTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/test/net/corda/samples/reissuance/AbstractDemoAppFlowTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/classes/kotlin/test/net/corda/samples/reissuance/UnlockReIssuedStatesTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/classes/kotlin/test/net/corda/samples/reissuance/UnlockReIssuedStatesTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/kotlin/workflowsjar-classes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/kotlin/workflowsjar-classes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/libs/workflows.jar" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/libs/workflows.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.IssueDemoAppTokensTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.IssueDemoAppTokensTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.MoveDemoAppTokensTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.MoveDemoAppTokensTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.RedeemDemoAppTokensTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.RedeemDemoAppTokensTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.UnlockReIssuedStatesTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/reports/tests/test/classes/net.corda.samples.reissuance.UnlockReIssuedStatesTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/reports/tests/test/packages/net.corda.samples.reissuance.html" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/reports/tests/test/packages/net.corda.samples.reissuance.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.IssueDemoAppTokensTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.IssueDemoAppTokensTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.MoveDemoAppTokensTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.MoveDemoAppTokensTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.RedeemDemoAppTokensTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.RedeemDemoAppTokensTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.UnlockReIssuedStatesTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/test-results/test/TEST-net.corda.samples.reissuance.UnlockReIssuedStatesTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/test-results/test/binary/output.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/test-results/test/binary/output.bin.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/logs/node-19DUB-MAC01.local.log" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/logs/node-19DUB-MAC01.local.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/IssueDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/IssueDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/ListAvailableTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/ListAvailableDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/MoveDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/MoveDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RedeemDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RedeemDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/AbstractDemoAppFlowTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/AbstractDemoAppFlowTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/ReIssueDemoAppTokensTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/ReIssueDemoAppTokensTest.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,6 +108,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1hdYVPEnO7QBZox6afIGw1JfV5S" />
   <component name="ProjectViewState">
@@ -82,10 +127,6 @@
     <property name="settings.editor.selected.configurable" value="build.tools" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance" />
-      <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance" />
-    </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.template.demo" />
       <recent name="com.template.flows.demo" />
@@ -100,18 +141,43 @@
       <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/com/template/demo" />
       <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/com/template/flows/demo" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance" />
+      <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance" />
+    </key>
   </component>
-  <component name="RunManager" selected="Gradle.reissue-sample-cordapp [test]">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="Tests in 'reissue-sample-cordapp.workflows.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests *" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":workflows:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="UnlockReIssuedStatesTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -138,25 +204,6 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" value="--tests &quot;com.template.demo.UnlockReIssuedStatesTest.Original tokens are spent after re-issuance and re-issued tokens are deleted&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":workflows:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="UnlockReIssuedStatesTest.Re-issuance request is rejected" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.template.demo.UnlockReIssuedStatesTest.Re-issuance request is rejected&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -217,11 +264,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'" />
         <item itemvalue="Gradle.reissue-sample-cordapp [test]" />
         <item itemvalue="Gradle.UnlockReIssuedStatesTest" />
         <item itemvalue="Gradle.reissue-sample-cordapp [clean]" />
         <item itemvalue="Gradle.UnlockReIssuedStatesTest.Original tokens are spent after re-issuance and re-issued tokens are deleted" />
-        <item itemvalue="Gradle.UnlockReIssuedStatesTest.Re-issuance request is rejected" />
       </list>
     </recent_temporary>
   </component>
@@ -241,7 +288,10 @@
       <workItem from="1601996648254" duration="4082000" />
       <workItem from="1602060479531" duration="609000" />
       <workItem from="1602061130859" duration="3161000" />
-      <workItem from="1602065941758" duration="1632000" />
+      <workItem from="1602065941758" duration="2011000" />
+      <workItem from="1602068183171" duration="6336000" />
+      <workItem from="1602142218825" duration="745000" />
+      <workItem from="1602143910785" duration="2736000" />
     </task>
     <servers />
   </component>
@@ -261,30 +311,30 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="528" y="279" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1602061064407" />
-    <state x="125" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601901661716">
+    <state x="125" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1602142960975">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="125" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1601901661716" />
+    <state x="125" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1602142960975" />
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1600425858525">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1600425858525" />
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602067387313">
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602145858737">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602067387313" />
-    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602067387312">
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602145858737" />
+    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602145858736">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602067387312" />
-    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602067387312">
+    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602145858736" />
+    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602145858736">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602067387312" />
-    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602067387313">
+    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602145858736" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602145858737">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602067387313" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602145858737" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1602058446962">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -305,10 +355,14 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1602061041389" />
-    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602067074755">
+    <state x="638" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602145645341">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602067074755" />
+    <state x="638" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1602145645341" />
+    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602145158325">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602145158325" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1600673687271">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>

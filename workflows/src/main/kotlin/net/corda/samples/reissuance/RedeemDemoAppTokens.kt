@@ -16,7 +16,6 @@ import net.corda.core.transactions.TransactionBuilder
 @InitiatingFlow
 @StartableByRPC
 class RedeemDemoAppTokens(
-    private val demoAppTokenType: TokenType,
     private val issuer: Party,
     private val encumbered: Boolean?,
     private val tokensNum: Long? = null,
@@ -32,11 +31,11 @@ class RedeemDemoAppTokens(
 
         val tokensToRedeem = if(tokensNum != null) {
             // split tokens into token to redeem and optional change token
-            subFlow(MoveDemoAppToken(demoAppTokenType, issuer, holderParty, tokensNum))
-            val availableTokens = subFlow(ListAvailableTokens(demoAppTokenType, holderParty, encumbered))
+            subFlow(MoveDemoAppTokens(issuer, holderParty, tokensNum))
+            val availableTokens = subFlow(ListAvailableDemoAppTokens(holderParty, encumbered))
             listOf(availableTokens.first { it.state.data.amount.quantity == tokensNum })
         } else {
-            val availableTokens = subFlow(ListAvailableTokens(demoAppTokenType, holderParty, encumbered))
+            val availableTokens = subFlow(ListAvailableDemoAppTokens(holderParty, encumbered))
             availableTokens.filter { tokenRefs.contains(it.ref) }
         }
 

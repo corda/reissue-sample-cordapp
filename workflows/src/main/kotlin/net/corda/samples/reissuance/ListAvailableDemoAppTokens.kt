@@ -13,16 +13,16 @@ import net.corda.core.node.services.vault.QueryCriteria
 import net.corda.core.node.services.vault.builder
 
 @StartableByRPC
-class ListAvailableTokens(
-    private val tokenType: TokenType,
+class ListAvailableDemoAppTokens(
     private val holderParty: Party,
     private val encumbered: Boolean? = false
 ) : FlowLogic<List<StateAndRef<FungibleToken>>>() {
 
     @Suspendable
     override fun call(): List<StateAndRef<FungibleToken>> {
+        val demoAppTokenType = TokenType("DemoAppToken", 0)
         val tokenTypeCriteria = QueryCriteria.VaultCustomQueryCriteria(
-            builder { PersistentFungibleToken::tokenIdentifier.equal(tokenType.tokenIdentifier) })
+            builder { PersistentFungibleToken::tokenIdentifier.equal(demoAppTokenType.tokenIdentifier) })
         val tokenHolderCriteria = QueryCriteria.VaultCustomQueryCriteria(
             builder { PersistentFungibleToken::holder.equal(holderParty) })
         val criteria = tokenTypeCriteria.and(tokenHolderCriteria)

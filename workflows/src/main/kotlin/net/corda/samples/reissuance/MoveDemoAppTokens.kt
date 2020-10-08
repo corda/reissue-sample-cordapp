@@ -16,8 +16,7 @@ import net.corda.core.transactions.TransactionBuilder
 
 @InitiatingFlow
 @StartableByRPC
-class MoveDemoAppToken(
-    private val demoAppTokenType: TokenType,
+class MoveDemoAppTokens(
     private val issuer: Party,
     private val newTokenHolderParty: Party,
     private val tokensNum: Long
@@ -25,13 +24,15 @@ class MoveDemoAppToken(
 
     @Suspendable
     override fun call(): SecureHash {
+        val demoAppTokenType = TokenType("DemoAppToken", 0)
+
         val holderParty: Party = ourIdentity
 
         val signers = listOf(
             holderParty.owningKey
         )
 
-        val availableTokens = subFlow(ListAvailableTokens(demoAppTokenType, holderParty))
+        val availableTokens = subFlow(ListAvailableDemoAppTokens(holderParty))
 
         val issuedTokenType = IssuedTokenType(issuer, demoAppTokenType)
         val (tokensToTransfer, change) = splitTokensIntoTokensToTransferAndChange(
@@ -86,7 +87,7 @@ class MoveDemoAppToken(
 }
 
 
-@InitiatedBy(MoveDemoAppToken::class)
+@InitiatedBy(MoveDemoAppTokens::class)
 class MoveDemoAppTokensResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {
