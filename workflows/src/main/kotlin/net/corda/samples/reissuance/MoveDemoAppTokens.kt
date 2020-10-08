@@ -19,7 +19,7 @@ import net.corda.core.transactions.TransactionBuilder
 class MoveDemoAppTokens(
     private val issuer: Party,
     private val newTokenHolderParty: Party,
-    private val tokensNum: Long
+    private val tokenAmount: Long
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable
@@ -36,7 +36,7 @@ class MoveDemoAppTokens(
 
         val issuedTokenType = IssuedTokenType(issuer, demoAppTokenType)
         val (tokensToTransfer, change) = splitTokensIntoTokensToTransferAndChange(
-            availableTokens, tokensNum, issuedTokenType, holderParty, newTokenHolderParty
+            availableTokens, tokenAmount, issuedTokenType, holderParty, newTokenHolderParty
         )
 
         val transactionBuilder = TransactionBuilder(notary = getPreferredNotary(serviceHub))

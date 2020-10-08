@@ -93,16 +93,18 @@ dependencies {
 
     // CorDapp dependencies.
     cordapp project(":workflows")
+//    cordapp project(":contracts")
 
     cordaCompile "org.apache.logging.log4j:log4j-slf4j-impl:${log4j_version}"
     cordaCompile "org.apache.logging.log4j:log4j-web:${log4j_version}"
     cordaCompile "org.slf4j:jul-to-slf4j:$slf4j_version"
 
-    // CorDapp dependencies.
-    cordaCompile "$confidential_id_release_group:ci-workflows:$confidential_id_release_version"
+    // Token SDK dependencies.
+    cordapp "$tokens_release_group:tokens-contracts:$tokens_release_version"
+    cordapp "$tokens_release_group:tokens-workflows:$tokens_release_version"
 
-    cordaCompile "$tokens_release_group:tokens-contracts:$tokens_release_version"
-    cordaCompile "$tokens_release_group:tokens-workflows:$tokens_release_version"
+    // CI dependencies
+    cordapp "$confidential_id_release_group:ci-workflows:$confidential_id_release_version"
 
     cordaCompile "$reissuance_release_group:reissuance-cordapp-contracts:$reissuance_release_version"
     cordaCompile "$reissuance_release_group:reissuance-cordapp-workflows:$reissuance_release_version"
@@ -138,8 +140,13 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         projectCordapp {
             deploy = false
         }
+        cordapp("$tokens_release_group:tokens-contracts:$tokens_release_version")
+        cordapp("$tokens_release_group:tokens-workflows:$tokens_release_version")
+        cordapp "$confidential_id_release_group:ci-workflows:$confidential_id_release_version"
         cordapp project(':workflows')
+//        runSchemaMigration = true
     }
+
     node {
         name "O=Notary,L=London,C=GB"
         notary = [validating : false]
@@ -159,16 +166,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
     node {
-        name "O=Alice,L=London,C=GB"
-        p2pPort 10006
-        rpcSettings {
-            address("localhost:10007")
-            adminAddress("localhost:10047")
-        }
-        rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
-    }
-    node {
-        name "O=Bob,L=New York,C=US"
+        name "O=Alice,L=New York,C=US"
         p2pPort 10008
         rpcSettings {
             address("localhost:10009")
@@ -176,7 +174,15 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         }
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
-
+    node {
+        name "O=Bob,L=San Francisco,C=US"
+        p2pPort 10010
+        rpcSettings {
+            address("localhost:10011")
+            adminAddress("localhost:10052")
+        }
+        rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+    }
 }
 
 test {
