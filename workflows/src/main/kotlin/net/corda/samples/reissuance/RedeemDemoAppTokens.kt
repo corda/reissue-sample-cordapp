@@ -1,7 +1,6 @@
 package net.corda.samples.reissuance
 
 import co.paralleluniverse.fibers.Suspendable
-import com.r3.corda.lib.tokens.contracts.types.TokenType
 import com.r3.corda.lib.tokens.workflows.flows.redeem.addTokensToRedeem
 import com.r3.corda.lib.tokens.workflows.utilities.getPreferredNotary
 import net.corda.core.contracts.StateRef

@@ -1,7 +1,5 @@
 package net.corda.samples.reissuance
 
-import com.r3.corda.lib.tokens.contracts.commands.IssueTokenCommand
-import com.r3.corda.lib.tokens.contracts.commands.MoveTokenCommand
 import com.r3.corda.lib.tokens.contracts.commands.RedeemTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.reissuance.states.ReIssuanceLock
@@ -36,10 +34,9 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
         assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
             *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
-        createReIssuanceRequestAndShareRequiredTransactions(
+        createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceTokens,
-            IssueTokenCommand(issuedTokenType, aliceTokens.indices.toList()),
             bankParty
         )
         val reIssuanceRequest = bankNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
@@ -50,10 +47,14 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
 
         val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, redeemDemoAppTokensTransactionId)
 
+        val reIssuedStateAndRefs = listAvailableTokens(aliceNode, true)
+        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
+
         unlockReIssuedState(
             aliceNode,
             listOf(attachmentSecureHash),
-            MoveTokenCommand(issuedTokenType, aliceTokens.indices.toList(), aliceTokens.indices.toList())
+            reIssuedStateAndRefs,
+            reIssuanceLock
         )
 
         val aliceReIssuedTokens = listAvailableTokens(aliceNode, encumbered = false)
@@ -96,10 +97,9 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
         assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
             *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
-        createReIssuanceRequestAndShareRequiredTransactions(
+        createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceTokens,
-            IssueTokenCommand(issuedTokenType, aliceTokens.indices.toList()),
             bankParty
         )
         val reIssuanceRequest = bankNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
@@ -133,10 +133,9 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
         assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
             *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
-        createReIssuanceRequestAndShareRequiredTransactions(
+        createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceTokens,
-            IssueTokenCommand(issuedTokenType, aliceTokens.indices.toList()),
             bankParty
         )
         val reIssuanceRequest = bankNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
@@ -151,8 +150,7 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
         deleteReIssuedStatesAndLock(
             aliceNode,
             reIssuanceLock,
-            reIssuedStates,
-            RedeemTokenCommand(issuedTokenType, aliceTokens.indices.toList(), listOf())
+            reIssuedStates
         )
 
         val aliceTokensAfterDeletion = listAvailableTokens(aliceNode, encumbered = null)
