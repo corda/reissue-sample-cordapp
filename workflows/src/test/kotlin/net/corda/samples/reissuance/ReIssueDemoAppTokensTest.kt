@@ -25,16 +25,16 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
 
         val aliceTokens = listAvailableTokens(aliceNode, encumbered = false)
 
-//        // Alice should own exactly 2 token inputs
-//        val firstTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceTokens[0].ref.txhash)
-//        val secondTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceTokens[1].ref.txhash)
-//
-//        assertThat(firstTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(5)))
-//        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(7)))
-//        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
-//            *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
+        // Alice should own exactly 2 token inputs
+        val firstTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceTokens[0].ref.txhash)
+        val secondTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceTokens[1].ref.txhash)
+
+        assertThat(firstTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(5)))
+        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(7)))
+        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
+            *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
         createReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
@@ -59,18 +59,18 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
         val aliceReIssuedTokens = listAvailableTokens(aliceNode, encumbered = false)
         assertThat(aliceReIssuedTokens.map { it.state.data }, `is`(aliceTokens.map { it.state.data }))
 
-//        val firstTokenAfterReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceReIssuedTokens[0].ref.txhash)
-//        val secondTokenAfterReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceReIssuedTokens[1].ref.txhash)
-//
-//        assertThat(firstTokenAfterReIssuanceBackChainTransactionIds, hasSize(`is`(3)))
-//        assertThat(firstTokenAfterReIssuanceBackChainTransactionIds, `is`(
-//            secondTokenAfterReIssuanceBackChainTransactionIds))
-//        assertThat(firstTokenAfterReIssuanceBackChainTransactionIds,
-//            everyItem(not(`is`(`in`(firstTokenBeforeReIssuanceBackChainTransactionIds)))))
-//        assertThat(secondTokenAfterReIssuanceBackChainTransactionIds,
-//            everyItem(not(`is`(`in`(secondTokenBeforeReIssuanceBackChainTransactionIds)))))
+        val firstTokenAfterReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceReIssuedTokens[0].ref.txhash)
+        val secondTokenAfterReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceReIssuedTokens[1].ref.txhash)
+
+        assertThat(firstTokenAfterReIssuanceBackChainTransactionIds, hasSize(`is`(3)))
+        assertThat(firstTokenAfterReIssuanceBackChainTransactionIds, `is`(
+            secondTokenAfterReIssuanceBackChainTransactionIds))
+        assertThat(firstTokenAfterReIssuanceBackChainTransactionIds,
+            everyItem(not(`is`(`in`(firstTokenBeforeReIssuanceBackChainTransactionIds)))))
+        assertThat(secondTokenAfterReIssuanceBackChainTransactionIds,
+            everyItem(not(`is`(`in`(secondTokenBeforeReIssuanceBackChainTransactionIds)))))
     }
 
     @Test
@@ -85,16 +85,16 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
 
         val aliceTokens = listAvailableTokens(aliceNode, encumbered = false)
 
-//        // Alice should own exactly 2 token inputs
-//        val firstTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceTokens[0].ref.txhash)
-//        val secondTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceTokens[1].ref.txhash)
-//
-//        assertThat(firstTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(5)))
-//        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(7)))
-//        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
-//            *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
+        // Alice should own exactly 2 token inputs
+        val firstTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceTokens[0].ref.txhash)
+        val secondTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceTokens[1].ref.txhash)
+
+        assertThat(firstTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(5)))
+        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(7)))
+        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
+            *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
         createReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
@@ -122,16 +122,16 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
 
         val aliceTokens = listAvailableTokens(aliceNode, encumbered = null)
 
-//        // Alice should own exactly 2 token inputs
-//        val firstTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceTokens[0].ref.txhash)
-//        val secondTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-//            aliceTokens[1].ref.txhash)
-//
-//        assertThat(firstTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(5)))
-//        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(7)))
-//        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
-//            *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
+        // Alice should own exactly 2 token inputs
+        val firstTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceTokens[0].ref.txhash)
+        val secondTokenBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceTokens[1].ref.txhash)
+
+        assertThat(firstTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(5)))
+        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(7)))
+        assertThat(secondTokenBeforeReIssuanceBackChainTransactionIds, hasItems(
+            *firstTokenBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
         createReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,

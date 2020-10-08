@@ -3,7 +3,7 @@ package net.corda.samples.reissuance
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
-//import com.r3.dr.ledgergraph.services.LedgerGraphService
+import com.r3.dr.ledgergraph.services.LedgerGraphService
 import com.r3.corda.lib.reissuance.flows.*
 import com.r3.corda.lib.reissuance.states.ReIssuanceLock
 import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
@@ -18,7 +18,6 @@ import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
 import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
-import net.corda.core.transactions.LedgerTransaction
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.utilities.getOrThrow
 import net.corda.testing.common.internal.testNetworkParameters
@@ -69,7 +68,7 @@ abstract class AbstractDemoAppFlowTest {
                 findCordapp("com.r3.corda.lib.ci.workflows"),
                 findCordapp("com.r3.corda.lib.reissuance.flows"),
                 findCordapp("com.r3.corda.lib.reissuance.contracts"),
-//                findCordapp("com.r3.dr.ledgergraph"),
+                findCordapp("com.r3.dr.ledgergraph"),
                 findCordapp("net.corda.samples.reissuance")
             ),
             notarySpecs = listOf(MockNetworkNotarySpec(DUMMY_NOTARY_NAME, false)),
@@ -99,7 +98,7 @@ abstract class AbstractDemoAppFlowTest {
 
         issuedTokenType = IssuedTokenType(bankParty, demoAppTokenType)
 
-//        aliceNode.services.cordaService(LedgerGraphService::class.java).waitForInitialization()
+        aliceNode.services.cordaService(LedgerGraphService::class.java).waitForInitialization()
 
     }
 
@@ -277,21 +276,12 @@ abstract class AbstractDemoAppFlowTest {
         return node.services.validatedTransactions.track().snapshot
     }
 
-    fun getLedgerTransactions(
-        node: TestStartedNode
-    ): List<LedgerTransaction> {
-        return getSignedTransactions(node).map {
-            it.toLedgerTransaction(node.services)
-        }
-    }
-
     fun getTransactionBackChain(
         node: TestStartedNode,
         txId: SecureHash
     ): Set<SecureHash> {
-        return setOf()
-//        val ledgerGraphService = node.services.cordaService(LedgerGraphService::class.java)
-//        return ledgerGraphService.getBackchain(setOf(txId))
+        val ledgerGraphService = node.services.cordaService(LedgerGraphService::class.java)
+        return ledgerGraphService.getBackchain(setOf(txId))
     }
 
     fun <T> runFlow(
