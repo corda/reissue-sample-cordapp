@@ -269,19 +269,14 @@ abstract class AbstractDemoAppFlowTest {
         )
     }
 
-
-    fun getSignedTransactions(
-        node: TestStartedNode
-    ): List<SignedTransaction> {
-        return node.services.validatedTransactions.track().snapshot
-    }
-
     fun getTransactionBackChain(
         node: TestStartedNode,
         txId: SecureHash
     ): Set<SecureHash> {
-        val ledgerGraphService = node.services.cordaService(LedgerGraphService::class.java)
-        return ledgerGraphService.getBackchain(setOf(txId))
+        return runFlow(
+            node,
+            GetTransactionBackChain(txId)
+        )
     }
 
     fun <T> runFlow(
