@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3155fb98-ebde-41c0-a3d5-b772cf30989c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/log4j2.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +115,7 @@
       <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/com/template/flows/demo" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'">
+  <component name="RunManager" selected="Gradle.reissue-sample-cordapp [test]">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -241,10 +241,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'" />
         <item itemvalue="Gradle.reissue-sample-cordapp [test]" />
-        <item itemvalue="Gradle.Tests in 'net.corda.samples.reissuance'" />
         <item itemvalue="Gradle.reissue-sample-cordapp [clean]" />
+        <item itemvalue="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'" />
+        <item itemvalue="Gradle.Tests in 'net.corda.samples.reissuance'" />
         <item itemvalue="Gradle.reissue-sample-cordapp [buildNeeded]" />
       </list>
     </recent_temporary>
@@ -270,7 +270,7 @@
       <workItem from="1602142218825" duration="745000" />
       <workItem from="1602143910785" duration="17883000" />
       <workItem from="1602229741684" duration="5340000" />
-      <workItem from="1602236002191" duration="13919000" />
+      <workItem from="1602236002191" duration="15369000" />
     </task>
     <servers />
   </component>
@@ -306,22 +306,22 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="529" y="299" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1602239188290" />
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602250797573">
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602256885057">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602250797573" />
-    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602250797572">
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602256885057" />
+    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602256885056">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602250797572" />
-    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602250797572">
+    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602256885056" />
+    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602256885056">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602250797572" />
-    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602250797573">
+    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602256885056" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602256885057">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602250797573" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602256885057" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1602058446962">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
