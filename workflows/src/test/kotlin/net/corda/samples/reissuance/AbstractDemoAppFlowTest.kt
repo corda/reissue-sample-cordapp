@@ -148,7 +148,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             node,
-            RedeemDemoAppTokens(bankParty, encumbered, tokenAmount, tokenRefs)
+            RedeemDemoAppTokens(bankParty, encumbered, tokenAmount, tokenRefs.map { it.toString() })
         )
     }
 
@@ -238,7 +238,7 @@ abstract class AbstractDemoAppFlowTest {
     ): Set<SecureHash> {
         return runFlow(
             node,
-            GetTransactionBackChain(txId.toString())
+            GetTransactionBackChain(txId)
         )
     }
 

@@ -33,7 +33,7 @@ class ReIssueDemoAppTokens(
         val rejectReIssuanceRequestStateAndRef = serviceHub.vaultService.queryBy<ReIssuanceRequest>(
             criteria= QueryCriteria.VaultQueryCriteria(stateRefs = listOf(rejectReIssuanceRequestRef))
         ).states[0]
-        subFlow(ReIssueStates<FungibleToken>(
+        return subFlow(ReIssueStates<FungibleToken>(
             rejectReIssuanceRequestStateAndRef,
             issuerIsRequiredExitCommandSigner = true
         ))

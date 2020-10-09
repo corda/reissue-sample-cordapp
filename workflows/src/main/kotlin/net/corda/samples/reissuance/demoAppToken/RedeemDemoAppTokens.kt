@@ -11,6 +11,7 @@ import net.corda.core.identity.Party
 import net.corda.core.node.StatesToRecord
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
+import net.corda.samples.reissuance.wrappedReIssuanceFlows.parseStateReference
 
 @InitiatingFlow
 @StartableByRPC
@@ -18,13 +19,14 @@ class RedeemDemoAppTokens(
     private val issuer: Party,
     private val encumbered: Boolean?,
     private val tokensNum: Long? = null,
-    private val tokenRefs: List<StateRef> = listOf()
+    private val tokenRefsStrings: List<String> = listOf()
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable
     override fun call(): SecureHash {
-        require((tokensNum == null).xor(tokenRefs.isEmpty())) {
+        require((tokensNum == null).xor(tokenRefsStrings.isEmpty())) {
             "Exactly one of tokensNum and tokenRefs parameters must be provided" }
+        val tokenRefs = tokenRefsStrings.map { parseStateReference(it) }
 
         val holderParty = ourIdentity
 
