@@ -295,7 +295,37 @@ Unlock re-issued states:
 flow start UnlockReIssuedDemoAppStates reIssuedStatesRefStrings: [A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(0), A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(1)], reIssuanceLockRefString: A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(2), deletedStateTransactionHashes: [E0F43A1509F4F2402590AE383E36D42A946FDEF23BB0863C1953130CC194AAA7]
 </pre>
 
+List tokens:
+<pre>
+<i>Alice's node:</i> flow start ListAvailableDemoAppTokens holderParty: Alice, encumbered: null
+</pre>
+Result:
+<pre>
+Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+            X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
+            Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
+)), ref=CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+            X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
+            Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
+)), ref=CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE(1))]
+</pre>
+Note tokens are unlocked.
+
+Check theit back-chain:
+<pre>
+<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE
+</pre>
+It should contain only issuance transaction id:
+<pre>
+Flow completed with result: [CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE, A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04, 57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315]
+</pre>
+It's shortened.
+
 Success!!
 
+It's been ideal usecase - tokens has been successfully re-issued. However, it's not the only usecase.
+As has been mentioned before, re-issuance request can be rejected by issuer.
 // TODO: Reject a request
 // TODO: If original state is consumed, delete re-issued states.
+
+<!-- consider showing that encumbered tokens can't be spent and after they are unencumbered - they can -->

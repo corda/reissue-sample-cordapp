@@ -7,7 +7,6 @@
     <list default="true" id="3155fb98-ebde-41c0-a3d5-b772cf30989c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -271,7 +270,7 @@
       <workItem from="1602142218825" duration="745000" />
       <workItem from="1602143910785" duration="17883000" />
       <workItem from="1602229741684" duration="5340000" />
-      <workItem from="1602236002191" duration="19399000" />
+      <workItem from="1602236002191" duration="20073000" />
     </task>
     <servers />
   </component>
