@@ -41,7 +41,7 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
         )
         val reIssuanceRequest = bankNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
 
-        reIssueRequestedStates(bankNode, reIssuanceRequest, true)
+        reIssueRequestedStates(bankNode, reIssuanceRequest)
 
         val redeemDemoAppTokensTransactionId = redeemDemoAppTokens(aliceNode, tokenRefs = aliceTokens.map { it.ref })
 
@@ -140,7 +140,7 @@ class UnlockReIssuedStatesTest: AbstractDemoAppFlowTest() {
         )
         val reIssuanceRequest = bankNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
 
-        reIssueRequestedStates(bankNode, reIssuanceRequest, true)
+        reIssueRequestedStates(bankNode, reIssuanceRequest)
 
         moveDemoAppTokens(aliceNode, bobParty, 1L)
         val unencumberedAliceTokensAfterMove = listAvailableTokens(aliceNode, encumbered = false)

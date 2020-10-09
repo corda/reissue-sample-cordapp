@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance
+package net.corda.samples.reissuance.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.reissuance.flows.RequestReIssuanceAndShareRequiredTransactions
@@ -7,8 +7,8 @@ import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
 import net.corda.core.contracts.StateRef
+import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.FlowLogic
-import net.corda.core.flows.InitiatingFlow
 import net.corda.core.flows.StartableByRPC
 import net.corda.core.identity.AbstractParty
 import net.corda.core.identity.Party
@@ -16,11 +16,10 @@ import net.corda.core.identity.Party
 // Note: There is no need to generate a separate flow calling RequestReIssuanceAndShareRequiredTransactions.
 // The flow has been created to make it easier to use node shell.
 
-@InitiatingFlow
 @StartableByRPC
 class RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(
     private val issuer: AbstractParty,
-    private val stateRefsToReIssue: List<StateRef>
+    private val stateRefStringsToReIssue: List<String>
 ): FlowLogic<Unit>() {
 
     @Suspendable
@@ -28,10 +27,11 @@ class RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(
         val demoAppTokenType = TokenType("DemoAppToken", 0)
         val issuedTokenType = IssuedTokenType(issuer as Party, demoAppTokenType)
 
+
         subFlow(RequestReIssuanceAndShareRequiredTransactions<FungibleToken>(
             issuer,
-            stateRefsToReIssue,
-            IssueTokenCommand(issuedTokenType, stateRefsToReIssue.indices.toList())
+            stateRefStringsToReIssue.map { parseStateReference(it) },
+            IssueTokenCommand(issuedTokenType, stateRefStringsToReIssue.indices.toList())
         ))
     }
 

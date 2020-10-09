@@ -7,9 +7,6 @@ import com.r3.dr.ledgergraph.services.LedgerGraphService
 import com.r3.corda.lib.reissuance.flows.*
 import com.r3.corda.lib.reissuance.states.ReIssuanceLock
 import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
-import com.r3.corda.lib.tokens.contracts.commands.RedeemTokenCommand
-import net.corda.core.contracts.CommandData
-import net.corda.core.contracts.ContractState
 import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.StateRef
 import net.corda.core.crypto.SecureHash
@@ -17,10 +14,12 @@ import net.corda.core.flows.FlowLogic
 import net.corda.core.identity.AbstractParty
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
-import net.corda.core.node.services.queryBy
-import net.corda.core.node.services.vault.QueryCriteria
-import net.corda.core.transactions.SignedTransaction
 import net.corda.core.utilities.getOrThrow
+import net.corda.samples.reissuance.demoAppToken.IssueDemoAppTokens
+import net.corda.samples.reissuance.demoAppToken.ListAvailableDemoAppTokens
+import net.corda.samples.reissuance.demoAppToken.MoveDemoAppTokens
+import net.corda.samples.reissuance.demoAppToken.RedeemDemoAppTokens
+import net.corda.samples.reissuance.wrappedReIssuanceFlows.*
 import net.corda.testing.common.internal.testNetworkParameters
 import net.corda.testing.core.DUMMY_NOTARY_NAME
 import net.corda.testing.core.singleIdentity
@@ -28,7 +27,6 @@ import net.corda.testing.node.MockNetworkNotarySpec
 import net.corda.testing.node.internal.*
 import org.junit.After
 import org.junit.Before
-import java.util.*
 
 
 abstract class AbstractDemoAppFlowTest {
@@ -171,18 +169,17 @@ abstract class AbstractDemoAppFlowTest {
     ) {
         runFlow(
             node,
-            RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref })
+            RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref.toString() })
         )
     }
 
     fun reIssueRequestedStates(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReIssuanceRequest>,
-        bankIsRequiredExitCommandSigner: Boolean
+        reIssuanceRequest: StateAndRef<ReIssuanceRequest>
     ) {
         runFlow(
             node,
-            ReIssueStates<FungibleToken>(reIssuanceRequest, bankIsRequiredExitCommandSigner)
+            ReIssueDemoAppTokens(reIssuanceRequest.ref.toString())
         )
     }
 
@@ -192,7 +189,7 @@ abstract class AbstractDemoAppFlowTest {
     ) {
         runFlow(
             node,
-            RejectReIssuanceRequest<FungibleToken>(reIssuanceRequest)
+            RejectDemoAppTokensReIssuanceRequest(reIssuanceRequest.ref.toString())
         )
     }
 
@@ -219,7 +216,8 @@ abstract class AbstractDemoAppFlowTest {
     ) {
         runFlow(
             node,
-            UnlockReIssuedDemoAppStates(reIssuedStateAndRefs, lockStateAndRef, attachmentSecureHashes)
+            UnlockReIssuedDemoAppStates(reIssuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
+                attachmentSecureHashes)
         )
     }
 
@@ -230,7 +228,7 @@ abstract class AbstractDemoAppFlowTest {
         ) {
         runFlow(
             node,
-            DeleteReIssuedDemoAppStatesAndLock(reIssuedStates, reIssuanceLock)
+            DeleteReIssuedDemoAppStatesAndLock(reIssuedStates.map { it.ref.toString() }, reIssuanceLock.ref.toString())
         )
     }
 
@@ -240,7 +238,7 @@ abstract class AbstractDemoAppFlowTest {
     ): Set<SecureHash> {
         return runFlow(
             node,
-            GetTransactionBackChain(txId)
+            GetTransactionBackChain(txId.toString())
         )
     }
 

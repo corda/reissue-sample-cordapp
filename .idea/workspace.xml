@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3155fb98-ebde-41c0-a3d5-b772cf30989c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RequestDemoAppTokensReIssuanceAndShareRequiredTransactions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RequestDemoAppTokensReIssuanceAndShareRequiredTransactions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/DeleteReIssuedDemoAppStatesAndLock.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/wrappedReIssuanceFlows/DeleteReIssuedDemoAppStatesAndLock.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/GetTransactionBackChain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/wrappedReIssuanceFlows/GetTransactionBackChain.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/IssueDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/demoAppToken/IssueDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/ListAvailableDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/demoAppToken/ListAvailableDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/MoveDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/demoAppToken/MoveDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RedeemDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/demoAppToken/RedeemDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RequestDemoAppTokensReIssuanceAndShareRequiredTransactions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/wrappedReIssuanceFlows/RequestDemoAppTokensReIssuanceAndShareRequiredTransactions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/UnlockReIssuedDemoAppStates.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/wrappedReIssuanceFlows/UnlockReIssuedDemoAppStates.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/AbstractDemoAppFlowTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/AbstractDemoAppFlowTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,8 +75,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -96,12 +101,20 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/demoAppToken" />
+      <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance" />
+      <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance" />
+    </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="net.corda.samples.reissuance.wrappedReIssuanceFlows" />
       <recent name="net.corda.samples.reissuance" />
       <recent name="com.template.demo" />
       <recent name="com.template.flows.demo" />
       <recent name="com.template.contracts" />
-      <recent name="com.template" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="net.corda.samples.reissuance.wrappedFlows" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/com/template/flows" />
@@ -109,10 +122,6 @@
       <recent name="$PROJECT_DIR$/.ci" />
       <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/com/template/demo" />
       <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/com/template/flows/demo" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance" />
-      <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'">
@@ -270,7 +279,7 @@
       <workItem from="1602142218825" duration="745000" />
       <workItem from="1602143910785" duration="17883000" />
       <workItem from="1602229741684" duration="5340000" />
-      <workItem from="1602236002191" duration="414000" />
+      <workItem from="1602236002191" duration="4526000" />
     </task>
     <servers />
   </component>
@@ -302,22 +311,26 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1600425858525" />
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602235801413">
+    <state x="529" y="299" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1602239188290">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801413" />
-    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602235801413">
+    <state x="529" y="299" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1602239188290" />
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602237812803">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801413" />
-    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602235801412">
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602237812803" />
+    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602237812802">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801412" />
-    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602235801413">
+    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602237812802" />
+    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602237812801">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801413" />
+    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602237812801" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602237812802">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602237812802" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1602058446962">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -342,18 +355,18 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="638" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1602145645341" />
-    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602167603788">
+    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602240464945">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602167603788" />
+    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602240464945" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1600673687271">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1600673687271" />
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1602151191337">
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1602237764465">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602151191337" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602237764465" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -382,7 +395,7 @@
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RedeemDemoAppTokens.kt</url>
+          <url>file://$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/demoAppToken/RedeemDemoAppTokens.kt</url>
           <line>36</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />

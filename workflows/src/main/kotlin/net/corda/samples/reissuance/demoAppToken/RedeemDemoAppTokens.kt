@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance
+package net.corda.samples.reissuance.demoAppToken
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.tokens.workflows.flows.redeem.addTokensToRedeem
