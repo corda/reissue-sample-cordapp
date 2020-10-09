@@ -162,6 +162,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             address("localhost:10003")
             adminAddress("localhost:10043")
         }
+        extraConfig = ['custom.jvmArgs': ["-Xmx2G"]]
     }
     node {
         name "O=Issuer,L=London,C=GB"
@@ -171,6 +172,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             adminAddress("localhost:10046")
         }
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+        extraConfig = ['custom.jvmArgs': ["-Xmx2G"]]
     }
     node {
         name "O=Alice,L=New York,C=US"
@@ -180,6 +182,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             adminAddress("localhost:10049")
         }
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+        extraConfig = ['custom.jvmArgs': ["-Xmx2G"]]
     }
     node {
         name "O=Bob,L=San Francisco,C=US"
@@ -189,6 +192,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             adminAddress("localhost:10052")
         }
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+        extraConfig = ['custom.jvmArgs': ["-Xmx2G"]]
     }
 }
 

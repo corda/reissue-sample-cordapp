@@ -7,6 +7,7 @@
     <list default="true" id="3155fb98-ebde-41c0-a3d5-b772cf30989c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +271,7 @@
       <workItem from="1602142218825" duration="745000" />
       <workItem from="1602143910785" duration="17883000" />
       <workItem from="1602229741684" duration="5340000" />
-      <workItem from="1602236002191" duration="16936000" />
+      <workItem from="1602236002191" duration="19399000" />
     </task>
     <servers />
   </component>
@@ -346,18 +347,18 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="638" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1602145645341" />
-    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602257369181">
+    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602260601721">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602257369181" />
+    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602260601721" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1600673687271">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1600673687271" />
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1602250443670">
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1602260352080">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602250443670" />
+    <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602260352080" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
