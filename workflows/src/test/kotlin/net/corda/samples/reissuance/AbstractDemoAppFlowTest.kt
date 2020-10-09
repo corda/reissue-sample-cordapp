@@ -171,7 +171,7 @@ abstract class AbstractDemoAppFlowTest {
     ) {
         runFlow(
             node,
-            RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(bank, statesToReIssue)
+            RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref })
         )
     }
 

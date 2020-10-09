@@ -107,5 +107,6 @@ Flow completed with result: [D6DBD174C7C50DDC9F2D8E07F0D23AE9D09DFAC86B5DA1FA6A1
 To prune the back-chain, tokens can be re-issued. Start with creating a re-issuance request:
 <pre>
 <i>Alice's node:</i> 
+flow start RequestDemoAppTokensReIssuanceAndShareRequiredTransactions issuer: Issuer, stateRefsToReIssue: [D04FE1FC3C16C52B1F1273C0ECB2F1B86767F5EA9705FF2E169A0DD72FE5571E, 9850CF02B58C37F6270F30DB87E4AF04BD124FDC145AE6932FC25967795BF478]
 </pre>
 

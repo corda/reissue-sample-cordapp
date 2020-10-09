@@ -6,7 +6,7 @@ import com.r3.corda.lib.tokens.contracts.commands.IssueTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
-import net.corda.core.contracts.StateAndRef
+import net.corda.core.contracts.StateRef
 import net.corda.core.flows.FlowLogic
 import net.corda.core.flows.InitiatingFlow
 import net.corda.core.flows.StartableByRPC
@@ -20,7 +20,7 @@ import net.corda.core.identity.Party
 @StartableByRPC
 class RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(
     private val issuer: AbstractParty,
-    private val stateRefsToReIssue: List<StateAndRef<FungibleToken>>
+    private val stateRefsToReIssue: List<StateRef>
 ): FlowLogic<Unit>() {
 
     @Suspendable
@@ -28,7 +28,7 @@ class RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(
         val demoAppTokenType = TokenType("DemoAppToken", 0)
         val issuedTokenType = IssuedTokenType(issuer as Party, demoAppTokenType)
 
-        subFlow(RequestReIssuanceAndShareRequiredTransactions(
+        subFlow(RequestReIssuanceAndShareRequiredTransactions<FungibleToken>(
             issuer,
             stateRefsToReIssue,
             IssueTokenCommand(issuedTokenType, stateRefsToReIssue.indices.toList())

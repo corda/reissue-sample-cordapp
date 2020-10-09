@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3155fb98-ebde-41c0-a3d5-b772cf30989c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RedeemDemoAppTokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RedeemDemoAppTokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RequestDemoAppTokensReIssuanceAndShareRequiredTransactions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance/RequestDemoAppTokensReIssuanceAndShareRequiredTransactions.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/AbstractDemoAppFlowTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/AbstractDemoAppFlowTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/ReIssueDemoAppTokensTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/test/kotlin/net/corda/samples/reissuance/ReIssueDemoAppTokensTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +42,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="reissue-sample-cordapp" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="reissue-sample-cordapp" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -86,15 +93,15 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="build.tools" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="net.corda.samples.reissuance" />
       <recent name="com.template.demo" />
       <recent name="com.template.flows.demo" />
       <recent name="com.template.contracts" />
       <recent name="com.template" />
-      <recent name="com.template.example.dummyStateWithInvalidEqualsMethodContract" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/workflows/src/test/kotlin/com/template/flows" />
@@ -108,7 +115,7 @@
       <recent name="$PROJECT_DIR$/workflows/src/main/kotlin/net/corda/samples/reissuance" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'net.corda.samples.reissuance'">
+  <component name="RunManager" selected="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -122,31 +129,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests in 'net.corda.samples.reissuance'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;net.corda.samples.reissuance.*&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":workflows:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="Tests in 'reissue-sample-cordapp.workflows.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests *" />
+        <option name="scriptParameters" value="--tests * --stacktrace " />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -155,28 +143,47 @@
             <option value=":workflows:test" />
           </list>
         </option>
-        <option name="vmOptions" />
+        <option name="vmOptions" value="" />
       </ExternalSystemSettings>
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="UnlockReIssuedStatesTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="reissue-sample-cordapp [buildNeeded]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;net.corda.samples.reissuance.UnlockReIssuedStatesTest&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":workflows:test" />
+            <option value="buildNeeded" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="reissue-sample-cordapp [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="reissue-sample-cordapp [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -224,13 +231,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Gradle.reissue-sample-cordapp [build]" />
+      <item itemvalue="Gradle.reissue-sample-cordapp [buildNeeded]" />
+      <item itemvalue="Gradle.reissue-sample-cordapp [clean]" />
+      <item itemvalue="Gradle.reissue-sample-cordapp [test]" />
+      <item itemvalue="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'" />
+      <item itemvalue="Spring Boot.Starter" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Tests in 'net.corda.samples.reissuance'" />
-        <item itemvalue="Gradle.UnlockReIssuedStatesTest" />
-        <item itemvalue="Gradle.reissue-sample-cordapp [test]" />
         <item itemvalue="Gradle.Tests in 'reissue-sample-cordapp.workflows.test'" />
+        <item itemvalue="Gradle.reissue-sample-cordapp [test]" />
         <item itemvalue="Gradle.reissue-sample-cordapp [clean]" />
+        <item itemvalue="Gradle.reissue-sample-cordapp [buildNeeded]" />
+        <item itemvalue="Gradle.reissue-sample-cordapp [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -253,7 +268,9 @@
       <workItem from="1602065941758" duration="2011000" />
       <workItem from="1602068183171" duration="6336000" />
       <workItem from="1602142218825" duration="745000" />
-      <workItem from="1602143910785" duration="13969000" />
+      <workItem from="1602143910785" duration="17883000" />
+      <workItem from="1602229741684" duration="5340000" />
+      <workItem from="1602236002191" duration="414000" />
     </task>
     <servers />
   </component>
@@ -265,6 +282,10 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="328" y="118" key="#Project_Structure/0.23.1680.1027@0.23.1680.1027" timestamp="1601997953910" />
+    <state x="304" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602233968064">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="304" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1602233968064" />
     <state x="624" y="259" key="#com.intellij.ide.util.MemberChooser" timestamp="1602161404755">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -281,22 +302,22 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1600425858525" />
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602161929091">
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1602235801413">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602161929091" />
-    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602161929091">
+    <state width="1638" height="325" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801413" />
+    <state width="1638" height="325" key="GridCell.Tab.0.center" timestamp="1602235801413">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602161929090" />
-    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602161929090">
+    <state width="1638" height="325" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801413" />
+    <state width="1638" height="325" key="GridCell.Tab.0.left" timestamp="1602235801412">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602161929090" />
-    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602161929091">
+    <state width="1638" height="325" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801412" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right" timestamp="1602235801413">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602161929091" />
+    <state width="1638" height="325" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602235801413" />
     <state width="1638" height="346" key="GridCell.Tab.1.bottom" timestamp="1602058446962">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -313,18 +334,18 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="1638" height="346" key="GridCell.Tab.1.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602058446962" />
-    <state x="341" y="175" key="SettingsEditor" timestamp="1602061041389">
+    <state x="341" y="175" key="SettingsEditor" timestamp="1602235758472">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1602061041389" />
+    <state x="341" y="175" key="SettingsEditor/0.23.1680.1027@0.23.1680.1027" timestamp="1602235758472" />
     <state x="638" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602145645341">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="638" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.1027@0.23.1680.1027" timestamp="1602145645341" />
-    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602161742051">
+    <state x="541" y="291" width="1056" height="582" key="find.popup" timestamp="1602167603788">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602161742051" />
+    <state x="541" y="291" width="1056" height="582" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1602167603788" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1600673687271">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
