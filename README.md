@@ -38,7 +38,7 @@ To list the issued tokens, run the following:
 
 You should see output similar to the following one:
 <pre>
-Flow completed with result: [StateAndRef(state=TransactionState(data=50 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+Flow completed with result: [StateAndRef(state=TransactionState(data=50 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
 )), ref=<font color="#483d8b">9E7C3DC4F5C76FA9394BE6BA9AFDD724740D301BF8F1E2C8DAEC40930ED49885</font>(0))]
@@ -86,10 +86,10 @@ Next, list available tokens again:
 
 This time, you should see 2 tokens:
 <pre>
-Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=<font color="#8c071e">3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD</font>(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=<font color="#8c071e">3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD</font>(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
 )), ref=<font color="#d18706">7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489</font>(0))]
@@ -101,7 +101,7 @@ Now check back-chains of both of them:
 <i>Alice's node:</i> flow start GetTransactionBackChain transactionId: <font color="#d18706">7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489</font>
 </pre>
 
-The listed transaction ids should be similar. One of them should just contain one moe transaction than the other one:
+The listed transaction ids should be similar. One of them should just contain one more transaction than the other one:
 <pre>
 Flow completed with result: [<font color="#8c071e">3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD</font>, 45FD8ED4AEFFEB6DED3CB19608EBB55D534DF686A5B1DCC7C528AF29AF359234, 32DBDD8CF3A84DFA55D04E67CA32518F2DFAAE8EA8C08DC77DF3459F14B5D6D4, 8E235472D5D5DB6D83AF9FE05A8C516FF0E86E4180B8207226DD9464C8BD542F, <font color="#8b3d87">0CF1161EBE298EFC823663196CDE274D83116757505DC0634297671516677D95</font>, <font color="#483d8b">9E7C3DC4F5C76FA9394BE6BA9AFDD724740D301BF8F1E2C8DAEC40930ED49885</font>]
 </pre>
@@ -184,45 +184,26 @@ Now list available tokens to make sure new tokens had been re-issued before exit
 <i>Alice's node:</i> flow start ListAvailableDemoAppTokens holderParty: Alice, encumbered: null
 </pre>
 
-You should see duplicates: // TODO: better description
+You should see both original states and their duplicates. Note that original states are unencumbered, and 
+the duplicated states are encumbered.
 <pre>
-Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=<font color="#8c071e">3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD</font>(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=<font color="#8c071e">3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD</font>(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=<font color="#d18706">7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489</font>(0)), StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=1, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=<font color="#d18706">7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489</font>(0)), StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=1</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=<font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=2, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=<font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=2</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
 )), ref=<font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(1))]
 </pre>
 
-Now it's time to exit the original tokens:
-<pre>
-<i>Alice's node:</i> 
-flow start RedeemDemoAppTokens issuer: Issuer, encumbered: null, tokensNum: null, tokenRefsStrings: [<font color="#8c071e">3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD</font>(1), <font color="#d18706">7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489</font>(0)]
-</pre>
-
-Result:
-<pre>
-Flow completed with result: <font color="#33a19b">CC306740156BB9442A58FFE9AC5732A64F822568430854F5FF69430769BC6EB5</font>
-</pre>
-
-Upload exit transaction as an attachment:
-<pre>
-flow start UploadTransactionAsAttachment transactionId: <font color="#33a19b">CC306740156BB9442A58FFE9AC5732A64F822568430854F5FF69430769BC6EB5</font>
-</pre>
-
-Result:
-<pre>
-Flow completed with result: <font color="#0b6e9c">E0F43A1509F4F2402590AE383E36D42A946FDEF23BB0863C1953130CC194AAA7</font>
-</pre>
-
-Run the following command to list all re-issuance locks:
+Newly generated states, even though they are available, can't be spent without re-issuance lock.
+Run the following command to list all re-issuance locks (there should be just one):
 <pre>
 <i>Alice's node:</i> run vaultQuery contractStateType: com.r3.corda.lib.reissuance.states.ReIssuanceLock
 </pre>
@@ -293,38 +274,61 @@ stateTypes: "UNCONSUMED"
 otherResults: []
 </pre>
 
-Unlock re-issued states:
+Now it's time to exit the original tokens from the vault:
 <pre>
-flow start UnlockReIssuedDemoAppStates reIssuedStatesRefStrings: [<font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(0), <font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(1)], reIssuanceLockRefString: <font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(2), deletedStateTransactionHashes: [<font color="#0b6e9c">E0F43A1509F4F2402590AE383E36D42A946FDEF23BB0863C1953130CC194AAA7</font>]
+<i>Alice's node:</i> flow start RedeemDemoAppTokens issuer: Issuer, encumbered: null, tokensNum: null, tokenRefsStrings: [<font color="#8c071e">3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD</font>(1), <font color="#d18706">7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489</font>(0)]
 </pre>
 
-List tokens:
+The flow will return id of the exit transaction:
+<pre>
+Flow completed with result: <font color="#33a19b">CC306740156BB9442A58FFE9AC5732A64F822568430854F5FF69430769BC6EB5</font>
+</pre>
+
+Next, upload exit transaction as an attachment providing its id:
+<pre>
+<i>Alice's node:</i> flow start UploadTransactionAsAttachment transactionId: <font color="#33a19b">CC306740156BB9442A58FFE9AC5732A64F822568430854F5FF69430769BC6EB5</font>
+</pre>
+
+The flow will return attachment id:
+<pre>
+Flow completed with result: <font color="#0b6e9c">E0F43A1509F4F2402590AE383E36D42A946FDEF23BB0863C1953130CC194AAA7</font>
+</pre>
+
+Then you can unlock re-issued states, providing their references, re-issuance lock reference, and attachment id of 
+token exit transaction:
+<pre>
+<i>Alice's node:</i> flow start UnlockReIssuedDemoAppStates reIssuedStatesRefStrings: [<font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(0), <font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(1)], reIssuanceLockRefString: <font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>(2), deletedStateTransactionHashes: [<font color="#0b6e9c">E0F43A1509F4F2402590AE383E36D42A946FDEF23BB0863C1953130CC194AAA7</font>]
+</pre>
+
+Now list tokens one more time:
 <pre>
 <i>Alice's node:</i> flow start ListAvailableDemoAppTokens holderParty: Alice, encumbered: null
 </pre>
-Result:
+Note that the re-issued states are now unencumbered:
 <pre>
-Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=<font color="#001c80">CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE</font>(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=<font color="#001c80">CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE</font>(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by Issuer held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
 )), ref=<font color="#001c80">CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE</font>(1))]
 </pre>
-Note tokens are unlocked.
 
-Check theit back-chain:
+Then, list back-chain of the re-issued states:
 <pre>
 <i>Alice's node:</i> flow start GetTransactionBackChain transactionId: <font color="#001c80">CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE</font>
 </pre>
-It should contain only issuance transaction id:
+
+The result will contain identifiers of 3 transactions:
+- requesting re-issuance
+- re-issuance
+- unlocking re-issued tokens
+
 <pre>
 Flow completed with result: [<font color="#001c80">CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE</font>, <font color="#389e02">A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04</font>, <font color="#cfc102">57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315</font>]
 </pre>
-It's shortened.
 
-Success!!
 
 It's been ideal usecase - tokens has been successfully re-issued. However, it's not the only usecase.
 As has been mentioned before, re-issuance request can be rejected by issuer.
