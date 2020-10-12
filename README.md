@@ -30,6 +30,18 @@ The flow will return issuance transaction id:
 <pre>
 Flow completed with result: 9E7C3DC4F5C76FA9394BE6BA9AFDD724740D301BF8F1E2C8DAEC40930ED49885 `#483d8b`
 </pre>
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>This is a title</title>
+  </head>
+  <body>
+    <p>Hello world!</p>
+    <span style="color: green"> Some green text </span>
+  </body>
+</html>
+```
 
 To list the issued tokens, run the following:
 <pre>
