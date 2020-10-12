@@ -7,8 +7,6 @@ import com.r3.dr.ledgergraph.services.LedgerGraphService
 import com.r3.corda.lib.reissuance.flows.*
 import com.r3.corda.lib.reissuance.states.ReIssuanceLock
 import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
-import net.corda.core.contracts.CommandData
-import net.corda.core.contracts.ContractState
 import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.StateRef
 import net.corda.core.crypto.SecureHash
@@ -16,11 +14,12 @@ import net.corda.core.flows.FlowLogic
 import net.corda.core.identity.AbstractParty
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
-import net.corda.core.node.services.queryBy
-import net.corda.core.node.services.vault.QueryCriteria
-import net.corda.core.transactions.LedgerTransaction
-import net.corda.core.transactions.SignedTransaction
 import net.corda.core.utilities.getOrThrow
+import net.corda.samples.reissuance.demoAppToken.IssueDemoAppTokens
+import net.corda.samples.reissuance.demoAppToken.ListAvailableDemoAppTokens
+import net.corda.samples.reissuance.demoAppToken.MoveDemoAppTokens
+import net.corda.samples.reissuance.demoAppToken.RedeemDemoAppTokens
+import net.corda.samples.reissuance.wrappedReIssuanceFlows.*
 import net.corda.testing.common.internal.testNetworkParameters
 import net.corda.testing.core.DUMMY_NOTARY_NAME
 import net.corda.testing.core.singleIdentity
@@ -28,7 +27,6 @@ import net.corda.testing.node.MockNetworkNotarySpec
 import net.corda.testing.node.internal.*
 import org.junit.After
 import org.junit.Before
-import java.util.*
 
 
 abstract class AbstractDemoAppFlowTest {
@@ -115,7 +113,7 @@ abstract class AbstractDemoAppFlowTest {
         return getHolderTokensQuantity(availableTokens)
     }
 
-    fun getHolderTokensQuantity(
+    private fun getHolderTokensQuantity(
         availableTokens: List<StateAndRef<FungibleToken>>
     ): Long {
         return availableTokens.map { it.state.data.amount.quantity }.sum()
@@ -127,7 +125,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             bankNode,
-            IssueDemoAppTokens(demoAppTokenType, holder, tokenAmount)
+            IssueDemoAppTokens(holder, tokenAmount)
         )
     }
 
@@ -138,7 +136,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             node,
-            MoveDemoAppTokens(demoAppTokenType, bankParty, newHolder, tokenAmount)
+            MoveDemoAppTokens(bankParty, newHolder, tokenAmount)
         )
     }
 
@@ -150,7 +148,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             node,
-            RedeemDemoAppTokens(demoAppTokenType, bankParty, encumbered, tokenAmount, tokenRefs)
+            RedeemDemoAppTokens(bankParty, encumbered, tokenAmount, tokenRefs.map { it.toString() })
         )
     }
 
@@ -160,73 +158,28 @@ abstract class AbstractDemoAppFlowTest {
     ): List<StateAndRef<FungibleToken>> {
         return runFlow(
             node,
-            ListAvailableTokens(demoAppTokenType, node.info.singleIdentity(), encumbered)
+            ListAvailableDemoAppTokens(node.info.singleIdentity(), encumbered)
         )
     }
 
-    inline fun <reified T : ContractState> getStateAndRefs(
+    fun createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
         node: TestStartedNode,
-        encumbered: Boolean? = null,
-        accountUUID: UUID? = null
-    ): List<StateAndRef<T>> {
-        val states = if(accountUUID == null)
-            node.services.vaultService.queryBy<T>().states
-        else
-            node.services.vaultService.queryBy<T>(
-                criteria = QueryCriteria.VaultQueryCriteria().withExternalIds(listOf(accountUUID))
-            ).states
-        if(encumbered == null)
-            return states
-        return filterStates(states, encumbered)
-    }
-
-    inline fun <reified T : ContractState> filterStates(
-        states: List<StateAndRef<T>>,
-        encumbered: Boolean
-    ): List<StateAndRef<T>> {
-        if(encumbered)
-            return states.filter { it.state.encumbrance != null }
-        return states.filter { it.state.encumbrance == null }
-    }
-
-    fun <T> createReIssuanceRequestAndShareRequiredTransactions(
-        node: TestStartedNode,
-        statesToReIssue: List<StateAndRef<T>>,
-        command: CommandData,
-        bank: AbstractParty,
-        commandSigners: List<AbstractParty> = listOf(),
-        requester: AbstractParty? = null
-    ) where T: ContractState {
-        runFlow(
-            node,
-            RequestReIssuanceAndShareRequiredTransactions<T>(bank, statesToReIssue, command, commandSigners,
-                requester)
-        )
-    }
-
-    fun unlockReIssuedState(
-        node: TestStartedNode,
-        attachmentSecureHashes: List<SecureHash>,
-        command: CommandData,
-        commandSigners: List<AbstractParty>? = null,
-        reIssuedStateAndRefs: List<StateAndRef<FungibleToken>> = getStateAndRefs<FungibleToken>(node, true),
-        lockStateAndRef: StateAndRef<ReIssuanceLock<FungibleToken>> = getStateAndRefs<ReIssuanceLock<FungibleToken>>(node, encumbered = true)[0]
+        statesToReIssue: List<StateAndRef<FungibleToken>>,
+        bank: AbstractParty
     ) {
-        val signers: List<AbstractParty> = commandSigners ?: listOf(lockStateAndRef.state.data.requester)
         runFlow(
             node,
-            UnlockReIssuedStates(reIssuedStateAndRefs, lockStateAndRef, attachmentSecureHashes, command, signers)
+            RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref.toString() })
         )
     }
 
     fun reIssueRequestedStates(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReIssuanceRequest>,
-        bankIsRequiredExitCommandSigner: Boolean
-        ) {
+        reIssuanceRequest: StateAndRef<ReIssuanceRequest>
+    ) {
         runFlow(
             node,
-            ReIssueStates<FungibleToken>(reIssuanceRequest, bankIsRequiredExitCommandSigner)
+            ReIssueDemoAppTokens(reIssuanceRequest.ref.toString())
         )
     }
 
@@ -236,7 +189,7 @@ abstract class AbstractDemoAppFlowTest {
     ) {
         runFlow(
             node,
-            RejectReIssuanceRequest<FungibleToken>(reIssuanceRequest)
+            RejectDemoAppTokensReIssuanceRequest(reIssuanceRequest.ref.toString())
         )
     }
 
@@ -244,53 +197,44 @@ abstract class AbstractDemoAppFlowTest {
         node: TestStartedNode,
         deleteStateTransactionId: SecureHash
     ): SecureHash {
-        val party = node.info.singleIdentity()
-
-        mockNet.runNetwork()
-        val transactionByteArray = runFlow(
+        return runFlow(
             node,
-            GenerateTransactionByteArray(deleteStateTransactionId)
+            UploadTransactionAsAttachment(deleteStateTransactionId)
         )
+    }
 
-        return node.services.attachments.importAttachment(transactionByteArray.inputStream(), party.toString(), null)
+    fun unlockReIssuedState(
+        node: TestStartedNode,
+        attachmentSecureHashes: List<SecureHash>,
+        reIssuedStateAndRefs: List<StateAndRef<FungibleToken>>,
+        lockStateAndRef: StateAndRef<ReIssuanceLock<FungibleToken>>
+    ) {
+        runFlow(
+            node,
+            UnlockReIssuedDemoAppStates(reIssuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
+                attachmentSecureHashes)
+        )
     }
 
     fun deleteReIssuedStatesAndLock(
         node: TestStartedNode,
         reIssuanceLock: StateAndRef<ReIssuanceLock<FungibleToken>>,
-        reIssuedStates: List<StateAndRef<FungibleToken>>,
-        command: CommandData,
-        commandSigners: List<AbstractParty>? = null
+        reIssuedStates: List<StateAndRef<FungibleToken>>
         ) {
-        val signers: List<AbstractParty> = commandSigners ?: listOf(reIssuanceLock.state.data.requester,
-            reIssuanceLock.state.data.issuer)
         runFlow(
             node,
-            DeleteReIssuedStatesAndLock(reIssuanceLock, reIssuedStates, command, signers)
+            DeleteReIssuedDemoAppStatesAndLock(reIssuedStates.map { it.ref.toString() }, reIssuanceLock.ref.toString())
         )
-    }
-
-
-    fun getSignedTransactions(
-        node: TestStartedNode
-    ): List<SignedTransaction> {
-        return node.services.validatedTransactions.track().snapshot
-    }
-
-    fun getLedgerTransactions(
-        node: TestStartedNode
-    ): List<LedgerTransaction> {
-        return getSignedTransactions(node).map {
-            it.toLedgerTransaction(node.services)
-        }
     }
 
     fun getTransactionBackChain(
         node: TestStartedNode,
         txId: SecureHash
     ): Set<SecureHash> {
-        val ledgerGraphService = node.services.cordaService(LedgerGraphService::class.java)
-        return ledgerGraphService.getBackchain(setOf(txId))
+        return runFlow(
+            node,
+            GetTransactionBackChain(txId)
+        )
     }
 
     fun <T> runFlow(
