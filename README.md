@@ -340,7 +340,16 @@ Flow completed with result: [CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45
 <!-- consider showing that encumbered tokens can't be spent and after they are unencumbered - they can -->
 
 #### Rejected re-issuance request
-<!-- TODO -->
+As mentioned before, issuer doesn't have to accept re-issuance request. To reject it, they should run:
+<pre>
+<i>Issuer's node:</i> flow start RejectDemoAppTokensReIssuanceRequest reIssuanceRequestRefString: 57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315(0)
+</pre>
 
 #### Original tokens have been consumed, and it's impossible to unlock re-issued states
-<!-- TODO -->
+If at least one of tokens to be re-issued have been consumed (lets say Alice transferred 1 token to Bob) 
+after their locked copies have been created, all re-issued tokens are useless - they will never be unlocked. 
+It that case, re-issued tokens and corresponding re-issuance lock can be exited from the ledger:
+<pre>
+<i>Alice's node:</i> 
+flow start DeleteReIssuedDemoAppStatesAndLock reIssuedStatesRefStrings: [A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(0), A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(1)], reIssuanceLockRefString: A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(2)
+</pre>
