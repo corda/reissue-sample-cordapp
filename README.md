@@ -29,19 +29,14 @@ Once all nodes are started up (Notary, Issuer, Alice & Bob), create a token asse
 The flow will return issuance transaction id:
 <pre>
 Flow completed with result: 9E7C3DC4F5C76FA9394BE6BA9AFDD724740D301BF8F1E2C8DAEC40930ED49885 `#483d8b`
+<div class="text-blue mb-2">
+  .text-blue on white
+</div>
 </pre>
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>This is a title</title>
-  </head>
-  <body>
-    <p>Hello world!</p>
-    <span style="color: green"> Some green text </span>
-  </body>
-</html>
-```
+
+<div class="text-blue mb-2">
+  .text-blue on white
+</div>
 
 To list the issued tokens, run the following:
 <pre>
