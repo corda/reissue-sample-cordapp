@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.wrappedReIssuanceFlows
+package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.dr.ledgergraph.services.LedgerGraphService

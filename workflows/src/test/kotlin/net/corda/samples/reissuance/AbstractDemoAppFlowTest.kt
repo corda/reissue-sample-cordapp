@@ -15,11 +15,11 @@ import net.corda.core.identity.AbstractParty
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
 import net.corda.core.utilities.getOrThrow
-import net.corda.samples.reissuance.demoAppToken.IssueDemoAppTokens
-import net.corda.samples.reissuance.demoAppToken.ListAvailableDemoAppTokens
-import net.corda.samples.reissuance.demoAppToken.MoveDemoAppTokens
-import net.corda.samples.reissuance.demoAppToken.RedeemDemoAppTokens
-import net.corda.samples.reissuance.wrappedReIssuanceFlows.*
+import net.corda.samples.reissuance.candies.flows.IssueCandyCoupons
+import net.corda.samples.reissuance.candies.flows.ListAvailableCandyCoupons
+import net.corda.samples.reissuance.candies.flows.TransferCandyCoupons
+import net.corda.samples.reissuance.candies.flows.RedeemDemoAppTokens
+import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.*
 import net.corda.testing.common.internal.testNetworkParameters
 import net.corda.testing.core.DUMMY_NOTARY_NAME
 import net.corda.testing.core.singleIdentity
@@ -52,7 +52,7 @@ abstract class AbstractDemoAppFlowTest {
 
     lateinit var issuedTokenType: IssuedTokenType
 
-    val demoAppTokenType = TokenType("DemoAppToken", 0)
+    val demoAppTokenType = TokenType("CandyCoupon", 0)
 
     @Before
     fun setup() {
@@ -68,7 +68,8 @@ abstract class AbstractDemoAppFlowTest {
                 findCordapp("com.r3.corda.lib.reissuance.flows"),
                 findCordapp("com.r3.corda.lib.reissuance.contracts"),
                 findCordapp("com.r3.dr.ledgergraph"),
-                findCordapp("net.corda.samples.reissuance")
+                findCordapp("net.corda.samples.reissuance.candies.contracts"),
+                findCordapp("net.corda.samples.reissuance.candies.flows")
             ),
             notarySpecs = listOf(MockNetworkNotarySpec(DUMMY_NOTARY_NAME, false)),
             initialNetworkParameters = testNetworkParameters(
@@ -125,7 +126,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             bankNode,
-            IssueDemoAppTokens(holder, tokenAmount)
+            IssueCandyCoupons(holder, tokenAmount)
         )
     }
 
@@ -136,7 +137,7 @@ abstract class AbstractDemoAppFlowTest {
     ): SecureHash {
         return runFlow(
             node,
-            MoveDemoAppTokens(bankParty, newHolder, tokenAmount)
+            TransferCandyCoupons(bankParty, newHolder, tokenAmount)
         )
     }
 
@@ -158,7 +159,7 @@ abstract class AbstractDemoAppFlowTest {
     ): List<StateAndRef<FungibleToken>> {
         return runFlow(
             node,
-            ListAvailableDemoAppTokens(node.info.singleIdentity(), encumbered)
+            ListAvailableCandyCoupons(node.info.singleIdentity(), encumbered)
         )
     }
 

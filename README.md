@@ -143,7 +143,7 @@ states:
         token:
           issuer: "O=Issuer, L=London, C=GB"
           tokenType:
-            tokenIdentifier: "DemoAppToken"
+            tokenIdentifier: "CandyCoupon"
             fractionDigits: 0
         outputs:
         - 0

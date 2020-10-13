@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.wrappedReIssuanceFlows
+package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.reissuance.flows.RequestReIssuanceAndShareRequiredTransactions
@@ -6,8 +6,6 @@ import com.r3.corda.lib.tokens.contracts.commands.IssueTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
-import net.corda.core.contracts.StateRef
-import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.FlowLogic
 import net.corda.core.flows.StartableByRPC
 import net.corda.core.identity.AbstractParty
@@ -24,7 +22,7 @@ class RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(
 
     @Suspendable
     override fun call() {
-        val demoAppTokenType = TokenType("DemoAppToken", 0)
+        val demoAppTokenType = TokenType("CandyCoupon", 0)
         val issuedTokenType = IssuedTokenType(issuer as Party, demoAppTokenType)
 
 

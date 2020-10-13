@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.wrappedReIssuanceFlows
+package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import net.corda.core.contracts.StateRef
 import net.corda.core.crypto.SecureHash

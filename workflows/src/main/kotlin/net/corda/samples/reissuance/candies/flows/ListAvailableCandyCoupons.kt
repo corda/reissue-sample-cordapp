@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.demoAppToken
+package net.corda.samples.reissuance.candies.flows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.tokens.contracts.internal.schemas.PersistentFungibleToken
@@ -13,14 +13,14 @@ import net.corda.core.node.services.vault.QueryCriteria
 import net.corda.core.node.services.vault.builder
 
 @StartableByRPC
-class ListAvailableDemoAppTokens(
+class ListAvailableCandyCoupons(
     private val holderParty: Party,
     private val encumbered: Boolean? = false
 ) : FlowLogic<List<StateAndRef<FungibleToken>>>() {
 
     @Suspendable
     override fun call(): List<StateAndRef<FungibleToken>> {
-        val demoAppTokenType = TokenType("DemoAppToken", 0)
+        val demoAppTokenType = TokenType("CandyCoupon", 0)
         val tokenTypeCriteria = QueryCriteria.VaultCustomQueryCriteria(
             builder { PersistentFungibleToken::tokenIdentifier.equal(demoAppTokenType.tokenIdentifier) })
         val tokenHolderCriteria = QueryCriteria.VaultCustomQueryCriteria(

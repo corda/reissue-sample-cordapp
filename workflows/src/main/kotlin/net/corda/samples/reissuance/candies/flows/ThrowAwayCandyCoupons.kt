@@ -1,9 +1,8 @@
-package net.corda.samples.reissuance.demoAppToken
+package net.corda.samples.reissuance.candies.flows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.tokens.workflows.flows.redeem.addTokensToRedeem
 import com.r3.corda.lib.tokens.workflows.utilities.getPreferredNotary
-import net.corda.core.contracts.StateRef
 import net.corda.core.contracts.requireThat
 import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.*
@@ -11,7 +10,7 @@ import net.corda.core.identity.Party
 import net.corda.core.node.StatesToRecord
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
-import net.corda.samples.reissuance.wrappedReIssuanceFlows.parseStateReference
+import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.parseStateReference
 
 @InitiatingFlow
 @StartableByRPC
@@ -32,11 +31,11 @@ class RedeemDemoAppTokens(
 
         val tokensToRedeem = if(tokensNum != null) {
             // split tokens into token to redeem and optional change token
-            subFlow(MoveDemoAppTokens(issuer, holderParty, tokensNum))
-            val availableTokens = subFlow(ListAvailableDemoAppTokens(holderParty, encumbered))
+            subFlow(TransferCandyCoupons(issuer, holderParty, tokensNum))
+            val availableTokens = subFlow(ListAvailableCandyCoupons(holderParty, encumbered))
             listOf(availableTokens.first { it.state.data.amount.quantity == tokensNum })
         } else {
-            val availableTokens = subFlow(ListAvailableDemoAppTokens(holderParty, encumbered))
+            val availableTokens = subFlow(ListAvailableCandyCoupons(holderParty, encumbered))
             availableTokens.filter { tokenRefs.contains(it.ref) }
         }
 

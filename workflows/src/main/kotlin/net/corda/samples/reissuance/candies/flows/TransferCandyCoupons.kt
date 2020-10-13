@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.demoAppToken
+package net.corda.samples.reissuance.candies.flows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.tokens.contracts.commands.MoveTokenCommand
@@ -16,7 +16,7 @@ import net.corda.core.transactions.TransactionBuilder
 
 @InitiatingFlow
 @StartableByRPC
-class MoveDemoAppTokens(
+class TransferCandyCoupons(
     private val issuer: Party,
     private val newTokenHolderParty: Party,
     private val tokenAmount: Long
@@ -24,7 +24,7 @@ class MoveDemoAppTokens(
 
     @Suspendable
     override fun call(): SecureHash {
-        val demoAppTokenType = TokenType("DemoAppToken", 0)
+        val demoAppTokenType = TokenType("CandyCoupon", 0)
 
         val holderParty: Party = ourIdentity
 
@@ -32,7 +32,7 @@ class MoveDemoAppTokens(
             holderParty.owningKey
         )
 
-        val availableTokens = subFlow(ListAvailableDemoAppTokens(holderParty))
+        val availableTokens = subFlow(ListAvailableCandyCoupons(holderParty))
 
         val issuedTokenType = IssuedTokenType(issuer, demoAppTokenType)
         val (tokensToTransfer, change) = splitTokensIntoTokensToTransferAndChange(
@@ -87,7 +87,7 @@ class MoveDemoAppTokens(
 }
 
 
-@InitiatedBy(MoveDemoAppTokens::class)
+@InitiatedBy(TransferCandyCoupons::class)
 class MoveDemoAppTokensResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {
