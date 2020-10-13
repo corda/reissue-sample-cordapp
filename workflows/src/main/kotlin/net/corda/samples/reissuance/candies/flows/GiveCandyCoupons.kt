@@ -38,10 +38,11 @@ class GiveCandyCoupons(
         transactionBuilder.verify(serviceHub)
         val signedTransaction = serviceHub.signInitialTransaction(transactionBuilder)
 
+        val sessions = listOf(initiateFlow(newHolderParty))
         return subFlow(
             FinalityFlow(
                 transaction = signedTransaction,
-                sessions = listOf()
+                sessions = sessions
             )
         ).id
     }

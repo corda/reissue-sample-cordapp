@@ -47,7 +47,7 @@ class CandyContract: Contract {
             "Coupon holders must be equal to candy owner" using (candyCouponInputs[0].holder == candyOutputs[0].owner)
 
             "Candy owner is required signer" using (command.signers.contains(candyOutputs[0].owner.owningKey))
-            "Candy show is required signer" using (command.signers.contains(candyCouponInputs[0].issuer.owningKey))
+            "Candy shop is required signer" using (command.signers.contains(candyCouponInputs[0].issuer.owningKey))
         }
     }
 

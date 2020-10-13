@@ -19,7 +19,7 @@ import net.corda.core.transactions.TransactionBuilder
 @StartableByRPC
 class IssueCandyCoupons(
     private val couponHolderParty: Party,
-    private val couponCandies: Long
+    private val couponCandies: Int
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable

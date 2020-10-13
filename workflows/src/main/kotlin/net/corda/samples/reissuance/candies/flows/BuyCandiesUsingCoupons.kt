@@ -6,7 +6,6 @@ import com.r3.corda.lib.tokens.workflows.utilities.getPreferredNotary
 import net.corda.core.contracts.requireThat
 import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.*
-import net.corda.core.identity.Party
 import net.corda.core.node.StatesToRecord
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
@@ -16,7 +15,7 @@ import net.corda.samples.reissuance.candies.states.Candy
 
 @InitiatingFlow
 @StartableByRPC
-class BuyCandies(
+class BuyCandiesUsingCoupons(
     private val couponRefsStrings: List<String>
 ) : FlowLogic<SecureHash>() {
 
@@ -32,7 +31,7 @@ class BuyCandies(
         (1..couponCandies).forEach {
             transactionBuilder.addOutputState(Candy(ourIdentity))
         }
-        transactionBuilder.addCommand(CandyContract.Commands.Buy())
+        transactionBuilder.addCommand(CandyContract.Commands.Buy(), listOf(ourIdentity.owningKey, candyShop.owningKey))
 
         transactionBuilder.verify(serviceHub)
         val signedTransaction = serviceHub.signInitialTransaction(transactionBuilder)
@@ -51,7 +50,7 @@ class BuyCandies(
 }
 
 
-@InitiatedBy(BuyCandies::class)
+@InitiatedBy(BuyCandiesUsingCoupons::class)
 class BuyCandiesResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {

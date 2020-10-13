@@ -17,6 +17,7 @@ import net.corda.core.identity.Party
 import net.corda.core.utilities.getOrThrow
 import net.corda.samples.reissuance.candies.flows.*
 import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.*
+import net.corda.samples.reissuance.candies.states.Candy
 import net.corda.testing.common.internal.testNetworkParameters
 import net.corda.testing.core.DUMMY_NOTARY_NAME
 import net.corda.testing.core.singleIdentity
@@ -26,7 +27,7 @@ import org.junit.After
 import org.junit.Before
 
 
-abstract class AbstractDemoAppFlowTest {
+abstract class AbstractCandyFlowTest {
 
     lateinit var mockNet: InternalMockNetwork
 
@@ -47,9 +48,8 @@ abstract class AbstractDemoAppFlowTest {
     lateinit var bobLegalName: CordaX500Name
     lateinit var charlieLegalName: CordaX500Name
 
-    lateinit var issuedTokenType: IssuedTokenType
-
-    val demoAppTokenType = TokenType("CandyCoupon", 0)
+    val candyCouponTokenType = TokenType("CandyCoupon", 0)
+    lateinit var issuedCandyCouponTokenType: IssuedTokenType
 
     @Before
     fun setup() {
@@ -93,7 +93,7 @@ abstract class AbstractDemoAppFlowTest {
         charlieNode = mockNet.createNode(InternalMockNodeParameters(legalName = charlieLegalName))
         charlieParty = charlieNode.info.singleIdentity()
 
-        issuedTokenType = IssuedTokenType(bankParty, demoAppTokenType)
+        issuedCandyCouponTokenType = IssuedTokenType(bankParty, candyCouponTokenType)
 
         aliceNode.services.cordaService(LedgerGraphService::class.java).waitForInitialization()
 
@@ -104,22 +104,9 @@ abstract class AbstractDemoAppFlowTest {
         mockNet.stopNodes()
     }
 
-    fun getHolderTokensQuantity(
-        node: TestStartedNode
-    ): Long {
-        val availableTokens = listAvailableTokens(node)
-        return getHolderTokensQuantity(availableTokens)
-    }
-
-    private fun getHolderTokensQuantity(
-        availableTokens: List<StateAndRef<FungibleToken>>
-    ): Long {
-        return availableTokens.map { it.state.data.amount.quantity }.sum()
-    }
-
-    fun issueDemoAppTokens(
+    fun issueCandyCoupons(
         holder: Party,
-        tokenAmount: Long
+        tokenAmount: Int
     ): SecureHash {
         return runFlow(
             bankNode,
@@ -127,34 +114,64 @@ abstract class AbstractDemoAppFlowTest {
         )
     }
 
-    fun moveDemoAppTokens(
+    fun exchangeCandyCoupons(
         node: TestStartedNode,
-        tokenRefs: List<StateRef>,
+        candyCouponRefs: List<StateRef>,
+        newCouponCandies: List<Int>
+    ): SecureHash {
+        return runFlow(
+            node,
+            ExchangeCandyCoupons(candyCouponRefs.map { it.toString() }, newCouponCandies)
+        )
+    }
+
+    fun giveCandyCoupons(
+        node: TestStartedNode,
+        candyCouponRefs: List<StateRef>,
         newHolder: Party
     ): SecureHash {
         return runFlow(
             node,
-            GiveCandyCoupons(tokenRefs.map { it.toString() }, newHolder)
+            GiveCandyCoupons(candyCouponRefs.map { it.toString() }, newHolder)
         )
     }
 
-    fun redeemDemoAppTokens(
+    fun throwAwayCandyCoupons(
         node: TestStartedNode,
-        tokenRefs: List<StateRef>
+        candyCouponRefs: List<StateRef>
     ): SecureHash {
         return runFlow(
             node,
-            ThrowAwayCandyCoupons(tokenRefs.map { it.toString() })
+            ThrowAwayCandyCoupons(candyCouponRefs.map { it.toString() })
         )
     }
 
-    fun listAvailableTokens(
+    fun buyCandiesUsingCoupons(
+        node: TestStartedNode,
+        candyCouponRefs: List<StateRef>
+    ): SecureHash {
+        return runFlow(
+            node,
+            BuyCandiesUsingCoupons(candyCouponRefs.map { it.toString() })
+        )
+    }
+
+    fun listAvailableCandyCoupons(
         node: TestStartedNode,
         encumbered: Boolean? = null
     ): List<StateAndRef<FungibleToken>> {
         return runFlow(
             node,
             ListAvailableCandyCoupons(node.info.singleIdentity(), encumbered)
+        )
+    }
+
+    fun listAvailableCandies(
+        node: TestStartedNode
+    ): List<StateAndRef<Candy>> {
+        return runFlow(
+            node,
+            ListAvailableCandies()
         )
     }
 
