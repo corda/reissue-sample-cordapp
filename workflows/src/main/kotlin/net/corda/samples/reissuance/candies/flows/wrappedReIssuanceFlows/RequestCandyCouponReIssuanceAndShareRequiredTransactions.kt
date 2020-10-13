@@ -15,16 +15,15 @@ import net.corda.core.identity.Party
 // The flow has been created to make it easier to use node shell.
 
 @StartableByRPC
-class RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(
+class RequestCandyCouponReIssuanceAndShareRequiredTransactions(
     private val issuer: AbstractParty,
     private val stateRefStringsToReIssue: List<String>
 ): FlowLogic<Unit>() {
 
     @Suspendable
     override fun call() {
-        val demoAppTokenType = TokenType("CandyCoupon", 0)
-        val issuedTokenType = IssuedTokenType(issuer as Party, demoAppTokenType)
-
+        val candyCouponTokenType = TokenType("CandyCoupon", 0)
+        val issuedTokenType = IssuedTokenType(issuer as Party, candyCouponTokenType)
 
         subFlow(RequestReIssuanceAndShareRequiredTransactions<FungibleToken>(
             issuer,

@@ -13,7 +13,7 @@ import net.corda.core.node.services.vault.QueryCriteria
 // The flow has been created to make it easier to use node shell.
 
 @StartableByRPC
-class RejectDemoAppTokensReIssuanceRequest(
+class RejectCandyCouponsReIssuanceRequest(
     private val reIssuanceRequestRefString: String
 ): FlowLogic<Unit>() {
 

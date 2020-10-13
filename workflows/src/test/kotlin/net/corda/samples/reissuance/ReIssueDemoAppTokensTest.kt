@@ -11,7 +11,7 @@ import org.junit.Test
 class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
 
     @Test
-    fun `Tokens are re-issued and back-chain is pruned`() {
+    fun `Coupons are re-issued and back-chain is pruned`() {
         issueCandyCoupons(aliceParty, 12)
         val issuedCoupons = listAvailableCandyCoupons(aliceNode)
         exchangeCandyCoupons(aliceNode, issuedCoupons.map { it.ref }, listOf(4, 4, 2, 2))
@@ -35,7 +35,7 @@ class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
         assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasItems(
             *firstCouponBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
-        createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
+        createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceCandyCoupons,
             candyShopParty
@@ -98,7 +98,7 @@ class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
         assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasItems(
             *firstCouponBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
-        createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
+        createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceCandyCoupons,
             candyShopParty
@@ -107,12 +107,12 @@ class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
         val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
         rejectReIssuanceRequested(candyShopNode, reIssuanceRequest)
 
-        val aliceTokensAfterReIssuanceRejection = listAvailableCandyCoupons(aliceNode, encumbered = false)
-        assertThat(aliceTokensAfterReIssuanceRejection, `is`(aliceCandyCoupons))
+        val aliceCouponsAfterReIssuanceRejection = listAvailableCandyCoupons(aliceNode, encumbered = false)
+        assertThat(aliceCouponsAfterReIssuanceRejection, `is`(aliceCandyCoupons))
     }
 
     @Test
-    fun `Original tokens are spent after re-issuance and re-issued tokens are deleted`() {
+    fun `Original coupons are exchanged (spent) after re-issuance and re-issued tokens are deleted`() {
         issueCandyCoupons(aliceParty, 12)
         val issuedCoupons = listAvailableCandyCoupons(aliceNode)
         exchangeCandyCoupons(aliceNode, issuedCoupons.map { it.ref }, listOf(4, 4, 2, 2))
@@ -136,7 +136,7 @@ class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
         assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasItems(
             *firstCouponBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
 
-        createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
+        createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceCandyCoupons,
             candyShopParty
@@ -146,7 +146,7 @@ class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
         reIssueRequestedStates(candyShopNode, reIssuanceRequest)
 
         exchangeCandyCoupons(aliceNode, listOf(aliceCandyCoupons[0].ref), listOf(2, 2))
-        val unencumberedAliceTokensAfterMove = listAvailableCandyCoupons(aliceNode, encumbered = false)
+        val unencumberedaliceCouponsAfterMove = listAvailableCandyCoupons(aliceNode, encumbered = false)
 
         val reIssuedStates = listAvailableCandyCoupons(aliceNode, encumbered = true)
         val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
@@ -156,7 +156,7 @@ class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
             reIssuedStates
         )
 
-        val aliceTokensAfterDeletion = listAvailableCandyCoupons(aliceNode, encumbered = null)
-        assertThat(aliceTokensAfterDeletion, `is`(unencumberedAliceTokensAfterMove))
+        val aliceCouponsAfterDeletion = listAvailableCandyCoupons(aliceNode, encumbered = null)
+        assertThat(aliceCouponsAfterDeletion, `is`(unencumberedaliceCouponsAfterMove))
     }
 }

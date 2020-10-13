@@ -14,7 +14,7 @@ import net.corda.core.node.services.vault.QueryCriteria
 // The flow has been created to make it easier to use node shell.
 
 @StartableByRPC
-class ReIssueDemoAppTokens(
+class ReIssueCandyCoupons(
     private val reIssuanceRequestRefString: String
 ): FlowLogic<SecureHash>() {
 

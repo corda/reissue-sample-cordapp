@@ -167,14 +167,14 @@ abstract class AbstractCandyFlowTest {
         )
     }
 
-    fun createDemoAppTokenReIssuanceRequestAndShareRequiredTransactions(
+    fun createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
         node: TestStartedNode,
         statesToReIssue: List<StateAndRef<FungibleToken>>,
         bank: AbstractParty
     ) {
         runFlow(
             node,
-            RequestDemoAppTokensReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref.toString() })
+            RequestCandyCouponReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref.toString() })
         )
     }
 
@@ -184,7 +184,7 @@ abstract class AbstractCandyFlowTest {
     ) {
         runFlow(
             node,
-            ReIssueDemoAppTokens(reIssuanceRequest.ref.toString())
+            ReIssueCandyCoupons(reIssuanceRequest.ref.toString())
         )
     }
 
@@ -194,7 +194,7 @@ abstract class AbstractCandyFlowTest {
     ) {
         runFlow(
             node,
-            RejectDemoAppTokensReIssuanceRequest(reIssuanceRequest.ref.toString())
+            RejectCandyCouponsReIssuanceRequest(reIssuanceRequest.ref.toString())
         )
     }
 
@@ -216,7 +216,7 @@ abstract class AbstractCandyFlowTest {
     ) {
         runFlow(
             node,
-            UnlockReIssuedDemoAppStates(reIssuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
+            UnlockReIssuedCandyCoupons(reIssuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
                 attachmentSecureHashes)
         )
     }
@@ -228,7 +228,7 @@ abstract class AbstractCandyFlowTest {
         ) {
         runFlow(
             node,
-            DeleteReIssuedDemoAppStatesAndLock(reIssuedStates.map { it.ref.toString() }, reIssuanceLock.ref.toString())
+            DeleteReIssuedCandyCouponsAndCorrespondingLock(reIssuedStates.map { it.ref.toString() }, reIssuanceLock.ref.toString())
         )
     }
 

@@ -1,27 +1,25 @@
 package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.r3.corda.lib.reissuance.flows.UnlockReIssuedStates
+import com.r3.corda.lib.reissuance.flows.DeleteReIssuedStatesAndLock
 import com.r3.corda.lib.reissuance.states.ReIssuanceLock
-import com.r3.corda.lib.tokens.contracts.commands.MoveTokenCommand
+import com.r3.corda.lib.tokens.contracts.commands.RedeemTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
-import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.FlowLogic
 import net.corda.core.flows.StartableByRPC
 import net.corda.core.identity.Party
 import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
 
-// Note: There is no need to generate a separate flow calling UnlockReIssuedStates.
+// Note: There is no need to generate a separate flow calling DeleteReIssuedStatesAndLock.
 // The flow has been created to make it easier to use node shell.
 
 @StartableByRPC
-class UnlockReIssuedDemoAppStates(
+class DeleteReIssuedCandyCouponsAndCorrespondingLock(
     private val reIssuedStatesRefStrings: List<String>,
-    private val reIssuanceLockRefString: String,
-    private val deletedStateTransactionHashes: List<SecureHash>
+    private val reIssuanceLockRefString: String
 ): FlowLogic<Unit>() {
 
     @Suspendable
@@ -37,17 +35,15 @@ class UnlockReIssuedDemoAppStates(
         ).states
 
         val issuer = reIssuanceLockStateAndRef.state.data.issuer
-        val demoAppTokenType = TokenType("CandyCoupon", 0)
-        val issuedTokenType = IssuedTokenType(issuer as Party, demoAppTokenType)
+        val candyCouponTokenType = TokenType("CandyCoupon", 0)
+        val issuedTokenType = IssuedTokenType(issuer as Party, candyCouponTokenType)
 
-        val stateRefsToReIssue = reIssuanceLockStateAndRef.state.data.originalStates
-        val tokenIndices = stateRefsToReIssue.indices.toList()
+        val reIssuedStates = reIssuanceLockStateAndRef.state.data.originalStates
 
-        subFlow(UnlockReIssuedStates(
-            reIssuedStatesStateAndRefs,
+        subFlow(DeleteReIssuedStatesAndLock(
             reIssuanceLockStateAndRef,
-            deletedStateTransactionHashes,
-            MoveTokenCommand(issuedTokenType, tokenIndices, tokenIndices)
+            reIssuedStatesStateAndRefs,
+            RedeemTokenCommand(issuedTokenType, reIssuedStates.indices.toList(), listOf())
         ))
     }
 
