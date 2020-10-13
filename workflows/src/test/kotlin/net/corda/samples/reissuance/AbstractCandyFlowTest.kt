@@ -32,21 +32,18 @@ abstract class AbstractCandyFlowTest {
     lateinit var mockNet: InternalMockNetwork
 
     lateinit var notaryNode: TestStartedNode
-    lateinit var bankNode: TestStartedNode
+    lateinit var candyShopNode: TestStartedNode
     lateinit var aliceNode: TestStartedNode
     lateinit var bobNode: TestStartedNode
-    lateinit var charlieNode: TestStartedNode
 
     lateinit var notaryParty: Party
-    lateinit var bankParty: Party
+    lateinit var candyShopParty: Party
     lateinit var aliceParty: Party
     lateinit var bobParty: Party
-    lateinit var charlieParty: Party
 
-    lateinit var bankLegalName: CordaX500Name
+    lateinit var candyShopLegalName: CordaX500Name
     lateinit var aliceLegalName: CordaX500Name
     lateinit var bobLegalName: CordaX500Name
-    lateinit var charlieLegalName: CordaX500Name
 
     val candyCouponTokenType = TokenType("CandyCoupon", 0)
     lateinit var issuedCandyCouponTokenType: IssuedTokenType
@@ -77,9 +74,9 @@ abstract class AbstractCandyFlowTest {
         notaryNode = mockNet.notaryNodes.first()
         notaryParty = notaryNode.info.singleIdentity()
 
-        bankLegalName = CordaX500Name(organisation = "ISSUER", locality = "London", country = "GB")
-        bankNode = mockNet.createNode(InternalMockNodeParameters(legalName = bankLegalName))
-        bankParty = bankNode.info.singleIdentity()
+        candyShopLegalName = CordaX500Name(organisation = "ISSUER", locality = "London", country = "GB")
+        candyShopNode = mockNet.createNode(InternalMockNodeParameters(legalName = candyShopLegalName))
+        candyShopParty = candyShopNode.info.singleIdentity()
 
         aliceLegalName = CordaX500Name(organisation = "ALICE", locality = "London", country = "GB")
         aliceNode = mockNet.createNode(InternalMockNodeParameters(legalName = aliceLegalName))
@@ -89,14 +86,9 @@ abstract class AbstractCandyFlowTest {
         bobNode = mockNet.createNode(InternalMockNodeParameters(legalName = bobLegalName))
         bobParty = bobNode.info.singleIdentity()
 
-        charlieLegalName = CordaX500Name(organisation = "CHARLIE", locality = "London", country = "GB")
-        charlieNode = mockNet.createNode(InternalMockNodeParameters(legalName = charlieLegalName))
-        charlieParty = charlieNode.info.singleIdentity()
-
-        issuedCandyCouponTokenType = IssuedTokenType(bankParty, candyCouponTokenType)
+        issuedCandyCouponTokenType = IssuedTokenType(candyShopParty, candyCouponTokenType)
 
         aliceNode.services.cordaService(LedgerGraphService::class.java).waitForInitialization()
-
     }
 
     @After
@@ -109,7 +101,7 @@ abstract class AbstractCandyFlowTest {
         tokenAmount: Int
     ): SecureHash {
         return runFlow(
-            bankNode,
+            candyShopNode,
             IssueCandyCoupons(holder, tokenAmount)
         )
     }
