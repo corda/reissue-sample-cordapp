@@ -6,25 +6,33 @@ import com.r3.corda.lib.tokens.workflows.utilities.getPreferredNotary
 import net.corda.core.contracts.requireThat
 import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.*
+import net.corda.core.identity.Party
 import net.corda.core.node.StatesToRecord
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
+import net.corda.samples.reissuance.candies.contracts.CandyContract
 import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.parseStateReference
+import net.corda.samples.reissuance.candies.states.Candy
 
 @InitiatingFlow
 @StartableByRPC
-class ThrowAwayCandyCoupons(
-    private val couponRefsStrings: List<String> = listOf()
+class BuyCandies(
+    private val couponRefsStrings: List<String>
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable
     override fun call(): SecureHash {
         val couponRefs = couponRefsStrings.map { parseStateReference(it) }
-        val couponsToThrowAway = subFlow(ListAvailableCandyCoupons(ourIdentity, couponRefs = couponRefs))
-        val candyShop = couponsToThrowAway[0].state.data.issuer
+        val couponsToUse = subFlow(ListAvailableCandyCoupons(ourIdentity, couponRefs = couponRefs))
+        val candyShop = couponsToUse[0].state.data.issuer
+        val couponCandies = couponsToUse.sumBy { it.state.data.amount.quantity.toInt() }
 
         val transactionBuilder = TransactionBuilder(notary = getPreferredNotary(serviceHub))
-        addTokensToRedeem(transactionBuilder, couponsToThrowAway, null)
+        addTokensToRedeem(transactionBuilder, couponsToUse, null)
+        (1..couponCandies).forEach {
+            transactionBuilder.addOutputState(Candy(ourIdentity))
+        }
+        transactionBuilder.addCommand(CandyContract.Commands.Buy())
 
         transactionBuilder.verify(serviceHub)
         val signedTransaction = serviceHub.signInitialTransaction(transactionBuilder)
@@ -43,8 +51,8 @@ class ThrowAwayCandyCoupons(
 }
 
 
-@InitiatedBy(ThrowAwayCandyCoupons::class)
-class ThrowAwayCandyCouponsResponder(
+@InitiatedBy(BuyCandies::class)
+class BuyCandiesResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {
     @Suspendable

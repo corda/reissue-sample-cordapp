@@ -11,4 +11,20 @@ data class Candy(
 ): ContractState {
     override val participants: List<AbstractParty>
         get() = listOf(owner)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Candy
+
+        if (owner != other.owner) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return owner.hashCode()
+    }
+
 }

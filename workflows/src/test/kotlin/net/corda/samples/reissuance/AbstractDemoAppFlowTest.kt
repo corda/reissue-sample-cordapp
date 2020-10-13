@@ -15,10 +15,7 @@ import net.corda.core.identity.AbstractParty
 import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
 import net.corda.core.utilities.getOrThrow
-import net.corda.samples.reissuance.candies.flows.IssueCandyCoupons
-import net.corda.samples.reissuance.candies.flows.ListAvailableCandyCoupons
-import net.corda.samples.reissuance.candies.flows.TransferCandyCoupons
-import net.corda.samples.reissuance.candies.flows.RedeemDemoAppTokens
+import net.corda.samples.reissuance.candies.flows.*
 import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.*
 import net.corda.testing.common.internal.testNetworkParameters
 import net.corda.testing.core.DUMMY_NOTARY_NAME
@@ -132,24 +129,22 @@ abstract class AbstractDemoAppFlowTest {
 
     fun moveDemoAppTokens(
         node: TestStartedNode,
-        newHolder: Party,
-        tokenAmount: Long
+        tokenRefs: List<StateRef>,
+        newHolder: Party
     ): SecureHash {
         return runFlow(
             node,
-            TransferCandyCoupons(bankParty, newHolder, tokenAmount)
+            GiveCandyCoupons(tokenRefs.map { it.toString() }, newHolder)
         )
     }
 
     fun redeemDemoAppTokens(
         node: TestStartedNode,
-        encumbered: Boolean? = false,
-        tokenAmount: Long? = null,
-        tokenRefs: List<StateRef> = listOf()
+        tokenRefs: List<StateRef>
     ): SecureHash {
         return runFlow(
             node,
-            RedeemDemoAppTokens(bankParty, encumbered, tokenAmount, tokenRefs.map { it.toString() })
+            ThrowAwayCandyCoupons(tokenRefs.map { it.toString() })
         )
     }
 

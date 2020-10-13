@@ -18,23 +18,22 @@ import net.corda.core.transactions.TransactionBuilder
 @InitiatingFlow
 @StartableByRPC
 class IssueCandyCoupons(
-    private val tokenHolderParty: Party,
-    private val tokenAmount: Long
+    private val couponHolderParty: Party,
+    private val couponCandies: Long
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable
     override fun call(): SecureHash {
-        val demoAppTokenType = TokenType("CandyCoupon", 0)
-        val issuerParty: Party = ourIdentity
-        val issuedDemoAppTokenType = IssuedTokenType(issuerParty, demoAppTokenType)
-        val demoAppTokenAmount = amount(tokenAmount, issuedDemoAppTokenType)
-        val demoAppToken = FungibleToken(demoAppTokenAmount, tokenHolderParty)
+        val candyCouponTokenType = TokenType("CandyCoupon", 0)
+        val candyShopParty: Party = ourIdentity
+        val issuedCandyCouponTokenType = IssuedTokenType(candyShopParty, candyCouponTokenType)
+        val candyCouponToken = FungibleToken(amount(couponCandies, issuedCandyCouponTokenType), couponHolderParty)
 
         val transactionBuilder = TransactionBuilder(notary = getPreferredNotary(serviceHub))
-        addIssueTokens(transactionBuilder, demoAppToken)
-        addTokenTypeJar(demoAppToken, transactionBuilder)
+        addIssueTokens(transactionBuilder, candyCouponToken)
+        addTokenTypeJar(candyCouponToken, transactionBuilder)
 
-        val holderSession = initiateFlow(tokenHolderParty)
+        val holderSession = initiateFlow(couponHolderParty)
         return subFlow(
             ObserverAwareFinalityFlow(
                 transactionBuilder = transactionBuilder,
@@ -45,7 +44,7 @@ class IssueCandyCoupons(
 }
 
 @InitiatedBy(IssueCandyCoupons::class)
-class IssueDemoAppTokensResponder(
+class IssueCandyCouponsResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {
     @Suspendable
