@@ -14,10 +14,10 @@ import net.corda.core.node.services.vault.QueryCriteria
 import net.corda.core.node.services.vault.builder
 
 @StartableByRPC
-class ListAvailableCandyCoupons(
+class ListCandyCoupons(
     private val holderParty: Party,
     private val encumbered: Boolean? = false,
-    private val couponRefs: List<StateRef> = listOf()
+    private val couponRefs: List<StateRef>? = null
 ) : FlowLogic<List<StateAndRef<FungibleToken>>>() {
 
     @Suspendable
@@ -26,7 +26,7 @@ class ListAvailableCandyCoupons(
             builder { PersistentFungibleToken::tokenIdentifier.equal(TokenType("CandyCoupon", 0).tokenIdentifier) })
         val tokenHolderCriteria = QueryCriteria.VaultCustomQueryCriteria(
             builder { PersistentFungibleToken::holder.equal(holderParty) })
-        val criteria = if(couponRefs.isEmpty())
+        val criteria = if(couponRefs == null)
             tokenTypeCriteria.and(tokenHolderCriteria)
         else {
             val referenceCriteria = QueryCriteria.VaultQueryCriteria(stateRefs = couponRefs)

@@ -8,7 +8,7 @@ import net.corda.core.node.services.queryBy
 import net.corda.samples.reissuance.candies.states.Candy
 
 @StartableByRPC
-class ListAvailableCandies: FlowLogic<List<StateAndRef<Candy>>>() {
+class ListCandies: FlowLogic<List<StateAndRef<Candy>>>() {
 
     @Suspendable
     override fun call(): List<StateAndRef<Candy>> {

@@ -21,7 +21,7 @@ class GiveCandyCoupons(
     @Suspendable
     override fun call(): SecureHash {
         val couponRefs = couponRefsStrings.map { parseStateReference(it) }
-        val couponsToGive = subFlow(ListAvailableCandyCoupons(ourIdentity, couponRefs = couponRefs))
+        val couponsToGive = subFlow(ListCandyCoupons(ourIdentity, couponRefs = couponRefs))
 
         val issuedCandyCouponTokenType = couponsToGive[0].state.data.issuedTokenType
         val newCoupons = couponsToGive.map { FungibleToken(it.state.data.amount, newHolderParty) }

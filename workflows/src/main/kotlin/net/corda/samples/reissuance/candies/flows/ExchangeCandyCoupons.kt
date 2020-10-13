@@ -3,15 +3,10 @@ package net.corda.samples.reissuance.candies.flows
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.tokens.contracts.commands.MoveTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
-import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
-import com.r3.corda.lib.tokens.contracts.types.TokenType
 import com.r3.corda.lib.tokens.contracts.utilities.amount
 import com.r3.corda.lib.tokens.workflows.utilities.getPreferredNotary
-import net.corda.core.contracts.Amount
-import net.corda.core.contracts.StateAndRef
 import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.*
-import net.corda.core.identity.Party
 import net.corda.core.node.StatesToRecord
 import net.corda.core.transactions.TransactionBuilder
 import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.parseStateReference
@@ -26,7 +21,7 @@ class ExchangeCandyCoupons(
     @Suspendable
     override fun call(): SecureHash {
         val couponRefs = couponRefsStrings.map { parseStateReference(it) }
-        val couponsToExchange = subFlow(ListAvailableCandyCoupons(ourIdentity, couponRefs = couponRefs))
+        val couponsToExchange = subFlow(ListCandyCoupons(ourIdentity, couponRefs = couponRefs))
 
         val issuedCandyCouponTokenType = couponsToExchange[0].state.data.issuedTokenType
         val newCoupons = newCouponCandies.map { FungibleToken(amount(it, issuedCandyCouponTokenType), ourIdentity) }

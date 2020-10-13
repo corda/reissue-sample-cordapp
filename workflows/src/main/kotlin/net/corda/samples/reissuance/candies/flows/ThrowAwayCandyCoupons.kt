@@ -20,7 +20,7 @@ class ThrowAwayCandyCoupons(
     @Suspendable
     override fun call(): SecureHash {
         val couponRefs = couponRefsStrings.map { parseStateReference(it) }
-        val couponsToThrowAway = subFlow(ListAvailableCandyCoupons(ourIdentity, couponRefs = couponRefs))
+        val couponsToThrowAway = subFlow(ListCandyCoupons(ourIdentity, couponRefs = couponRefs))
         val candyShop = couponsToThrowAway[0].state.data.issuer
 
         val transactionBuilder = TransactionBuilder(notary = getPreferredNotary(serviceHub))

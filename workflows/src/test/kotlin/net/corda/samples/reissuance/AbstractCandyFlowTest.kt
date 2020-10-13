@@ -154,7 +154,7 @@ abstract class AbstractCandyFlowTest {
     ): List<StateAndRef<FungibleToken>> {
         return runFlow(
             node,
-            ListAvailableCandyCoupons(node.info.singleIdentity(), encumbered)
+            ListCandyCoupons(node.info.singleIdentity(), encumbered)
         )
     }
 
@@ -163,7 +163,7 @@ abstract class AbstractCandyFlowTest {
     ): List<StateAndRef<Candy>> {
         return runFlow(
             node,
-            ListAvailableCandies()
+            ListCandies()
         )
     }
 

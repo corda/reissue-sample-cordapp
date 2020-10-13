@@ -22,7 +22,7 @@ class BuyCandiesUsingCoupons(
     @Suspendable
     override fun call(): SecureHash {
         val couponRefs = couponRefsStrings.map { parseStateReference(it) }
-        val couponsToUse = subFlow(ListAvailableCandyCoupons(ourIdentity, couponRefs = couponRefs))
+        val couponsToUse = subFlow(ListCandyCoupons(ourIdentity, couponRefs = couponRefs))
         val candyShop = couponsToUse[0].state.data.issuer
         val couponCandies = couponsToUse.sumBy { it.state.data.amount.quantity.toInt() }
 
