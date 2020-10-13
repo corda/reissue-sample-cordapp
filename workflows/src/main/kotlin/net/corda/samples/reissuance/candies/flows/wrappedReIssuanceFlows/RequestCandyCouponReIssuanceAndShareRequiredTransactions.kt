@@ -6,6 +6,7 @@ import com.r3.corda.lib.tokens.contracts.commands.IssueTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
+import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.FlowLogic
 import net.corda.core.flows.StartableByRPC
 import net.corda.core.identity.AbstractParty
@@ -18,14 +19,14 @@ import net.corda.core.identity.Party
 class RequestCandyCouponReIssuanceAndShareRequiredTransactions(
     private val issuer: AbstractParty,
     private val stateRefStringsToReIssue: List<String>
-): FlowLogic<Unit>() {
+): FlowLogic<SecureHash>() {
 
     @Suspendable
-    override fun call() {
+    override fun call(): SecureHash {
         val candyCouponTokenType = TokenType("CandyCoupon", 0)
         val issuedTokenType = IssuedTokenType(issuer as Party, candyCouponTokenType)
 
-        subFlow(RequestReIssuanceAndShareRequiredTransactions<FungibleToken>(
+        return subFlow(RequestReIssuanceAndShareRequiredTransactions<FungibleToken>(
             issuer,
             stateRefStringsToReIssue.map { parseStateReference(it) },
             IssueTokenCommand(issuedTokenType, stateRefStringsToReIssue.indices.toList())

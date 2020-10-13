@@ -22,10 +22,10 @@ class UnlockReIssuedCandyCoupons(
     private val reIssuedStatesRefStrings: List<String>,
     private val reIssuanceLockRefString: String,
     private val deletedStateTransactionHashes: List<SecureHash>
-): FlowLogic<Unit>() {
+): FlowLogic<SecureHash>() {
 
     @Suspendable
-    override fun call() {
+    override fun call(): SecureHash {
         val reIssuanceLockRef = parseStateReference(reIssuanceLockRefString)
         val reIssuanceLockStateAndRef = serviceHub.vaultService.queryBy<ReIssuanceLock<FungibleToken>>(
             criteria= QueryCriteria.VaultQueryCriteria(stateRefs = listOf(reIssuanceLockRef))
@@ -43,7 +43,7 @@ class UnlockReIssuedCandyCoupons(
         val stateRefsToReIssue = reIssuanceLockStateAndRef.state.data.originalStates
         val tokenIndices = stateRefsToReIssue.indices.toList()
 
-        subFlow(UnlockReIssuedStates(
+        return subFlow(UnlockReIssuedStates(
             reIssuedStatesStateAndRefs,
             reIssuanceLockStateAndRef,
             deletedStateTransactionHashes,
