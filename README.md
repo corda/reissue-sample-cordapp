@@ -371,8 +371,7 @@ Flow completed with result: 4C72E5739E3BEB88D59699029A2B2BF6A328737597EF26D9809C
 Then you can unlock re-issued states, providing their references, re-issuance lock reference, and attachment id of 
 token exit transaction:
 <pre>
-<i>Alice's node:</i> 
-flow start UnlockReIssuedCandyCoupons reIssuedStatesRefStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2)], reIssuanceLockRefString: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(3), deletedStateTransactionHashes: [4C72E5739E3BEB88D59699029A2B2BF6A328737597EF26D9809CAC1CC43EF7C7]
+<i>Alice's node:</i> flow start UnlockReIssuedCandyCoupons reIssuedStatesRefStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2)], reIssuanceLockRefString: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(3), deletedStateTransactionHashes: [4C72E5739E3BEB88D59699029A2B2BF6A328737597EF26D9809CAC1CC43EF7C7]
 </pre>
 The flows will return the id of unlock re-issued states transaction:
 <pre>
@@ -422,14 +421,19 @@ Flow completed with result: 0488618A3D36B2391F372C8EB38215FF5FDAD02FB0D5FCDF3AF8
 #### Rejected re-issuance request
 As mentioned before, CandyShop doesn't have to accept re-issuance request. To reject it, they should run:
 <pre>
-<i>CandyShop's node:</i> flow start RejectDemoAppTokensReIssuanceRequest reIssuanceRequestRefString: 57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315(0)
+<i>CandyShop's node:</i> flow start RejectCandyCouponsReIssuanceRequest reIssuanceRequestRefString: C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875(0)
 </pre>
 
 #### Original tokens have been consumed, and it's impossible to unlock re-issued states
-If at least one of tokens to be re-issued have been consumed (lets say Alice transferred 1 token to Bob) 
-after their locked copies have been created, all re-issued tokens are useless - they will never be unlocked. 
-It that case, re-issued tokens and corresponding re-issuance lock can be exited from the ledger:
+If at least one of coupons to be re-issued have been consumed after their locked copies have been created (lets say 
+Alice gave 1 coupon to Bob), all re-issued coupons are useless - they will never be unlocked. 
+In that case, re-issued coupons and corresponding re-issuance lock can be exited from the ledger:
 <pre>
-<i>Alice's node:</i> 
-flow start DeleteReIssuedDemoAppStatesAndLock reIssuedStatesRefStrings: [A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(0), A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(1)], reIssuanceLockRefString: A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(2)
+<i>Alice's node:</i> flow start DeleteReIssuedCandyCouponsAndCorrespondingLock reIssuedStatesRefStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2)], reIssuanceLockRefString: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(3)
 </pre>
+
+### BuyCandies flow can't be used to unlock re-issued states
+We said that to unlock re-issued states, transaction which exits the original states is required. If you were thinking 
+about cheating by using `BuyCandies` flow (it exits coupons, right?!) instead of `ThrowAwayCandyCoupons`, 
+you can't do that. There is an additional requirement that the transaction used as a proof of asset exit can't produce
+any outputs.
