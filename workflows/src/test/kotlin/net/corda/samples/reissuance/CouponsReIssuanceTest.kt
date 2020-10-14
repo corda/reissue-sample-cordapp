@@ -8,7 +8,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.Test
 
-class UnlockReIssuedStatesTest: AbstractCandyFlowTest() {
+class CouponsReIssuanceTest: AbstractCandyFlowTest() {
 
     @Test
     fun `Coupons are re-issued and back-chain is pruned`() {

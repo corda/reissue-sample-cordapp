@@ -31,7 +31,7 @@ Once all nodes are started up (Notary, CandyShop, Alice & Bob), issue a candy co
 </pre>
 The flow will return issuance transaction id:
 <pre>
-Flow completed with result: C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC
+Flow completed with result: 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC
 </pre>
 
 To list the issued coupon, run the following:
@@ -43,27 +43,27 @@ You should see output similar to the following one:
 Flow completed with result: [StateAndRef(state=TransactionState(data=50 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC(0))]
+)), ref=7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC(0))]
 </pre>
 Note that the displayed reference consists of issuance transaction id.
 
 Then you can check the issued coupon back-chain:
 <pre>
-<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC
+<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC
 </pre>
 It should contain only issuance transaction id:
 <pre>
-Flow completed with result: [C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC]
+Flow completed with result: [7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC]
 </pre>
 
 Let's say we want to give a coupon for 10 candies to Bob, but we only have a coupon for 50 candies. Run the following
 to exchange the existing coupon to 5 coupons for 10 candies:
 <pre>
-<i>Alice's node:</i> flow start ExchangeCandyCoupons couponRefsStrings: [C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC(0)], newCouponCandies: [10, 10, 10, 10, 10] 
+<i>Alice's node:</i> flow start ExchangeCandyCoupons couponRefsStrings: [7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC(0)], newCouponCandies: [10, 10, 10, 10, 10] 
 </pre>
 The flow will return exchange transaction id: 
 <pre>
-Flow completed with result: 252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F
+Flow completed with result: 02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648
 </pre>
 
 List the available coupons again:
@@ -75,44 +75,46 @@ This time, you will see 5 coupons:
 Flow completed with result: [StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F(2)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(2)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F(3)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F(4))]
+)), ref=02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(4))]
 </pre>
 
 Now, you can give a coupon for 10 candies to Bob:
 <pre>
-<i>Alice's node:</i> flow start GiveCandyCoupons couponRefsStrings: [252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F(0)], newHolderParty: Bob
+<i>Alice's node:</i> flow start GiveCandyCoupons couponRefsStrings: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(0)], newHolderParty: Bob
 </pre>
 The flow will return giveness transaction id: 
 <pre>
-Flow completed with result: 5270A4AA461F46B027CBE4F12EE80E310F554AE15CB830910647B6D42F2CCE9D
+Flow completed with result: 02C643FC8608FA86B107208B6DD0B06F983DBEE588BC496AA7A9D9FC5764293D
 </pre>
 
 Now, verify if the exchange transaction was added to the back-chain:
 <pre>
-<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 5270A4AA461F46B027CBE4F12EE80E310F554AE15CB830910647B6D42F2CCE9D
+<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 02C643FC8608FA86B107208B6DD0B06F983DBEE588BC496AA7A9D9FC5764293D
 </pre>
 Back-chain should contain 3 transaction ids now (issuance, exchange and giveness):
 <pre>
-Flow completed with result: [5270A4AA461F46B027CBE4F12EE80E310F554AE15CB830910647B6D42F2CCE9D, 252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F, C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC]</pre>
+Flow completed with result: [02C643FC8608FA86B107208B6DD0B06F983DBEE588BC496AA7A9D9FC5764293D, 02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648, 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC]
+</pre>
 
-Then, transfer coupons between Alice and Bob a few times to make transaction back-chain longer (you will have to list
-coupons to get their references). Remember you can transfer many copuons at once.
+Then, transfer coupons between Alice and Bob, or exchange coupons for different quantity coupons a few times to make 
+transaction back-chain longer (you will have to list coupons to get their references). Remember you can transfer many 
+coupons at once.
 
 Next, list available tokens again:
 <pre>
-<i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null
+<i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null, couponRefs: null
 </pre>
 
 Here is an output you could see:
@@ -120,26 +122,26 @@ Here is an output you could see:
 Flow completed with result: [StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=19D288C4FA174546C5A5D83DE36FF23FE974B8460426DD90988CC439080CA296(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=93DE1C7D7A056D404DD20EA0E750EF1547242CDB36F6ADFCA4543780D52B1FBF(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=93DE1C7D7A056D404DD20EA0E750EF1547242CDB36F6ADFCA4543780D52B1FBF(1))]
+)), ref=E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(1))]
 </pre>
 
 Note that secure hashes (transaction ids) in state references might be the same or might differ. They are the same 
 if they were generated in the same transaction and different otherwise. Now check back-chains of available coupons:
 <pre>
-<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 19D288C4FA174546C5A5D83DE36FF23FE974B8460426DD90988CC439080CA296
-<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 93DE1C7D7A056D404DD20EA0E750EF1547242CDB36F6ADFCA4543780D52B1FBF
+<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648
+<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D
 </pre>
 One of the back-chains should be a subset of the other one: <!-- TODO: explain -->
 <pre>
-Flow completed with result: [19D288C4FA174546C5A5D83DE36FF23FE974B8460426DD90988CC439080CA296, FC2CF9CDC198FE003BFDCA5F35A0729D0C100D66DF139D501A08C07CDBB3AC25, 0C0E2BEA16428A8700253AC5DEE5DE8E95633F24E445E4F94C2B5480F75DFD8F, 5270A4AA461F46B027CBE4F12EE80E310F554AE15CB830910647B6D42F2CCE9D, 252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F, C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC]</pre>
+Flow completed with result: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648, 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC]
 <pre>
-Flow completed with result: [93DE1C7D7A056D404DD20EA0E750EF1547242CDB36F6ADFCA4543780D52B1FBF, 0A7615D05E5D78266E10A026A0710F7983279867815C051F4F3C06B557B2917E, 19D288C4FA174546C5A5D83DE36FF23FE974B8460426DD90988CC439080CA296, FC2CF9CDC198FE003BFDCA5F35A0729D0C100D66DF139D501A08C07CDBB3AC25, 0C0E2BEA16428A8700253AC5DEE5DE8E95633F24E445E4F94C2B5480F75DFD8F, 5270A4AA461F46B027CBE4F12EE80E310F554AE15CB830910647B6D42F2CCE9D, 252790B276DABDD61A1AF036DF3617B4FECE6228B1A1100C6943D708E7EF528F, C9228D73A4AF38CFB7D4DB768277B976456D0C63E8B2ECBD8FBBBDCC602344BC]
+Flow completed with result: [E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D, 566B79B8D60E1077D19C48FC5951A578BD5962B8B2F6F27A220F22A9DD5CE000, 0E0DC8E7591BB5578EC6D4DD8D5E2BF6B846821868F1D76B2034A7E4F8A704BB, 02C643FC8608FA86B107208B6DD0B06F983DBEE588BC496AA7A9D9FC5764293D, 02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648, 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC]
 </pre>
 
 ### Re-issuance use cases
@@ -149,15 +151,15 @@ Flow completed with result: [93DE1C7D7A056D404DD20EA0E750EF1547242CDB36F6ADFCA45
 Someone might want to hide a fact that the coupon was transferred many times. To prune the back-chain, coupons
 can be re-issued. Start with creating a re-issuance request:
 <pre>
-<i>Alice's node:</i> flow start RequestCandyCouponReIssuanceAndShareRequiredTransactions issuer: CandyShop, stateRefStringsToReIssue: [19D288C4FA174546C5A5D83DE36FF23FE974B8460426DD90988CC439080CA296(0), 93DE1C7D7A056D404DD20EA0E750EF1547242CDB36F6ADFCA4543780D52B1FBF(0), 93DE1C7D7A056D404DD20EA0E750EF1547242CDB36F6ADFCA4543780D52B1FBF(1)]
+<i>Alice's node:</i> flow start RequestCandyCouponReIssuanceAndShareRequiredTransactions issuer: CandyShop, stateRefStringsToReIssue: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(0), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(1)]
 </pre>
 The flow will return re-issuance request transaction id:
 <pre>
-Flow completed with result: 57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315
+Flow completed with result: C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875
 </pre>
 
-Then CandyShop has 2 options: accept the request or reject it. We will focus on acceptance as this use case describes 
-successful re-issuance. Run the following command to list all re-issuance requests:
+Then CandyShop has 2 options: accept the request or reject it. We will focus on acceptance in this use-case. 
+Run the following command to list all re-issuance requests:
 <pre>
 <i>CandyShop's node:</i> run vaultQuery contractStateType: com.r3.corda.lib.reissuance.states.ReIssuanceRequest
 </pre>
@@ -167,22 +169,25 @@ There should be exactly one re-issuance request, and the output of the above com
 states:
 - state:
     data: !<com.r3.corda.lib.reissuance.states.ReIssuanceRequest>
-      CandyShop: "O=CandyShop, L=London, C=GB"
+      issuer: "O=CandyShop, L=London, C=GB"
       requester: "O=Alice, L=New York, C=US"
       stateRefsToReIssue:
-      - txhash: "3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD"
-        index: 1
-      - txhash: "7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489"
+      - txhash: "02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648"
+        index: 3
+      - txhash: "E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D"
         index: 0
+      - txhash: "E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D"
+        index: 1
       assetIssuanceCommand:
         token:
-          CandyShop: "O=CandyShop, L=London, C=GB"
+          issuer: "O=CandyShop, L=London, C=GB"
           tokenType:
             tokenIdentifier: "CandyCoupon"
             fractionDigits: 0
         outputs:
         - 0
         - 1
+        - 2
       assetIssuanceSigners:
       - "O=CandyShop, L=London, C=GB"
       - "O=CandyShop, L=London, C=GB"
@@ -192,14 +197,14 @@ states:
     constraint: !<net.corda.core.contracts.SignatureAttachmentConstraint>
       key: "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6"
   ref:
-    txhash: "57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315"
+    txhash: "C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875"
     index: 0
 statesMetadata:
 - ref:
-    txhash: "57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315"
+    txhash: "C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875"
     index: 0
   contractStateClassName: "com.r3.corda.lib.reissuance.states.ReIssuanceRequest"
-  recordedTime: "2020-10-09T16:32:36.114Z"
+  recordedTime: "2020-10-14T08:21:44.152Z"
   consumedTime: null
   status: "UNCONSUMED"
   notary: "O=Notary, L=London, C=GB"
@@ -216,38 +221,52 @@ otherResults: []
 
 To accept the request - re-issue locked state and create re-issuance lock, run:
 <pre>
-<i>CandyShop's node:</i> flow start ReIssueDemoAppTokens reIssuanceRequestRefString: 57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315(0)
+<i>CandyShop's node:</i> flow start ReIssueCandyCoupons reIssuanceRequestRefString: C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875(0)
 </pre>
 The flow will return re-issuance transaction id:
 <pre>
-Flow completed with result: A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04
+Flow completed with result: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6
 </pre>
 
 Now, list available tokens to make sure new tokens had been re-issued before exiting original states from the vault:
 <pre>
-<i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null
+<i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null, couponRefs: null
 </pre>
 
 You should see both original states and their duplicates. Note that original states are unencumbered, and 
 the duplicated states are encumbered.
 <pre>
-Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+Flow completed with result: [StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489(0)), StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=1</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=2</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=1, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(1))]
+)), ref=69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=2, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+            X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
+            Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
+)), ref=69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=3, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+            X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
+            Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
+)), ref=69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2))]
 </pre>
 
-Newly generated states, even though they are available, can't be spent without re-issuance lock.
-Run the following command to list all re-issuance locks:
+Newly generated states, even though they are available, can't be spent without re-issuance lock:
+<pre>
+<i>Alice's node:</i> flow start GiveCandyCoupons newHolderParty: Bob, couponRefsStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0)] 
+</pre>
+You should see an error message:
+<pre>
+☠   java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+</pre>
+
+Run the following command to list re-issuance locks:
 <pre>
 <i>Alice's node:</i> run vaultQuery contractStateType: com.r3.corda.lib.reissuance.states.ReIssuanceLock
 </pre>
@@ -256,12 +275,12 @@ There should be exactly one re-issuance lock available:
 states:
 - state:
     data: !<com.r3.corda.lib.reissuance.states.ReIssuanceLock>
-      CandyShop: "O=CandyShop, L=London, C=GB"
+      issuer: "O=CandyShop, L=London, C=GB"
       requester: "O=Alice, L=New York, C=US"
       originalStates:
       - state:
           data: !<com.r3.corda.lib.tokens.contracts.states.FungibleToken>
-            amount: "15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0)\
+            amount: "10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0)\
               \ issued by CandyShop"
             holder: "O=Alice, L=New York, C=US"
             tokenTypeJarHash: null
@@ -271,11 +290,11 @@ states:
           constraint: !<net.corda.core.contracts.SignatureAttachmentConstraint>
             key: "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTJUgKok6g1qtLzJhoTKPioLoBfSTZU2Eg4sCfe9nn1urJJdE2r1pGVVVTDWJqs3EEb4n9tsXDwyYUYHMPT4XqgkKc"
         ref:
-          txhash: "3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD"
-          index: 1
+          txhash: "02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648"
+          index: 3
       - state:
           data: !<com.r3.corda.lib.tokens.contracts.states.FungibleToken>
-            amount: "10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0)\
+            amount: "10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0)\
               \ issued by CandyShop"
             holder: "O=Alice, L=New York, C=US"
             tokenTypeJarHash: null
@@ -285,24 +304,38 @@ states:
           constraint: !<net.corda.core.contracts.SignatureAttachmentConstraint>
             key: "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTJUgKok6g1qtLzJhoTKPioLoBfSTZU2Eg4sCfe9nn1urJJdE2r1pGVVVTDWJqs3EEb4n9tsXDwyYUYHMPT4XqgkKc"
         ref:
-          txhash: "7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489"
+          txhash: "E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D"
           index: 0
+      - state:
+          data: !<com.r3.corda.lib.tokens.contracts.states.FungibleToken>
+            amount: "10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0)\
+              \ issued by CandyShop"
+            holder: "O=Alice, L=New York, C=US"
+            tokenTypeJarHash: null
+          contract: "com.r3.corda.lib.tokens.contracts.FungibleTokenContract"
+          notary: "O=Notary, L=London, C=GB"
+          encumbrance: null
+          constraint: !<net.corda.core.contracts.SignatureAttachmentConstraint>
+            key: "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTJUgKok6g1qtLzJhoTKPioLoBfSTZU2Eg4sCfe9nn1urJJdE2r1pGVVVTDWJqs3EEb4n9tsXDwyYUYHMPT4XqgkKc"
+        ref:
+          txhash: "E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D"
+          index: 1
       status: "ACTIVE"
-      CandyShopIsRequiredExitTransactionSigner: true
+      issuerIsRequiredExitTransactionSigner: true
     contract: "com.r3.corda.lib.reissuance.contracts.ReIssuanceLockContract"
     notary: "O=Notary, L=London, C=GB"
     encumbrance: 0
     constraint: !<net.corda.core.contracts.SignatureAttachmentConstraint>
       key: "aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6"
   ref:
-    txhash: "A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04"
-    index: 2
+    txhash: "69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6"
+    index: 3
 statesMetadata:
 - ref:
-    txhash: "A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04"
-    index: 2
+    txhash: "69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6"
+    index: 3
   contractStateClassName: "com.r3.corda.lib.reissuance.states.ReIssuanceLock"
-  recordedTime: "2020-10-09T16:33:55.450Z"
+  recordedTime: "2020-10-14T08:26:28.939Z"
   consumedTime: null
   status: "UNCONSUMED"
   notary: "O=Notary, L=London, C=GB"
@@ -319,11 +352,11 @@ otherResults: []
 
 Now it's time to exit the original tokens from the vault:
 <pre>
-<i>Alice's node:</i> flow start RedeemDemoAppTokens CandyShop: CandyShop, encumbered: null, tokensNum: null, tokenRefsStrings: [3F3491D3FEE1704546A4C8878631D3C728E0C5B81D742F243813EC20E789C7CD(1), 7C606CF78EC9A40081027618723464F0E09E7ECBA4BEF183F28F254E772FC489(0)]
+<i>Alice's node:</i> flow start ThrowAwayCandyCoupons couponRefsStrings: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(0), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(1)]
 </pre>
 The flow will return id of the exit transaction:
 <pre>
-Flow completed with result: CC306740156BB9442A58FFE9AC5732A64F822568430854F5FF69430769BC6EB5
+Flow completed with result: FFC2881F870778D66071FCF72A5CBE2ECED5B7562CD7D02C8E08EEAA7F5DA0E8
 </pre>
 
 Next, upload exit transaction as an attachment providing its id:
