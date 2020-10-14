@@ -361,51 +361,63 @@ Flow completed with result: FFC2881F870778D66071FCF72A5CBE2ECED5B7562CD7D02C8E08
 
 Next, upload exit transaction as an attachment providing its id:
 <pre>
-<i>Alice's node:</i> flow start UploadTransactionAsAttachment transactionId: CC306740156BB9442A58FFE9AC5732A64F822568430854F5FF69430769BC6EB5
+<i>Alice's node:</i> flow start UploadTransactionAsAttachment transactionId: FFC2881F870778D66071FCF72A5CBE2ECED5B7562CD7D02C8E08EEAA7F5DA0E8
 </pre>
 The flow will return newly created attachment id:
 <pre>
-Flow completed with result: E0F43A1509F4F2402590AE383E36D42A946FDEF23BB0863C1953130CC194AAA7
+Flow completed with result: 4C72E5739E3BEB88D59699029A2B2BF6A328737597EF26D9809CAC1CC43EF7C7
 </pre>
 
 Then you can unlock re-issued states, providing their references, re-issuance lock reference, and attachment id of 
 token exit transaction:
 <pre>
-<i>Alice's node:</i> flow start UnlockReIssuedDemoAppStates reIssuedStatesRefStrings: [A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(0), A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(1)], reIssuanceLockRefString: A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04(2), deletedStateTransactionHashes: [E0F43A1509F4F2402590AE383E36D42A946FDEF23BB0863C1953130CC194AAA7]
+<i>Alice's node:</i> 
+flow start UnlockReIssuedCandyCoupons reIssuedStatesRefStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2)], reIssuanceLockRefString: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(3), deletedStateTransactionHashes: [4C72E5739E3BEB88D59699029A2B2BF6A328737597EF26D9809CAC1CC43EF7C7]
 </pre>
 The flows will return the id of unlock re-issued states transaction:
 <pre>
-Flow completed with result: CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE
+Flow completed with result: 313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6
 </pre>
 
 Now list tokens one more time:
 <pre>
-<i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null
+<i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null, couponRefs: null
 </pre>
 Note that the re-issued states are now unencumbered:
 <pre>
-Flow completed with result: [StateAndRef(state=TransactionState(data=15 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+Flow completed with result: [StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='DemoAppToken', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, <b>encumbrance=null</b>, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+)), ref=313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6(0)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
             Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
-)), ref=CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE(1))]
+)), ref=313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6(1)), StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
+            X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
+            Y: 4a2030c7d7614c23f72d2351d45f6fcf47b440c6e6255871206c5bd2e91c5adb
+)), ref=313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6(2))]
 </pre>
 
-Then, list back-chain of the re-issued states:
+Then, list back-chain of the re-issued states (all secure hashes in references are the same as they were generated by 
+the same transaction):
 <pre>
-<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE
+<i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6
 </pre>
 The result will contain identifiers of 3 transactions:
 - requesting re-issuance
 - re-issuance
 - unlocking re-issued tokens
 <pre>
-Flow completed with result: [CB753D19959E8858B52CB79AF1930478054C2890C51174AAE45EA500A96AFECE, A8D051774085189C504708B751EF72D55BB09DAB7653E524414CF3005F3C8C04, 57DE34F7938E68DDAA51DADE2B189EDB8F6CACA706D4AA3ED19B6BC5D6C9A315]
+Flow completed with result: [313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6, 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6, C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875]
 </pre>
 
-<!-- consider showing that encumbered tokens can't be spent and after they are unencumbered - they can -->
+Now try to spend re-issued tokens again:
+<pre>
+flow start GiveCandyCoupons newHolderParty: Bob, couponRefsStrings: [313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6(2)]
+</pre>
+As the coupons aren't encumbered anymore, the transaction should be successful:
+<pre>
+Flow completed with result: 0488618A3D36B2391F372C8EB38215FF5FDAD02FB0D5FCDF3AF867F6270CE65B
+</pre>
 
 #### Rejected re-issuance request
 As mentioned before, CandyShop doesn't have to accept re-issuance request. To reject it, they should run:
