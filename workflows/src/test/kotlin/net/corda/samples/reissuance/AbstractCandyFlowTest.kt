@@ -3,7 +3,6 @@ package net.corda.samples.reissuance
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
-import com.r3.dr.ledgergraph.services.LedgerGraphService
 import com.r3.corda.lib.reissuance.flows.*
 import com.r3.corda.lib.reissuance.states.ReIssuanceLock
 import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
@@ -61,7 +60,6 @@ abstract class AbstractCandyFlowTest {
                 findCordapp("com.r3.corda.lib.ci.workflows"),
                 findCordapp("com.r3.corda.lib.reissuance.flows"),
                 findCordapp("com.r3.corda.lib.reissuance.contracts"),
-                findCordapp("com.r3.dr.ledgergraph"),
                 findCordapp("net.corda.samples.reissuance.candies.contracts"),
                 findCordapp("net.corda.samples.reissuance.candies.flows")
             ),
@@ -87,8 +85,6 @@ abstract class AbstractCandyFlowTest {
         bobParty = bobNode.info.singleIdentity()
 
         issuedCandyCouponTokenType = IssuedTokenType(candyShopParty, candyCouponTokenType)
-
-        aliceNode.services.cordaService(LedgerGraphService::class.java).waitForInitialization()
     }
 
     @After
