@@ -5,7 +5,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.Test
 
-class BuyCandyCouponsTest: AbstractCandyFlowTest() {
+class BuyCandiesUsingCouponsTest: AbstractCandyFlowTest() {
 
     @Test
     fun `Issue one coupon and use it to buy candies`() {
