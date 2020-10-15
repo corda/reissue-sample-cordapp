@@ -11,7 +11,7 @@ import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
 
 // Note: There is no need to generate a separate flow calling ReIssueStates.
-// ReIssueStates can be used directly to re-issue states and generate re-issuance lock.
+// ReIssueStates can be used directly to re-issue states and generate corresponding re-issuance lock.
 // ReIssueCandyCoupons has been created to make it easier to use node shell.
 
 @StartableByRPC

@@ -124,13 +124,13 @@ abstract class AbstractCandyFlowTest {
         )
     }
 
-    fun throwAwayCandyCoupons(
+    fun tearUpCandyCoupons(
         node: TestStartedNode,
         candyCouponRefs: List<StateRef>
     ): SecureHash {
         return runFlow(
             node,
-            ThrowAwayCandyCoupons(candyCouponRefs.map { it.toString() })
+            TearUpCandyCoupons(candyCouponRefs.map { it.toString() })
         )
     }
 

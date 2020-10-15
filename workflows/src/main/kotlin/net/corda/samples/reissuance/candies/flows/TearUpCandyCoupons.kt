@@ -13,18 +13,18 @@ import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.parseSt
 
 @InitiatingFlow
 @StartableByRPC
-class ThrowAwayCandyCoupons(
+class TearUpCandyCoupons(
     private val couponRefsStrings: List<String> = listOf()
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable
     override fun call(): SecureHash {
         val couponRefs = couponRefsStrings.map { parseStateReference(it) }
-        val couponsToThrowAway = subFlow(ListCandyCoupons(ourIdentity, couponRefs = couponRefs))
-        val candyShop = couponsToThrowAway[0].state.data.issuer
+        val couponsToTearUp = subFlow(ListCandyCoupons(ourIdentity, couponRefs = couponRefs))
+        val candyShop = couponsToTearUp[0].state.data.issuer
 
         val transactionBuilder = TransactionBuilder(notary = getPreferredNotary(serviceHub))
-        addTokensToRedeem(transactionBuilder, couponsToThrowAway, null)
+        addTokensToRedeem(transactionBuilder, couponsToTearUp, null)
 
         transactionBuilder.verify(serviceHub)
         val signedTransaction = serviceHub.signInitialTransaction(transactionBuilder)
@@ -43,8 +43,8 @@ class ThrowAwayCandyCoupons(
 }
 
 
-@InitiatedBy(ThrowAwayCandyCoupons::class)
-class ThrowAwayCandyCouponsResponder(
+@InitiatedBy(TearUpCandyCoupons::class)
+class TearUpCandyCouponsResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {
     @Suspendable

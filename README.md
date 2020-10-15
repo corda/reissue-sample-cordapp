@@ -17,6 +17,23 @@ In this CorDapp, we mimic a candy shop distributing coupons which can be:
 * used to buy candies
 `CandyCoupon` is represented by a fungible token and `Candy` is a simple state.
 
+### Flows
+
+The CorDapp defines the following flows:
+* `IssueCandyCoupons`, which creates `CandyCoupon`
+* `ExchangeCandyCoupons`, which exchanges coupons for other coupons with different quantities
+* `GiveCandyCoupons`, which transfers coupon ownership
+* `BuyCandiesUsingCoupons`, which exchanges coupons for candies
+* `TearUpCandyCoupons`, which exits coupons from the ledger
+* `ListCandyCoupons`, which lists available coupons
+* `ListCandies`, which lists available candies
+* `RequestCandyCouponReIssuanceAndShareRequiredTransactions`, which requests cuopon re-issuance and shares transactions 
+proving that states to be re-issued are valid with the candy shop
+* `RejectCandyCouponsReIssuanceRequest`, which rejects coupon re-issuance request
+* `ReIssueCandyCoupons`, which re-issues coupons and generates corresponding re-issuance lock
+* `UnlockReIssuedCandyCoupons`, which unlocks re-issued coupons and deactivates re-issuance lock
+* `DeleteReIssuedCandyCouponsAndCorrespondingLock`, which exits re-issued coupons and lock from the ledger
+
 ## Running the sample
 
 ### Deploy and run the nodes
@@ -356,7 +373,7 @@ otherResults: []
 
 Now it's time to exit the original tokens from the vault:
 <pre>
-<i>Alice's node:</i> flow start ThrowAwayCandyCoupons couponRefsStrings: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(0), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(1)]
+<i>Alice's node:</i> flow start TearUpCandyCoupons couponRefsStrings: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(0), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(1)]
 </pre>
 The flow will return id of the exit transaction:
 <pre>
@@ -438,6 +455,6 @@ In that case, re-issued coupons and corresponding re-issuance lock can be exited
 
 ### BuyCandies flow can't be used to unlock re-issued states
 We said that to unlock re-issued states, transaction which exits the original states is required. If you were thinking 
-about cheating by using `BuyCandies` flow (it exits coupons, right?!) instead of `ThrowAwayCandyCoupons`, 
+about cheating by using `BuyCandies` flow (it exits coupons, right?!) instead of `TearUpCandyCoupons`, 
 you can't do that. There is an additional requirement that the transaction used as a proof of asset exit can't produce
 any outputs.

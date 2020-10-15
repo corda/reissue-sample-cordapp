@@ -44,7 +44,7 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
         val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
         reIssueRequestedStates(candyShopNode, reIssuanceRequest)
 
-        val exitCouponTransactionId = throwAwayCandyCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
+        val exitCouponTransactionId = tearUpCandyCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
         val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
         val reIssuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
         val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]

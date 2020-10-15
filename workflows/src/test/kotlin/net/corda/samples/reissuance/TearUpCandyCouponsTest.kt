@@ -5,33 +5,33 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.Test
 
-class ThrowAwayCandyCouponsTest: AbstractCandyFlowTest() {
+class TearUpCandyCouponsTest: AbstractCandyFlowTest() {
 
     @Test
-    fun `Issue and throw away one coupon`() {
+    fun `Issue and tear up one coupon`() {
         issueCandyCoupons(aliceParty, 5)
         val couponRefsBeforeRedeem = listAvailableCandyCoupons(aliceNode)
-        throwAwayCandyCoupons(aliceNode, couponRefsBeforeRedeem.map { it.ref })
+        tearUpCandyCoupons(aliceNode, couponRefsBeforeRedeem.map { it.ref })
         val couponRefsAfterRedeem = listAvailableCandyCoupons(aliceNode)
         assertThat(couponRefsAfterRedeem, empty())
     }
 
     @Test
-    fun `Issue and throw away many coupons`() {
+    fun `Issue and tear up many coupons`() {
         issueCandyCoupons(aliceParty, 2)
         issueCandyCoupons(aliceParty, 3)
         val couponRefsBeforeRedeem = listAvailableCandyCoupons(aliceNode)
-        throwAwayCandyCoupons(aliceNode, couponRefsBeforeRedeem.map{ it.ref })
+        tearUpCandyCoupons(aliceNode, couponRefsBeforeRedeem.map{ it.ref })
         val couponRefsAfterRedeem = listAvailableCandyCoupons(aliceNode)
         assertThat(couponRefsAfterRedeem, empty())
     }
 
     @Test
-    fun `Issue many and throw away some of the coupons`() {
+    fun `Issue many and tear up some of the coupons`() {
         issueCandyCoupons(aliceParty, 2)
         issueCandyCoupons(aliceParty, 3)
         val couponRefsBeforeRedeem = listAvailableCandyCoupons(aliceNode)
-        throwAwayCandyCoupons(aliceNode, listOf(couponRefsBeforeRedeem[0].ref))
+        tearUpCandyCoupons(aliceNode, listOf(couponRefsBeforeRedeem[0].ref))
         val couponRefsAfterRedeem = listAvailableCandyCoupons(aliceNode)
         assertThat(couponRefsAfterRedeem, hasSize(`is`(1)))
         assertThat(couponRefsAfterRedeem[0].state.data.amount.quantity.toInt(), `is`(3))
