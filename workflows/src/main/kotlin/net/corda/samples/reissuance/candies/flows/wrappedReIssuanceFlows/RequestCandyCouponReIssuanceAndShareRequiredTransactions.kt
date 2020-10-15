@@ -13,7 +13,9 @@ import net.corda.core.identity.AbstractParty
 import net.corda.core.identity.Party
 
 // Note: There is no need to generate a separate flow calling RequestReIssuanceAndShareRequiredTransactions.
-// The flow has been created to make it easier to use node shell.
+// RequestReIssuanceAndShareRequiredTransactions can be used directly to request state re-issuance and share required
+// transactions (proving that states to be re-issued are valid) with the issuer.
+// RequestCandyCouponReIssuanceAndShareRequiredTransactions has been created to make it easier to use node shell.
 
 @StartableByRPC
 class RequestCandyCouponReIssuanceAndShareRequiredTransactions(

@@ -11,7 +11,8 @@ import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
 
 // Note: There is no need to generate a separate flow calling RejectReIssuanceRequest.
-// The flow has been created to make it easier to use node shell.
+// RejectReIssuanceRequest can be used directly to reject any re-issuance request.
+// RejectCandyCouponsReIssuanceRequest has been created to make it easier to use node shell.
 
 @StartableByRPC
 class RejectCandyCouponsReIssuanceRequest(

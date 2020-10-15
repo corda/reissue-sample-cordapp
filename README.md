@@ -4,14 +4,18 @@
 
 # Re-issuance Sample CorDapp 
 This CorDapp is re-issuance demo and demonstrates how to use re-issuance flows.
-It also uses Ledger Graph to check transaction back-chain.
 
 Re-issuance CorDapp: https://github.com/corda/reissue-cordapp
 
-Ledger Graph CorDapp: https://github.com/corda/ledger-graph
+## Overview
 
-## Sample CorDapp functionality
-<!-- TODO: describe coupons and candies context -->
+In this CorDapp, we mimic a candy shop distributing coupons which can be:
+* exchanged for other coupons with different quantities - for example one coupon for 20 candies can be exchanged for 
+2 coupons for 10 candies
+* given to another party
+* re-issued - exchanged for a new copy
+* used to buy candies
+`CandyCoupon` is represented by a fungible token and `Candy` is a simple state.
 
 ## Running the sample
 

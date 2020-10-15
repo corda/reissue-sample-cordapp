@@ -15,7 +15,8 @@ import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
 
 // Note: There is no need to generate a separate flow calling UnlockReIssuedStates.
-// The flow has been created to make it easier to use node shell.
+// UnlockReIssuedStates can be used directly to unlock re-issued states and deactivate re-issuance lock.
+// UnlockReIssuedCandyCoupons has been created to make it easier to use node shell.
 
 @StartableByRPC
 class UnlockReIssuedCandyCoupons(

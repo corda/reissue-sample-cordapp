@@ -15,7 +15,8 @@ import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
 
 // Note: There is no need to generate a separate flow calling DeleteReIssuedStatesAndLock.
-// The flow has been created to make it easier to use node shell.
+// DeleteReIssuedStatesAndLock can be used directly to exit re-issued states and lock from the ledger.
+// DeleteReIssuedCandyCouponsAndCorrespondingLock has been created to make it easier to use node shell.
 
 @StartableByRPC
 class DeleteReIssuedCandyCouponsAndCorrespondingLock(
