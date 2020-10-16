@@ -455,6 +455,6 @@ In that case, re-issued coupons and corresponding re-issuance lock can be exited
 
 ### BuyCandies flow can't be used to unlock re-issued states
 We said that to unlock re-issued states, transaction which exits the original states is required. If you were thinking 
-about cheating by using `BuyCandies` flow (it exits coupons, right?!) instead of `TearUpCandyCoupons`, 
-you can't do that. There is an additional requirement that the transaction used as a proof of asset exit can't produce
-any outputs.
+about cheating by using `BuyCandies` flow (it exits coupons from the ledger and additionally we get candies, right?!) 
+instead of `TearUpCandyCoupons`, you can't do that. There is an additional requirement that the transaction used as 
+a proof of asset exit can't produce any outputs.
