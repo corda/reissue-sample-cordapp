@@ -46,14 +46,6 @@ allprojects { //Properties that you need to compile your project (The applicatio
         maven { url 'https://jitpack.io' }
         maven { url 'http://ci-artifactory.corda.r3cev.com/artifactory/corda-lib-dev' }
         maven { url 'http://ci-artifactory.corda.r3cev.com/artifactory/corda-lib' }
-
-        maven {
-            url "https://software.r3.com/artifactory/r3-corda-dev"
-            credentials {
-                username = cordaArtifactoryUsername
-                password = cordaArtifactoryPassword
-            }
-        }
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
@@ -93,7 +85,7 @@ dependencies {
 
     // CorDapp dependencies.
     cordapp project(":workflows")
-//    cordapp project(":contracts")
+    cordapp project(":contracts")
 
     cordaCompile "org.apache.logging.log4j:log4j-slf4j-impl:${log4j_version}"
     cordaCompile "org.apache.logging.log4j:log4j-web:${log4j_version}"
@@ -108,9 +100,6 @@ dependencies {
 
     cordapp "$reissuance_release_group:reissuance-cordapp-contracts:$reissuance_release_version"
     cordapp "$reissuance_release_group:reissuance-cordapp-workflows:$reissuance_release_version"
-
-    cordapp "com.r3:ledger-graph:1.2-SNAPSHOT"
-    testImplementation "com.r3:ledger-graph:1.2-SNAPSHOT"
 }
 
 //Task to build the jar for ganache.
@@ -144,13 +133,12 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         cordapp "$reissuance_release_group:reissuance-cordapp-contracts:$reissuance_release_version"
         cordapp "$reissuance_release_group:reissuance-cordapp-workflows:$reissuance_release_version"
 
-        cordapp "com.r3:ledger-graph:1.2-SNAPSHOT"
-
         cordapp "$tokens_release_group:tokens-contracts:$tokens_release_version"
         cordapp "$tokens_release_group:tokens-workflows:$tokens_release_version"
 
         cordapp "$confidential_id_release_group:ci-workflows:$confidential_id_release_version"
 
+        cordapp project(':contracts')
         cordapp project(':workflows')
     }
 
@@ -165,7 +153,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         extraConfig = ['custom.jvmArgs': ["-Xmx2G"]]
     }
     node {
-        name "O=Issuer,L=London,C=GB"
+        name "O=CandyShop,L=London,C=GB"
         p2pPort 10005
         rpcSettings {
             address("localhost:10006")

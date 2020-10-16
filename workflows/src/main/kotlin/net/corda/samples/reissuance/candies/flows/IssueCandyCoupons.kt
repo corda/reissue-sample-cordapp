@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.demoAppToken
+package net.corda.samples.reissuance.candies.flows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
@@ -17,24 +17,23 @@ import net.corda.core.transactions.TransactionBuilder
 
 @InitiatingFlow
 @StartableByRPC
-class IssueDemoAppTokens(
-    private val tokenHolderParty: Party,
-    private val tokenAmount: Long
+class IssueCandyCoupons(
+    private val couponHolderParty: Party,
+    private val couponCandies: Int
 ) : FlowLogic<SecureHash>() {
 
     @Suspendable
     override fun call(): SecureHash {
-        val demoAppTokenType = TokenType("DemoAppToken", 0)
-        val issuerParty: Party = ourIdentity
-        val issuedDemoAppTokenType = IssuedTokenType(issuerParty, demoAppTokenType)
-        val demoAppTokenAmount = amount(tokenAmount, issuedDemoAppTokenType)
-        val demoAppToken = FungibleToken(demoAppTokenAmount, tokenHolderParty)
+        val candyCouponTokenType = TokenType("CandyCoupon", 0)
+        val candyShopParty: Party = ourIdentity
+        val issuedCandyCouponTokenType = IssuedTokenType(candyShopParty, candyCouponTokenType)
+        val candyCouponToken = FungibleToken(amount(couponCandies, issuedCandyCouponTokenType), couponHolderParty)
 
         val transactionBuilder = TransactionBuilder(notary = getPreferredNotary(serviceHub))
-        addIssueTokens(transactionBuilder, demoAppToken)
-        addTokenTypeJar(demoAppToken, transactionBuilder)
+        addIssueTokens(transactionBuilder, candyCouponToken)
+        addTokenTypeJar(candyCouponToken, transactionBuilder)
 
-        val holderSession = initiateFlow(tokenHolderParty)
+        val holderSession = initiateFlow(couponHolderParty)
         return subFlow(
             ObserverAwareFinalityFlow(
                 transactionBuilder = transactionBuilder,
@@ -44,8 +43,8 @@ class IssueDemoAppTokens(
     }
 }
 
-@InitiatedBy(IssueDemoAppTokens::class)
-class IssueDemoAppTokensResponder(
+@InitiatedBy(IssueCandyCoupons::class)
+class IssueCandyCouponsResponder(
     private val otherSession: FlowSession
 ) : FlowLogic<Unit>() {
     @Suspendable
