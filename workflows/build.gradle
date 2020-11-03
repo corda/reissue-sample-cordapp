@@ -36,6 +36,8 @@ dependencies {
     testCompile "$corda_release_group:corda-node-driver:$corda_release_version"
 
     // CorDapp dependencies.
+    cordapp project(":contracts")
+
     cordaCompile "$confidential_id_release_group:ci-workflows:$confidential_id_release_version"
 
     cordaCompile "$accounts_release_group:accounts-contracts:$accounts_release_version"
@@ -46,12 +48,9 @@ dependencies {
 
     cordaCompile "$reissuance_release_group:reissuance-cordapp-contracts:$reissuance_release_version"
     cordaCompile "$reissuance_release_group:reissuance-cordapp-workflows:$reissuance_release_version"
-
-    implementation "com.r3:ledger-graph:1.2-SNAPSHOT"
-    testImplementation "com.r3:ledger-graph:1.2-SNAPSHOT"
 }
 
 test {
     minHeapSize = "512m"
-    maxHeapSize = "2048m"
+    maxHeapSize = "4096m"
 }
