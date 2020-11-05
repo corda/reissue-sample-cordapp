@@ -34,15 +34,18 @@ abstract class AbstractCandyFlowTest {
     lateinit var candyShopNode: TestStartedNode
     lateinit var aliceNode: TestStartedNode
     lateinit var bobNode: TestStartedNode
+    lateinit var charlieNode: TestStartedNode
 
     lateinit var notaryParty: Party
     lateinit var candyShopParty: Party
     lateinit var aliceParty: Party
     lateinit var bobParty: Party
+    lateinit var charlieParty: Party
 
     lateinit var candyShopLegalName: CordaX500Name
     lateinit var aliceLegalName: CordaX500Name
     lateinit var bobLegalName: CordaX500Name
+    lateinit var charlieLegalName: CordaX500Name
 
     val candyCouponTokenType = TokenType("CandyCoupon", 0)
     lateinit var issuedCandyCouponTokenType: IssuedTokenType
@@ -83,6 +86,10 @@ abstract class AbstractCandyFlowTest {
         bobLegalName = CordaX500Name(organisation = "BOB", locality = "London", country = "GB")
         bobNode = mockNet.createNode(InternalMockNodeParameters(legalName = bobLegalName))
         bobParty = bobNode.info.singleIdentity()
+
+        charlieLegalName = CordaX500Name(organisation = "CHARLIE", locality = "London", country = "GB")
+        charlieNode = mockNet.createNode(InternalMockNodeParameters(legalName = charlieLegalName))
+        charlieParty = charlieNode.info.singleIdentity()
 
         issuedCandyCouponTokenType = IssuedTokenType(candyShopParty, candyCouponTokenType)
     }
@@ -167,8 +174,8 @@ abstract class AbstractCandyFlowTest {
         node: TestStartedNode,
         statesToReissue: List<StateAndRef<FungibleToken>>,
         bank: AbstractParty
-    ) {
-        runFlow(
+    ): SecureHash {
+        return runFlow(
             node,
             RequestCandyCouponReissuanceAndShareRequiredTransactions(bank, statesToReissue.map { it.ref.toString() })
         )
@@ -177,8 +184,8 @@ abstract class AbstractCandyFlowTest {
     fun reissueRequestedStates(
         node: TestStartedNode,
         reissuanceRequest: StateAndRef<ReissuanceRequest>
-    ) {
-        runFlow(
+    ): SecureHash {
+        return runFlow(
             node,
             ReissueCandyCoupons(reissuanceRequest.ref.toString())
         )
@@ -209,8 +216,8 @@ abstract class AbstractCandyFlowTest {
         attachmentSecureHashes: List<SecureHash>,
         reissuedStateAndRefs: List<StateAndRef<FungibleToken>>,
         lockStateAndRef: StateAndRef<ReissuanceLock<FungibleToken>>
-    ) {
-        runFlow(
+    ): SecureHash {
+        return runFlow(
             node,
             UnlockReissuedCandyCoupons(reissuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
                 attachmentSecureHashes)
@@ -235,6 +242,16 @@ abstract class AbstractCandyFlowTest {
         return runFlow(
             node,
             GetTransactionBackChain(txId)
+        )
+    }
+
+    fun reconstructTransactionBackChain(
+        node: TestStartedNode,
+        txId: SecureHash
+    ): Set<SecureHash> {
+        return runFlow(
+            node,
+            ReconstructTransactionBackChain(txId)
         )
     }
 
