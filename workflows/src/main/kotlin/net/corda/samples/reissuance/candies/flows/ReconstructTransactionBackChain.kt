@@ -30,19 +30,26 @@ class ReconstructTransactionBackChain(
         val endTransaction = endTransactionsToVisit.elementAt(0)
         endTransactionsToVisit.remove(endTransaction)
 
-        val transactionBackChain = subFlow(GetTransactionBackChain(endTransaction))
-        backChain.addAll(transactionBackChain)
+        try {
+            val transactionBackChain = subFlow(GetTransactionBackChain(endTransaction))
+            backChain.addAll(transactionBackChain)
 
-        // if transaction doesn't have any inputs and has an output of type ReissuanceRequest, the request contains
-        // references of original states which can be used to reconstruct transaction back-chain
-        val issuanceTransactionsSecureHashes = findIssuanceTransactions(transactionBackChain)
-        issuanceTransactionsSecureHashes.forEach {
-            val issuanceSignedTransaction = serviceHub.validatedTransactions.getTransaction(it)!!
-            val issuanceLedgerTransaction = issuanceSignedTransaction.toLedgerTransaction(serviceHub)
-            val reissuanceRequest = issuanceLedgerTransaction.outputs.find { it.data is ReissuanceRequest }
-            if(reissuanceRequest != null)
-                endTransactionsToVisit.addAll((reissuanceRequest.data as ReissuanceRequest).stateRefsToReissue
-                    .map { it.txhash })
+            // if transaction doesn't have any inputs and has an output of type ReissuanceRequest, the request contains
+            // references of original states which can be used to reconstruct transaction back-chain
+            val issuanceTransactionsSecureHashes = findIssuanceTransactions(transactionBackChain)
+            issuanceTransactionsSecureHashes.forEach {
+                val issuanceSignedTransaction = serviceHub.validatedTransactions.getTransaction(it)!!
+                val issuanceLedgerTransaction = issuanceSignedTransaction.toLedgerTransaction(serviceHub)
+                val reissuanceRequest = issuanceLedgerTransaction.outputs.find { it.data is ReissuanceRequest }
+                if(reissuanceRequest != null)
+                    endTransactionsToVisit.addAll((reissuanceRequest.data as ReissuanceRequest).stateRefsToReissue
+                        .map { it.txhash })
+            }
+        }
+        // BackChainException is throw when the transaction is not available in the vault - the party doesn't have
+        // access the the state before reissuance
+        catch (e: GetTransactionBackChain.BackChainException) {
+            println("Back-chain of transaction $endTransaction is not available")
         }
 
         reconstructTransactionBackChain(endTransactionsToVisit, backChain)
