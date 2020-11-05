@@ -128,6 +128,10 @@ Back-chain should contain 3 transaction ids now (issuance, exchange and giveness
 <pre>
 Flow completed with result: [02C643FC8608FA86B107208B6DD0B06F983DBEE588BC496AA7A9D9FC5764293D, 02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648, 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC]
 </pre>
+Note that as the flow returns a set, the order of transactions might be different. If you are wondering why it returns
+a set, instead of a list, here is your answer: for fungible states, it's impossible to reconstruct the correct order of
+transactions. The closest we can get, is a directed graph. As for the purpose of validation of backchain being pruned
+order is not really crucial, we are returning a set.
 
 Then, transfer coupons between Alice and Bob, or exchange coupons for different quantity coupons a few times to make 
 transaction back-chain longer (you will have to list coupons to get their references). Remember you can transfer many 
@@ -437,6 +441,20 @@ As the coupons aren't encumbered anymore, the transaction should be successful:
 <pre>
 Flow completed with result: 0488618A3D36B2391F372C8EB38215FF5FDAD02FB0D5FCDF3AF867F6270CE65B
 </pre>
+
+#### Back-chain reconstruction
+Not every party is able to reconstruct the back-chain. To do that, transactions before reissuance are required, and they
+are not passed with the reissued transaction to other parties. However, a party which participated in transactions 
+before and after reissuance, is able to reconstruct back-chain.
+
+To get a reconstructed set of back-chain transactions, run the following:
+<pre>
+<i>Alice's node:</i> flow start ReconstructTransactionBackChain transactionId: 313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6
+</pre>
+
+The flow should return a set of both transactions before and after reissuance. The reason why the 
+`ReconstructTransactionBackChain` returns a set, not a list, is the same as for `GetTransactionBackChain` - it's 
+impossible for fungible states (it's possible for linear states though).
 
 #### Rejected re-issuance request
 As mentioned before, CandyShop doesn't have to accept re-issuance request. To reject it, they should run:
