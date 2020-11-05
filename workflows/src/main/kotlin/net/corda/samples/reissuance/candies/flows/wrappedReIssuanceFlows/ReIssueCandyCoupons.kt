@@ -1,8 +1,8 @@
 package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.r3.corda.lib.reissuance.flows.ReIssueStates
-import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
+import com.r3.corda.lib.reissuance.flows.ReissueStates
+import com.r3.corda.lib.reissuance.states.ReissuanceRequest
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.FlowLogic
@@ -22,10 +22,10 @@ class ReIssueCandyCoupons(
     @Suspendable
     override fun call(): SecureHash {
         val rejectReIssuanceRequestRef = parseStateReference(reIssuanceRequestRefString)
-        val rejectReIssuanceRequestStateAndRef = serviceHub.vaultService.queryBy<ReIssuanceRequest>(
+        val rejectReIssuanceRequestStateAndRef = serviceHub.vaultService.queryBy<ReissuanceRequest>(
             criteria= QueryCriteria.VaultQueryCriteria(stateRefs = listOf(rejectReIssuanceRequestRef))
         ).states[0]
-        return subFlow(ReIssueStates<FungibleToken>(
+        return subFlow(ReissueStates<FungibleToken>(
             rejectReIssuanceRequestStateAndRef,
             issuerIsRequiredExitCommandSigner = true
         ))

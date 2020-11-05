@@ -1,8 +1,8 @@
 package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.r3.corda.lib.reissuance.flows.RejectReIssuanceRequest
-import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
+import com.r3.corda.lib.reissuance.flows.RejectReissuanceRequest
+import com.r3.corda.lib.reissuance.states.ReissuanceRequest
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.FlowLogic
@@ -10,23 +10,23 @@ import net.corda.core.flows.StartableByRPC
 import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
 
-// Note: There is no need to generate a separate flow calling RejectReIssuanceRequest.
-// RejectReIssuanceRequest can be used directly to reject any re-issuance request.
-// RejectCandyCouponsReIssuanceRequest has been created to make it easier to use node shell.
+// Note: There is no need to generate a separate flow calling RejectReissuanceRequest.
+// RejectReissuanceRequest can be used directly to reject any re-issuance request.
+// RejectCandyCouponsReissuanceRequest has been created to make it easier to use node shell.
 
 @StartableByRPC
-class RejectCandyCouponsReIssuanceRequest(
-    private val reIssuanceRequestRefString: String
+class RejectCandyCouponsReissuanceRequest(
+    private val ReissuanceRequestRefString: String
 ): FlowLogic<SecureHash>() {
 
     @Suspendable
     override fun call(): SecureHash {
-        val reIssuanceRequestRef = parseStateReference(reIssuanceRequestRefString)
-        val reIssuanceRequestStateAndRef = serviceHub.vaultService.queryBy<ReIssuanceRequest>(
-            criteria= QueryCriteria.VaultQueryCriteria(stateRefs = listOf(reIssuanceRequestRef))
+        val ReissuanceRequestRef = parseStateReference(ReissuanceRequestRefString)
+        val ReissuanceRequestStateAndRef = serviceHub.vaultService.queryBy<ReissuanceRequest>(
+            criteria= QueryCriteria.VaultQueryCriteria(stateRefs = listOf(ReissuanceRequestRef))
         ).states[0]
-        return subFlow(RejectReIssuanceRequest<FungibleToken>(
-            reIssuanceRequestStateAndRef
+        return subFlow(RejectReissuanceRequest<FungibleToken>(
+            ReissuanceRequestStateAndRef
         ))
     }
 

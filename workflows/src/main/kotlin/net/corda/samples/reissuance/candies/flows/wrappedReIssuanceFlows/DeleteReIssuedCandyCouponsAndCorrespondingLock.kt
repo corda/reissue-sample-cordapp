@@ -1,8 +1,8 @@
 package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.r3.corda.lib.reissuance.flows.DeleteReIssuedStatesAndLock
-import com.r3.corda.lib.reissuance.states.ReIssuanceLock
+import com.r3.corda.lib.reissuance.flows.DeleteReissuedStatesAndLock
+import com.r3.corda.lib.reissuance.states.ReissuanceLock
 import com.r3.corda.lib.tokens.contracts.commands.RedeemTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
@@ -27,7 +27,7 @@ class DeleteReIssuedCandyCouponsAndCorrespondingLock(
     @Suspendable
     override fun call(): SecureHash {
         val reIssuanceLockRef = parseStateReference(reIssuanceLockRefString)
-        val reIssuanceLockStateAndRef = serviceHub.vaultService.queryBy<ReIssuanceLock<FungibleToken>>(
+        val reIssuanceLockStateAndRef = serviceHub.vaultService.queryBy<ReissuanceLock<FungibleToken>>(
             criteria= QueryCriteria.VaultQueryCriteria(stateRefs = listOf(reIssuanceLockRef))
         ).states[0]
 
@@ -42,7 +42,7 @@ class DeleteReIssuedCandyCouponsAndCorrespondingLock(
 
         val reIssuedStates = reIssuanceLockStateAndRef.state.data.originalStates
 
-        return subFlow(DeleteReIssuedStatesAndLock(
+        return subFlow(DeleteReissuedStatesAndLock(
             reIssuanceLockStateAndRef,
             reIssuedStatesStateAndRefs,
             RedeemTokenCommand(issuedTokenType, reIssuedStates.indices.toList(), listOf())

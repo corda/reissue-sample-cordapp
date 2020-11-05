@@ -1,11 +1,10 @@
 package net.corda.samples.reissuance
 
-import com.r3.corda.lib.reissuance.states.ReIssuanceLock
-import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
+import com.r3.corda.lib.reissuance.states.ReissuanceLock
+import com.r3.corda.lib.reissuance.states.ReissuanceRequest
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import net.corda.core.contracts.TransactionVerificationException
 import net.corda.core.node.services.queryBy
-import net.corda.samples.reissuance.candies.flows.BuyCandiesUsingCoupons
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.Test
@@ -43,13 +42,13 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
+        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
         reIssueRequestedStates(candyShopNode, reIssuanceRequest)
 
         val exitCouponTransactionId = tearUpCandyCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
         val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
         val reIssuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
-        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
+        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
 
         unlockReIssuedState(
             aliceNode,
@@ -106,13 +105,13 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
+        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
         reIssueRequestedStates(candyShopNode, reIssuanceRequest)
 
         val exitCouponTransactionId = buyCandiesUsingCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
         val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
         val reIssuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
-        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
+        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
 
         unlockReIssuedState(
             aliceNode,
@@ -153,7 +152,7 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
+        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
         rejectReIssuanceRequested(candyShopNode, reIssuanceRequest)
 
         val aliceCouponsAfterReIssuanceRejection = listAvailableCandyCoupons(aliceNode, encumbered = false)
@@ -191,14 +190,14 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
+        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
         reIssueRequestedStates(candyShopNode, reIssuanceRequest)
 
         exchangeCandyCoupons(aliceNode, listOf(aliceCandyCoupons[0].ref), listOf(2, 2))
         val unencumberedaliceCouponsAfterMove = listAvailableCandyCoupons(aliceNode, encumbered = false)
 
         val reIssuedStates = listAvailableCandyCoupons(aliceNode, encumbered = true)
-        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
+        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
         deleteReIssuedStatesAndLock(
             aliceNode,
             reIssuanceLock,

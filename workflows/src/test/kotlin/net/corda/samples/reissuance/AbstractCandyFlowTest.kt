@@ -4,8 +4,8 @@ import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
 import com.r3.corda.lib.reissuance.flows.*
-import com.r3.corda.lib.reissuance.states.ReIssuanceLock
-import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
+import com.r3.corda.lib.reissuance.states.ReissuanceLock
+import com.r3.corda.lib.reissuance.states.ReissuanceRequest
 import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.StateRef
 import net.corda.core.crypto.SecureHash
@@ -176,7 +176,7 @@ abstract class AbstractCandyFlowTest {
 
     fun reIssueRequestedStates(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReIssuanceRequest>
+        reIssuanceRequest: StateAndRef<ReissuanceRequest>
     ) {
         runFlow(
             node,
@@ -186,11 +186,11 @@ abstract class AbstractCandyFlowTest {
 
     fun rejectReIssuanceRequested(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReIssuanceRequest>
+        reIssuanceRequest: StateAndRef<ReissuanceRequest>
     ) {
         runFlow(
             node,
-            RejectCandyCouponsReIssuanceRequest(reIssuanceRequest.ref.toString())
+            RejectCandyCouponsReissuanceRequest(reIssuanceRequest.ref.toString())
         )
     }
 
@@ -208,7 +208,7 @@ abstract class AbstractCandyFlowTest {
         node: TestStartedNode,
         attachmentSecureHashes: List<SecureHash>,
         reIssuedStateAndRefs: List<StateAndRef<FungibleToken>>,
-        lockStateAndRef: StateAndRef<ReIssuanceLock<FungibleToken>>
+        lockStateAndRef: StateAndRef<ReissuanceLock<FungibleToken>>
     ) {
         runFlow(
             node,
@@ -219,7 +219,7 @@ abstract class AbstractCandyFlowTest {
 
     fun deleteReIssuedStatesAndLock(
         node: TestStartedNode,
-        reIssuanceLock: StateAndRef<ReIssuanceLock<FungibleToken>>,
+        reIssuanceLock: StateAndRef<ReissuanceLock<FungibleToken>>,
         reIssuedStates: List<StateAndRef<FungibleToken>>
         ) {
         runFlow(

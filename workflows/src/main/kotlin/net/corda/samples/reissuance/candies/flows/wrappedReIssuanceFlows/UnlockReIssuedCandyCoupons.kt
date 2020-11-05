@@ -1,8 +1,8 @@
 package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.r3.corda.lib.reissuance.flows.UnlockReIssuedStates
-import com.r3.corda.lib.reissuance.states.ReIssuanceLock
+import com.r3.corda.lib.reissuance.flows.UnlockReissuedStates
+import com.r3.corda.lib.reissuance.states.ReissuanceLock
 import com.r3.corda.lib.tokens.contracts.commands.MoveTokenCommand
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
@@ -14,8 +14,8 @@ import net.corda.core.identity.Party
 import net.corda.core.node.services.queryBy
 import net.corda.core.node.services.vault.QueryCriteria
 
-// Note: There is no need to generate a separate flow calling UnlockReIssuedStates.
-// UnlockReIssuedStates can be used directly to unlock re-issued states and deactivate re-issuance lock.
+// Note: There is no need to generate a separate flow calling UnlockReissuedStates.
+// UnlockReissuedStates can be used directly to unlock re-issued states and deactivate re-issuance lock.
 // UnlockReIssuedCandyCoupons has been created to make it easier to use node shell.
 
 @StartableByRPC
@@ -28,7 +28,7 @@ class UnlockReIssuedCandyCoupons(
     @Suspendable
     override fun call(): SecureHash {
         val reIssuanceLockRef = parseStateReference(reIssuanceLockRefString)
-        val reIssuanceLockStateAndRef = serviceHub.vaultService.queryBy<ReIssuanceLock<FungibleToken>>(
+        val reIssuanceLockStateAndRef = serviceHub.vaultService.queryBy<ReissuanceLock<FungibleToken>>(
             criteria= QueryCriteria.VaultQueryCriteria(stateRefs = listOf(reIssuanceLockRef))
         ).states[0]
 
@@ -44,7 +44,7 @@ class UnlockReIssuedCandyCoupons(
         val stateRefsToReIssue = reIssuanceLockStateAndRef.state.data.originalStates
         val tokenIndices = stateRefsToReIssue.indices.toList()
 
-        return subFlow(UnlockReIssuedStates(
+        return subFlow(UnlockReissuedStates(
             reIssuedStatesStateAndRefs,
             reIssuanceLockStateAndRef,
             deletedStateTransactionHashes,
