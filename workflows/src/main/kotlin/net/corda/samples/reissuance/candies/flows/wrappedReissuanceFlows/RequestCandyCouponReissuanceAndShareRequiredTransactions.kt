@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
+package net.corda.samples.reissuance.candies.flows.wrappedReissuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.reissuance.flows.RequestReissuanceAndShareRequiredTransactions
@@ -15,12 +15,12 @@ import net.corda.core.identity.Party
 // Note: There is no need to generate a separate flow calling RequestReissuanceAndShareRequiredTransactions.
 // RequestReissuanceAndShareRequiredTransactions can be used directly to request state re-issuance and share required
 // transactions (proving that states to be re-issued are valid) with the issuer.
-// RequestCandyCouponReIssuanceAndShareRequiredTransactions has been created to make it easier to use node shell.
+// RequestCandyCouponReissuanceAndShareRequiredTransactions has been created to make it easier to use node shell.
 
 @StartableByRPC
-class RequestCandyCouponReIssuanceAndShareRequiredTransactions(
+class RequestCandyCouponReissuanceAndShareRequiredTransactions(
     private val issuer: AbstractParty,
-    private val stateRefStringsToReIssue: List<String>
+    private val stateRefStringsToReissue: List<String>
 ): FlowLogic<SecureHash>() {
 
     @Suspendable
@@ -30,8 +30,8 @@ class RequestCandyCouponReIssuanceAndShareRequiredTransactions(
 
         return subFlow(RequestReissuanceAndShareRequiredTransactions<FungibleToken>(
             issuer,
-            stateRefStringsToReIssue.map { parseStateReference(it) },
-            IssueTokenCommand(issuedTokenType, stateRefStringsToReIssue.indices.toList())
+            stateRefStringsToReissue.map { parseStateReference(it) },
+            IssueTokenCommand(issuedTokenType, stateRefStringsToReissue.indices.toList())
         ))
     }
 

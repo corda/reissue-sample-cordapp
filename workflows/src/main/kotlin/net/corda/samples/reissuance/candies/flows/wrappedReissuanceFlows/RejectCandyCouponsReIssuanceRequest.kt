@@ -1,4 +1,4 @@
-package net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows
+package net.corda.samples.reissuance.candies.flows.wrappedReissuanceFlows
 
 import co.paralleluniverse.fibers.Suspendable
 import com.r3.corda.lib.reissuance.flows.RejectReissuanceRequest

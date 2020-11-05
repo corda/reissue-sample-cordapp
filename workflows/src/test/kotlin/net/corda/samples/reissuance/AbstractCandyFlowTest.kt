@@ -15,7 +15,7 @@ import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
 import net.corda.core.utilities.getOrThrow
 import net.corda.samples.reissuance.candies.flows.*
-import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.*
+import net.corda.samples.reissuance.candies.flows.wrappedReissuanceFlows.*
 import net.corda.samples.reissuance.candies.states.Candy
 import net.corda.testing.common.internal.testNetworkParameters
 import net.corda.testing.core.DUMMY_NOTARY_NAME
@@ -163,34 +163,34 @@ abstract class AbstractCandyFlowTest {
         )
     }
 
-    fun createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
+    fun createCandyCouponReissuanceRequestAndShareRequiredTransactions(
         node: TestStartedNode,
-        statesToReIssue: List<StateAndRef<FungibleToken>>,
+        statesToReissue: List<StateAndRef<FungibleToken>>,
         bank: AbstractParty
     ) {
         runFlow(
             node,
-            RequestCandyCouponReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref.toString() })
+            RequestCandyCouponReissuanceAndShareRequiredTransactions(bank, statesToReissue.map { it.ref.toString() })
         )
     }
 
-    fun reIssueRequestedStates(
+    fun reissueRequestedStates(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReissuanceRequest>
+        reissuanceRequest: StateAndRef<ReissuanceRequest>
     ) {
         runFlow(
             node,
-            ReIssueCandyCoupons(reIssuanceRequest.ref.toString())
+            ReissueCandyCoupons(reissuanceRequest.ref.toString())
         )
     }
 
-    fun rejectReIssuanceRequested(
+    fun rejectReissuanceRequested(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReissuanceRequest>
+        reissuanceRequest: StateAndRef<ReissuanceRequest>
     ) {
         runFlow(
             node,
-            RejectCandyCouponsReissuanceRequest(reIssuanceRequest.ref.toString())
+            RejectCandyCouponsReissuanceRequest(reissuanceRequest.ref.toString())
         )
     }
 
@@ -204,27 +204,27 @@ abstract class AbstractCandyFlowTest {
         )
     }
 
-    fun unlockReIssuedState(
+    fun unlockReissuedState(
         node: TestStartedNode,
         attachmentSecureHashes: List<SecureHash>,
-        reIssuedStateAndRefs: List<StateAndRef<FungibleToken>>,
+        reissuedStateAndRefs: List<StateAndRef<FungibleToken>>,
         lockStateAndRef: StateAndRef<ReissuanceLock<FungibleToken>>
     ) {
         runFlow(
             node,
-            UnlockReIssuedCandyCoupons(reIssuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
+            UnlockReissuedCandyCoupons(reissuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
                 attachmentSecureHashes)
         )
     }
 
-    fun deleteReIssuedStatesAndLock(
+    fun deleteReissuedStatesAndLock(
         node: TestStartedNode,
-        reIssuanceLock: StateAndRef<ReissuanceLock<FungibleToken>>,
-        reIssuedStates: List<StateAndRef<FungibleToken>>
+        reissuanceLock: StateAndRef<ReissuanceLock<FungibleToken>>,
+        reissuedStates: List<StateAndRef<FungibleToken>>
         ) {
         runFlow(
             node,
-            DeleteReIssuedCandyCouponsAndCorrespondingLock(reIssuedStates.map { it.ref.toString() }, reIssuanceLock.ref.toString())
+            DeleteReissuedCandyCouponsAndCorrespondingLock(reissuedStates.map { it.ref.toString() }, reissuanceLock.ref.toString())
         )
     }
 
