@@ -9,7 +9,7 @@ import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.*
 import net.corda.core.node.StatesToRecord
 import net.corda.core.transactions.TransactionBuilder
-import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.parseStateReference
+import net.corda.samples.reissuance.candies.flows.wrappedReissuanceFlows.parseStateReference
 
 @InitiatingFlow
 @StartableByRPC

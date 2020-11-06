@@ -1,16 +1,15 @@
 package net.corda.samples.reissuance
 
-import com.r3.corda.lib.reissuance.states.ReIssuanceLock
-import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
+import com.r3.corda.lib.reissuance.states.ReissuanceLock
+import com.r3.corda.lib.reissuance.states.ReissuanceRequest
 import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import net.corda.core.contracts.TransactionVerificationException
 import net.corda.core.node.services.queryBy
-import net.corda.samples.reissuance.candies.flows.BuyCandiesUsingCoupons
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.Test
 
-class CouponsReIssuanceTest: AbstractCandyFlowTest() {
+class CouponsReissuanceTest: AbstractCandyFlowTest() {
 
     @Test
     fun `Coupons are re-issued and back-chain is pruned`() {
@@ -27,52 +26,52 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
         val aliceCandyCoupons = listAvailableCandyCoupons(aliceNode, encumbered = false)
 
         // Alice should own exactly 2 coupons
-        val firstCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val firstCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[0].ref.txhash)
-        val secondCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val secondCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[1].ref.txhash)
 
-        assertThat(firstCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(4)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(8)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasItems(
-            *firstCouponBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
+        assertThat(firstCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(4)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(8)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasItems(
+            *firstCouponBeforeReissuanceBackChainTransactionIds.toTypedArray()))
 
-        createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
+        createCandyCouponReissuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceCandyCoupons,
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
-        reIssueRequestedStates(candyShopNode, reIssuanceRequest)
+        val reissuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
+        reissueRequestedStates(candyShopNode, reissuanceRequest)
 
         val exitCouponTransactionId = tearUpCandyCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
         val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
-        val reIssuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
-        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
+        val reissuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
+        val reissuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
 
-        unlockReIssuedState(
+        unlockReissuedState(
             aliceNode,
             listOf(attachmentSecureHash),
-            reIssuedStateAndRefs,
-            reIssuanceLock
+            reissuedStateAndRefs,
+            reissuanceLock
         )
 
-        val aliceReIssuedCoupons = listAvailableCandyCoupons(aliceNode, encumbered = false)
-        assertThat(aliceReIssuedCoupons.map { it.state.data }, `is`(aliceCandyCoupons.map { it.state.data }))
+        val aliceReissuedCoupons = listAvailableCandyCoupons(aliceNode, encumbered = false)
+        assertThat(aliceReissuedCoupons.map { it.state.data }, `is`(aliceCandyCoupons.map { it.state.data }))
 
-        val firstCouponAfterReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-            aliceReIssuedCoupons[0].ref.txhash)
-        val secondCouponAfterReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
-            aliceReIssuedCoupons[1].ref.txhash)
+        val firstCouponAfterReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceReissuedCoupons[0].ref.txhash)
+        val secondCouponAfterReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+            aliceReissuedCoupons[1].ref.txhash)
 
-        assertThat(firstCouponAfterReIssuanceBackChainTransactionIds, hasSize(`is`(3)))
-        assertThat(firstCouponAfterReIssuanceBackChainTransactionIds, `is`(
-            secondCouponAfterReIssuanceBackChainTransactionIds))
-        assertThat(firstCouponAfterReIssuanceBackChainTransactionIds,
-            everyItem(not(`is`(`in`(firstCouponBeforeReIssuanceBackChainTransactionIds)))))
-        assertThat(secondCouponAfterReIssuanceBackChainTransactionIds,
-            everyItem(not(`is`(`in`(secondCouponBeforeReIssuanceBackChainTransactionIds)))))
+        assertThat(firstCouponAfterReissuanceBackChainTransactionIds, hasSize(`is`(3)))
+        assertThat(firstCouponAfterReissuanceBackChainTransactionIds, `is`(
+            secondCouponAfterReissuanceBackChainTransactionIds))
+        assertThat(firstCouponAfterReissuanceBackChainTransactionIds,
+            everyItem(not(`is`(`in`(firstCouponBeforeReissuanceBackChainTransactionIds)))))
+        assertThat(secondCouponAfterReissuanceBackChainTransactionIds,
+            everyItem(not(`is`(`in`(secondCouponBeforeReissuanceBackChainTransactionIds)))))
     }
 
     @Test(expected = TransactionVerificationException::class)
@@ -90,35 +89,35 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
         val aliceCandyCoupons = listAvailableCandyCoupons(aliceNode, encumbered = false)
 
         // Alice should own exactly 2 coupons
-        val firstCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val firstCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[0].ref.txhash)
-        val secondCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val secondCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[1].ref.txhash)
 
-        assertThat(firstCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(4)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(8)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasItems(
-            *firstCouponBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
+        assertThat(firstCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(4)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(8)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasItems(
+            *firstCouponBeforeReissuanceBackChainTransactionIds.toTypedArray()))
 
-        createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
+        createCandyCouponReissuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceCandyCoupons,
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
-        reIssueRequestedStates(candyShopNode, reIssuanceRequest)
+        val reissuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
+        reissueRequestedStates(candyShopNode, reissuanceRequest)
 
         val exitCouponTransactionId = buyCandiesUsingCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
         val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
-        val reIssuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
-        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
+        val reissuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
+        val reissuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
 
-        unlockReIssuedState(
+        unlockReissuedState(
             aliceNode,
             listOf(attachmentSecureHash),
-            reIssuedStateAndRefs,
-            reIssuanceLock
+            reissuedStateAndRefs,
+            reissuanceLock
         )
     }
 
@@ -137,27 +136,27 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
         val aliceCandyCoupons = listAvailableCandyCoupons(aliceNode, encumbered = false)
 
         // Alice should own exactly 2 coupons
-        val firstCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val firstCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[0].ref.txhash)
-        val secondCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val secondCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[1].ref.txhash)
 
-        assertThat(firstCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(4)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(8)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasItems(
-            *firstCouponBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
+        assertThat(firstCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(4)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(8)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasItems(
+            *firstCouponBeforeReissuanceBackChainTransactionIds.toTypedArray()))
 
-        createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
+        createCandyCouponReissuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceCandyCoupons,
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
-        rejectReIssuanceRequested(candyShopNode, reIssuanceRequest)
+        val reissuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
+        rejectReissuanceRequested(candyShopNode, reissuanceRequest)
 
-        val aliceCouponsAfterReIssuanceRejection = listAvailableCandyCoupons(aliceNode, encumbered = false)
-        assertThat(aliceCouponsAfterReIssuanceRejection, `is`(aliceCandyCoupons))
+        val aliceCouponsAfterReissuanceRejection = listAvailableCandyCoupons(aliceNode, encumbered = false)
+        assertThat(aliceCouponsAfterReissuanceRejection, `is`(aliceCandyCoupons))
     }
 
     @Test
@@ -175,34 +174,34 @@ class CouponsReIssuanceTest: AbstractCandyFlowTest() {
         val aliceCandyCoupons = listAvailableCandyCoupons(aliceNode, encumbered = false)
 
         // Alice should own exactly 2 coupons
-        val firstCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val firstCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[0].ref.txhash)
-        val secondCouponBeforeReIssuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
+        val secondCouponBeforeReissuanceBackChainTransactionIds = getTransactionBackChain(aliceNode,
             aliceCandyCoupons[1].ref.txhash)
 
-        assertThat(firstCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(4)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasSize(`is`(8)))
-        assertThat(secondCouponBeforeReIssuanceBackChainTransactionIds, hasItems(
-            *firstCouponBeforeReIssuanceBackChainTransactionIds.toTypedArray()))
+        assertThat(firstCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(4)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasSize(`is`(8)))
+        assertThat(secondCouponBeforeReissuanceBackChainTransactionIds, hasItems(
+            *firstCouponBeforeReissuanceBackChainTransactionIds.toTypedArray()))
 
-        createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
+        createCandyCouponReissuanceRequestAndShareRequiredTransactions(
             aliceNode,
             aliceCandyCoupons,
             candyShopParty
         )
 
-        val reIssuanceRequest = candyShopNode.services.vaultService.queryBy<ReIssuanceRequest>().states[0]
-        reIssueRequestedStates(candyShopNode, reIssuanceRequest)
+        val reissuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
+        reissueRequestedStates(candyShopNode, reissuanceRequest)
 
         exchangeCandyCoupons(aliceNode, listOf(aliceCandyCoupons[0].ref), listOf(2, 2))
         val unencumberedaliceCouponsAfterMove = listAvailableCandyCoupons(aliceNode, encumbered = false)
 
-        val reIssuedStates = listAvailableCandyCoupons(aliceNode, encumbered = true)
-        val reIssuanceLock = aliceNode.services.vaultService.queryBy<ReIssuanceLock<FungibleToken>>().states[0]
-        deleteReIssuedStatesAndLock(
+        val reissuedStates = listAvailableCandyCoupons(aliceNode, encumbered = true)
+        val reissuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
+        deleteReissuedStatesAndLock(
             aliceNode,
-            reIssuanceLock,
-            reIssuedStates
+            reissuanceLock,
+            reissuedStates
         )
 
         val aliceCouponsAfterDeletion = listAvailableCandyCoupons(aliceNode, encumbered = null)

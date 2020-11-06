@@ -4,8 +4,8 @@ import com.r3.corda.lib.tokens.contracts.states.FungibleToken
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType
 import com.r3.corda.lib.tokens.contracts.types.TokenType
 import com.r3.corda.lib.reissuance.flows.*
-import com.r3.corda.lib.reissuance.states.ReIssuanceLock
-import com.r3.corda.lib.reissuance.states.ReIssuanceRequest
+import com.r3.corda.lib.reissuance.states.ReissuanceLock
+import com.r3.corda.lib.reissuance.states.ReissuanceRequest
 import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.StateRef
 import net.corda.core.crypto.SecureHash
@@ -15,7 +15,7 @@ import net.corda.core.identity.CordaX500Name
 import net.corda.core.identity.Party
 import net.corda.core.utilities.getOrThrow
 import net.corda.samples.reissuance.candies.flows.*
-import net.corda.samples.reissuance.candies.flows.wrappedReIssuanceFlows.*
+import net.corda.samples.reissuance.candies.flows.wrappedReissuanceFlows.*
 import net.corda.samples.reissuance.candies.states.Candy
 import net.corda.testing.common.internal.testNetworkParameters
 import net.corda.testing.core.DUMMY_NOTARY_NAME
@@ -34,15 +34,18 @@ abstract class AbstractCandyFlowTest {
     lateinit var candyShopNode: TestStartedNode
     lateinit var aliceNode: TestStartedNode
     lateinit var bobNode: TestStartedNode
+    lateinit var charlieNode: TestStartedNode
 
     lateinit var notaryParty: Party
     lateinit var candyShopParty: Party
     lateinit var aliceParty: Party
     lateinit var bobParty: Party
+    lateinit var charlieParty: Party
 
     lateinit var candyShopLegalName: CordaX500Name
     lateinit var aliceLegalName: CordaX500Name
     lateinit var bobLegalName: CordaX500Name
+    lateinit var charlieLegalName: CordaX500Name
 
     val candyCouponTokenType = TokenType("CandyCoupon", 0)
     lateinit var issuedCandyCouponTokenType: IssuedTokenType
@@ -83,6 +86,10 @@ abstract class AbstractCandyFlowTest {
         bobLegalName = CordaX500Name(organisation = "BOB", locality = "London", country = "GB")
         bobNode = mockNet.createNode(InternalMockNodeParameters(legalName = bobLegalName))
         bobParty = bobNode.info.singleIdentity()
+
+        charlieLegalName = CordaX500Name(organisation = "CHARLIE", locality = "London", country = "GB")
+        charlieNode = mockNet.createNode(InternalMockNodeParameters(legalName = charlieLegalName))
+        charlieParty = charlieNode.info.singleIdentity()
 
         issuedCandyCouponTokenType = IssuedTokenType(candyShopParty, candyCouponTokenType)
     }
@@ -163,34 +170,34 @@ abstract class AbstractCandyFlowTest {
         )
     }
 
-    fun createCandyCouponReIssuanceRequestAndShareRequiredTransactions(
+    fun createCandyCouponReissuanceRequestAndShareRequiredTransactions(
         node: TestStartedNode,
-        statesToReIssue: List<StateAndRef<FungibleToken>>,
+        statesToReissue: List<StateAndRef<FungibleToken>>,
         bank: AbstractParty
-    ) {
-        runFlow(
+    ): SecureHash {
+        return runFlow(
             node,
-            RequestCandyCouponReIssuanceAndShareRequiredTransactions(bank, statesToReIssue.map { it.ref.toString() })
+            RequestCandyCouponReissuanceAndShareRequiredTransactions(bank, statesToReissue.map { it.ref.toString() })
         )
     }
 
-    fun reIssueRequestedStates(
+    fun reissueRequestedStates(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReIssuanceRequest>
-    ) {
-        runFlow(
+        reissuanceRequest: StateAndRef<ReissuanceRequest>
+    ): SecureHash {
+        return runFlow(
             node,
-            ReIssueCandyCoupons(reIssuanceRequest.ref.toString())
+            ReissueCandyCoupons(reissuanceRequest.ref.toString())
         )
     }
 
-    fun rejectReIssuanceRequested(
+    fun rejectReissuanceRequested(
         node: TestStartedNode,
-        reIssuanceRequest: StateAndRef<ReIssuanceRequest>
+        reissuanceRequest: StateAndRef<ReissuanceRequest>
     ) {
         runFlow(
             node,
-            RejectCandyCouponsReIssuanceRequest(reIssuanceRequest.ref.toString())
+            RejectCandyCouponsReissuanceRequest(reissuanceRequest.ref.toString())
         )
     }
 
@@ -204,27 +211,27 @@ abstract class AbstractCandyFlowTest {
         )
     }
 
-    fun unlockReIssuedState(
+    fun unlockReissuedState(
         node: TestStartedNode,
         attachmentSecureHashes: List<SecureHash>,
-        reIssuedStateAndRefs: List<StateAndRef<FungibleToken>>,
-        lockStateAndRef: StateAndRef<ReIssuanceLock<FungibleToken>>
-    ) {
-        runFlow(
+        reissuedStateAndRefs: List<StateAndRef<FungibleToken>>,
+        lockStateAndRef: StateAndRef<ReissuanceLock<FungibleToken>>
+    ): SecureHash {
+        return runFlow(
             node,
-            UnlockReIssuedCandyCoupons(reIssuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
+            UnlockReissuedCandyCoupons(reissuedStateAndRefs.map { it.ref.toString() }, lockStateAndRef.ref.toString(),
                 attachmentSecureHashes)
         )
     }
 
-    fun deleteReIssuedStatesAndLock(
+    fun deleteReissuedStatesAndLock(
         node: TestStartedNode,
-        reIssuanceLock: StateAndRef<ReIssuanceLock<FungibleToken>>,
-        reIssuedStates: List<StateAndRef<FungibleToken>>
+        reissuanceLock: StateAndRef<ReissuanceLock<FungibleToken>>,
+        reissuedStates: List<StateAndRef<FungibleToken>>
         ) {
         runFlow(
             node,
-            DeleteReIssuedCandyCouponsAndCorrespondingLock(reIssuedStates.map { it.ref.toString() }, reIssuanceLock.ref.toString())
+            DeleteReissuedCandyCouponsAndCorrespondingLock(reissuedStates.map { it.ref.toString() }, reissuanceLock.ref.toString())
         )
     }
 
@@ -235,6 +242,16 @@ abstract class AbstractCandyFlowTest {
         return runFlow(
             node,
             GetTransactionBackChain(txId)
+        )
+    }
+
+    fun reconstructTransactionBackChain(
+        node: TestStartedNode,
+        txId: SecureHash
+    ): Set<SecureHash> {
+        return runFlow(
+            node,
+            ReconstructTransactionBackChain(txId)
         )
     }
 
