@@ -95,9 +95,10 @@ dependencies {
     cordapp "$tokens_release_group:tokens-contracts:$tokens_release_version"
     cordapp "$tokens_release_group:tokens-workflows:$tokens_release_version"
 
-    // CI dependencies
+    // CI dependencies.
     cordapp "$confidential_id_release_group:ci-workflows:$confidential_id_release_version"
 
+    // Reissuance dependencies.
     cordapp "$reissuance_release_group:reissuance-cordapp-contracts:$reissuance_release_version"
     cordapp "$reissuance_release_group:reissuance-cordapp-workflows:$reissuance_release_version"
 }

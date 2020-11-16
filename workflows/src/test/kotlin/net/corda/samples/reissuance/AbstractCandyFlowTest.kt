@@ -68,7 +68,7 @@ abstract class AbstractCandyFlowTest {
             ),
             notarySpecs = listOf(MockNetworkNotarySpec(DUMMY_NOTARY_NAME, false)),
             initialNetworkParameters = testNetworkParameters(
-                minimumPlatformVersion = 4
+                minimumPlatformVersion = 8 // 4.6
             )
         )
 
@@ -198,16 +198,6 @@ abstract class AbstractCandyFlowTest {
         runFlow(
             node,
             RejectCandyCouponsReissuanceRequest(reissuanceRequest.ref.toString())
-        )
-    }
-
-    fun uploadDeletedStateAttachment(
-        node: TestStartedNode,
-        deleteStateTransactionId: SecureHash
-    ): SecureHash {
-        return runFlow(
-            node,
-            UploadTransactionAsAttachment(deleteStateTransactionId)
         )
     }
 

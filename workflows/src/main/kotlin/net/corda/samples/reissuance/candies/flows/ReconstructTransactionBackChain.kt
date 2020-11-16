@@ -2,12 +2,12 @@ package net.corda.samples.reissuance.candies.flows
 
 
 import co.paralleluniverse.fibers.Suspendable
+import com.r3.corda.lib.reissuance.flows.BackChainException
 import com.r3.corda.lib.reissuance.flows.GetTransactionBackChain
 import com.r3.corda.lib.reissuance.states.ReissuanceRequest
 import net.corda.core.crypto.SecureHash
 import net.corda.core.flows.FlowLogic
 import net.corda.core.flows.StartableByRPC
-import net.corda.core.utilities.contextLogger
 
 @StartableByRPC
 class ReconstructTransactionBackChain(
@@ -49,7 +49,7 @@ class ReconstructTransactionBackChain(
         }
         // BackChainException is throw when the transaction is not available in the vault - the party doesn't have
         // access the the state before reissuance
-        catch (e: GetTransactionBackChain.BackChainException) {
+        catch (e: BackChainException) {
             logger.info("Back-chain of transaction $endTransaction is not available")
         }
 
