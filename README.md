@@ -2,10 +2,10 @@
   <img src="https://www.corda.net/wp-content/uploads/2016/11/fg005_corda_b.png" alt="Corda" width="500">	
 </p>
 
-# reissuance Sample CorDapp 
+# Reissuance Sample CorDapp 
 This CorDapp is reissuance demo and demonstrates how to use reissuance flows.
 
-reissuance CorDapp: https://github.com/corda/reissue-cordapp
+Reissuance CorDapp: https://github.com/corda/reissue-cordapp
 
 ## Overview
 
@@ -168,7 +168,7 @@ Flow completed with result: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660F
 Flow completed with result: [E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D, 566B79B8D60E1077D19C48FC5951A578BD5962B8B2F6F27A220F22A9DD5CE000, 0E0DC8E7591BB5578EC6D4DD8D5E2BF6B846821868F1D76B2034A7E4F8A704BB, 02C643FC8608FA86B107208B6DD0B06F983DBEE588BC496AA7A9D9FC5764293D, 02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648, 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC]
 </pre>
 
-### reissuance use cases
+### Reissuance use cases
 
 #### Successful reissuance
 
