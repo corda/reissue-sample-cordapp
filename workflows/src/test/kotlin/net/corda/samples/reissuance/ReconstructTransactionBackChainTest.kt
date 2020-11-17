@@ -40,12 +40,11 @@ class ReconstructTransactionBackChainTest: AbstractCandyFlowTest() {
         val reissuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
         reissuedStateTransactionIds.add(reissueRequestedStates(candyShopNode, reissuanceRequest))
         val exitCouponTransactionId = tearUpCandyCoupons(aliceNode, aliceCandyCouponsToReissue.map { it.ref })
-        val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
         val reissuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
         val reissuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
         reissuedStateTransactionIds.add(unlockReissuedState(
             aliceNode,
-            listOf(attachmentSecureHash),
+            listOf(exitCouponTransactionId),
             reissuedStateAndRefs,
             reissuanceLock
         ))
@@ -97,12 +96,11 @@ class ReconstructTransactionBackChainTest: AbstractCandyFlowTest() {
         val reissuanceRequest = candyShopNode.services.vaultService.queryBy<ReissuanceRequest>().states[0]
         reissuedStateTransactionIds.add(reissueRequestedStates(candyShopNode, reissuanceRequest))
         val exitCouponTransactionId = tearUpCandyCoupons(aliceNode, aliceCandyCouponsToReissue.map { it.ref })
-        val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
         val reissuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
         val reissuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
         reissuedStateTransactionIds.add(unlockReissuedState(
             aliceNode,
-            listOf(attachmentSecureHash),
+            listOf(exitCouponTransactionId),
             reissuedStateAndRefs,
             reissuanceLock
         ))

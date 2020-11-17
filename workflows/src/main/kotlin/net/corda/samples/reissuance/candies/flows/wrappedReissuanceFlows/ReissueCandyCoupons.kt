@@ -27,7 +27,7 @@ class ReissueCandyCoupons(
         ).states[0]
         return subFlow(ReissueStates<FungibleToken>(
             rejectReissuanceRequestStateAndRef,
-            issuerIsRequiredExitCommandSigner = true
+            extraAssetExitCommandSigners = listOf(rejectReissuanceRequestStateAndRef.state.data.issuer)
         ))
     }
 

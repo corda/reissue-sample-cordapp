@@ -46,13 +46,12 @@ class CouponsReissuanceTest: AbstractCandyFlowTest() {
         reissueRequestedStates(candyShopNode, reissuanceRequest)
 
         val exitCouponTransactionId = tearUpCandyCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
-        val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
         val reissuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
         val reissuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
 
         unlockReissuedState(
             aliceNode,
-            listOf(attachmentSecureHash),
+            listOf(exitCouponTransactionId),
             reissuedStateAndRefs,
             reissuanceLock
         )
@@ -109,13 +108,12 @@ class CouponsReissuanceTest: AbstractCandyFlowTest() {
         reissueRequestedStates(candyShopNode, reissuanceRequest)
 
         val exitCouponTransactionId = buyCandiesUsingCoupons(aliceNode, aliceCandyCoupons.map { it.ref })
-        val attachmentSecureHash = uploadDeletedStateAttachment(aliceNode, exitCouponTransactionId)
         val reissuedStateAndRefs = listAvailableCandyCoupons(aliceNode, true)
         val reissuanceLock = aliceNode.services.vaultService.queryBy<ReissuanceLock<FungibleToken>>().states[0]
 
         unlockReissuedState(
             aliceNode,
-            listOf(attachmentSecureHash),
+            listOf(exitCouponTransactionId),
             reissuedStateAndRefs,
             reissuanceLock
         )

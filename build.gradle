@@ -1,10 +1,12 @@
 buildscript { //properties that you need to build the project
 
+    ext.artifactory_contextUrl = "https://software.r3.com/artifactory"
+
     repositories {
         mavenLocal()
         mavenCentral()
         jcenter()
-        maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-releases' }
+        maven { url "${artifactory_contextUrl}/corda-releases" }
     }
 
     dependencies {
@@ -44,8 +46,8 @@ allprojects { //Properties that you need to compile your project (The applicatio
         mavenCentral()
         maven { url 'https://software.r3.com/artifactory/corda' }
         maven { url 'https://jitpack.io' }
-        maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-lib-dev' }
-        maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-lib' }
+        maven { url "${artifactory_contextUrl}/corda-lib-dev" }
+        maven { url "${artifactory_contextUrl}/corda-lib" }
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
@@ -95,9 +97,10 @@ dependencies {
     cordapp "$tokens_release_group:tokens-contracts:$tokens_release_version"
     cordapp "$tokens_release_group:tokens-workflows:$tokens_release_version"
 
-    // CI dependencies
+    // CI dependencies.
     cordapp "$confidential_id_release_group:ci-workflows:$confidential_id_release_version"
 
+    // Reissuance dependencies.
     cordapp "$reissuance_release_group:reissuance-cordapp-contracts:$reissuance_release_version"
     cordapp "$reissuance_release_group:reissuance-cordapp-workflows:$reissuance_release_version"
 }

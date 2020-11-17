@@ -2,10 +2,10 @@
   <img src="https://www.corda.net/wp-content/uploads/2016/11/fg005_corda_b.png" alt="Corda" width="500">	
 </p>
 
-# Re-issuance Sample CorDapp 
-This CorDapp is re-issuance demo and demonstrates how to use re-issuance flows.
+# Reissuance Sample CorDapp 
+This CorDapp is reissuance demo and demonstrates how to use reissuance flows.
 
-Re-issuance CorDapp: https://github.com/corda/reissue-cordapp
+Reissuance CorDapp: https://github.com/corda/reissue-cordapp
 
 ## Overview
 
@@ -13,7 +13,7 @@ In this CorDapp, we mimic a candy shop distributing coupons which can be:
 * exchanged for other coupons with different quantities - for example one coupon for 20 candies can be exchanged for 
 2 coupons for 10 candies
 * given to another party
-* re-issued - exchanged for a new copy
+* reissued - exchanged for a new copy
 * used to buy candies
 `CandyCoupon` is represented by a fungible token and `Candy` is a simple state.
 
@@ -27,12 +27,12 @@ The CorDapp defines the following flows:
 * `TearUpCandyCoupons`, which exits coupons from the ledger
 * `ListCandyCoupons`, which lists available coupons
 * `ListCandies`, which lists available candies
-* `RequestCandyCouponReissuanceAndShareRequiredTransactions`, which requests cuopon re-issuance and shares transactions 
-proving that states to be re-issued are valid with the candy shop
-* `RejectCandyCouponsReissuanceRequest`, which rejects coupon re-issuance request
-* `ReissueCandyCoupons`, which re-issues coupons and generates corresponding re-issuance lock
-* `UnlockReissuedCandyCoupons`, which unlocks re-issued coupons and deactivates re-issuance lock
-* `DeleteReissuedCandyCouponsAndCorrespondingLock`, which exits re-issued coupons and lock from the ledger
+* `RequestCandyCouponReissuanceAndShareRequiredTransactions`, which requests coupon reissuance and shares transactions 
+proving that states to be reissued are valid with the candy shop
+* `RejectCandyCouponsReissuanceRequest`, which rejects coupon reissuance request
+* `ReissueCandyCoupons`, which reissues coupons and generates corresponding reissuance lock
+* `UnlockReissuedCandyCoupons`, which unlocks reissued coupons and deactivates reissuance lock
+* `DeleteReissuedCandyCouponsAndCorrespondingLock`, which exits reissued coupons and lock from the ledger
 
 ## Running the sample
 
@@ -168,27 +168,27 @@ Flow completed with result: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660F
 Flow completed with result: [E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D, 566B79B8D60E1077D19C48FC5951A578BD5962B8B2F6F27A220F22A9DD5CE000, 0E0DC8E7591BB5578EC6D4DD8D5E2BF6B846821868F1D76B2034A7E4F8A704BB, 02C643FC8608FA86B107208B6DD0B06F983DBEE588BC496AA7A9D9FC5764293D, 02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648, 7CFE1FFB9FFFDC2C904F32A8CF7836A1388E762F755177D37729805B58EB7EAC]
 </pre>
 
-### Re-issuance use cases
+### Reissuance use cases
 
-#### Successful re-issuance
+#### Successful reissuance
 
 Someone might want to hide a fact that the coupon was transferred many times. To prune the back-chain, coupons
-can be re-issued. Start with creating a re-issuance request:
+can be reissued. Start with creating a reissuance request:
 <pre>
 <i>Alice's node:</i> flow start RequestCandyCouponReissuanceAndShareRequiredTransactions issuer: CandyShop, stateRefStringsToReissue: [02F5848E8EDF0468CC2BFCFD0C8F81FC10CE729D6CFA95D660FF14D72C24F648(3), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(0), E81AF7DFF5D27D106DD23958731FA255BF196F97A7054CA458F25DFB90C63A7D(1)]
 </pre>
-The flow will return re-issuance request transaction id:
+The flow will return reissuance request transaction id:
 <pre>
 Flow completed with result: C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875
 </pre>
 
 Then CandyShop has 2 options: accept the request or reject it. We will focus on acceptance in this use-case. 
-Run the following command to list all re-issuance requests:
+Run the following command to list all reissuance requests:
 <pre>
 <i>CandyShop's node:</i> run vaultQuery contractStateType: com.r3.corda.lib.reissuance.states.ReissuanceRequest
 </pre>
 
-There should be exactly one re-issuance request, and the output of the above command should be similar to the following:
+There should be exactly one reissuance request, and the output of the above command should be similar to the following:
 <pre>
 states:
 - state:
@@ -243,16 +243,16 @@ stateTypes: "UNCONSUMED"
 otherResults: []
 </pre>
 
-To accept the request - re-issue locked state and create re-issuance lock, run:
+To accept the request - reissue locked state and create reissuance lock, run:
 <pre>
 <i>CandyShop's node:</i> flow start ReissueCandyCoupons reissuanceRequestRefString: C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875(0)
 </pre>
-The flow will return re-issuance transaction id:
+The flow will return reissuance transaction id:
 <pre>
 Flow completed with result: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6
 </pre>
 
-Now, list available tokens to make sure new tokens had been re-issued before exiting original states from the vault:
+Now, list available tokens to make sure new tokens had been reissued before exiting original states from the vault:
 <pre>
 <i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null, couponRefs: null
 </pre>
@@ -281,7 +281,7 @@ Flow completed with result: [StateAndRef(state=TransactionState(data=10 TokenTyp
 )), ref=69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2))]
 </pre>
 
-Newly generated states, even though they are available, can't be spent without re-issuance lock:
+Newly generated states, even though they are available, can't be spent without reissuance lock:
 <pre>
 <i>Alice's node:</i> flow start GiveCandyCoupons newHolderParty: Bob, couponRefsStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0)] 
 </pre>
@@ -290,11 +290,11 @@ You should see an error message:
 ☠   java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
 </pre>
 
-Run the following command to list re-issuance locks:
+Run the following command to list reissuance locks:
 <pre>
 <i>Alice's node:</i> run vaultQuery contractStateType: com.r3.corda.lib.reissuance.states.ReissuanceLock
 </pre>
-There should be exactly one re-issuance lock available: 
+There should be exactly one reissuance lock available: 
 <pre>
 states:
 - state:
@@ -383,21 +383,12 @@ The flow will return id of the exit transaction:
 Flow completed with result: FFC2881F870778D66071FCF72A5CBE2ECED5B7562CD7D02C8E08EEAA7F5DA0E8
 </pre>
 
-Next, upload exit transaction as an attachment providing its id:
+Then you can unlock reissued states, providing their references, reissuance lock reference, and id of token exit 
+transaction:
 <pre>
-<i>Alice's node:</i> flow start UploadTransactionAsAttachment transactionId: FFC2881F870778D66071FCF72A5CBE2ECED5B7562CD7D02C8E08EEAA7F5DA0E8
+<i>Alice's node:</i> flow start UnlockReissuedCandyCoupons reissuedStatesRefStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2)], reissuanceLockRefString: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(3), deletedStateTransactionHashes: [FFC2881F870778D66071FCF72A5CBE2ECED5B7562CD7D02C8E08EEAA7F5DA0E8]
 </pre>
-The flow will return newly created attachment id:
-<pre>
-Flow completed with result: 4C72E5739E3BEB88D59699029A2B2BF6A328737597EF26D9809CAC1CC43EF7C7
-</pre>
-
-Then you can unlock re-issued states, providing their references, re-issuance lock reference, and attachment id of 
-token exit transaction:
-<pre>
-<i>Alice's node:</i> flow start UnlockReissuedCandyCoupons reissuedStatesRefStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2)], reissuanceLockRefString: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(3), deletedStateTransactionHashes: [4C72E5739E3BEB88D59699029A2B2BF6A328737597EF26D9809CAC1CC43EF7C7]
-</pre>
-The flows will return the id of unlock re-issued states transaction:
+The flows will return the id of unlock reissued states transaction:
 <pre>
 Flow completed with result: 313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6
 </pre>
@@ -406,7 +397,7 @@ Now list tokens one more time:
 <pre>
 <i>Alice's node:</i> flow start ListCandyCoupons holderParty: Alice, encumbered: null, couponRefs: null
 </pre>
-Note that the re-issued states are now unencumbered:
+Note that the reissued states are now unencumbered:
 <pre>
 Flow completed with result: [StateAndRef(state=TransactionState(data=10 TokenType(tokenIdentifier='CandyCoupon', fractionDigits=0) issued by CandyShop held by Alice, contract=com.r3.corda.lib.tokens.contracts.FungibleTokenContract, notary=O=Notary, L=London, C=GB, encumbrance=null, constraint=SignatureAttachmentConstraint(key=EC Public Key [5a:9f:70:fd:5f:d4:26:ed:55:66:42:78:a8:ee:09:ff:57:33:7e:e4]
             X: b4e2f8b9b8e4111622b2650de1acae5968c66fce005ca82a884d89c04e803d24
@@ -420,20 +411,20 @@ Flow completed with result: [StateAndRef(state=TransactionState(data=10 TokenTyp
 )), ref=313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6(2))]
 </pre>
 
-Then, list back-chain of the re-issued states (all secure hashes in references are the same as they were generated by 
+Then, list back-chain of the reissued states (all secure hashes in references are the same as they were generated by 
 the same transaction):
 <pre>
 <i>Alice's node:</i> flow start GetTransactionBackChain transactionId: 313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6
 </pre>
 The result will contain identifiers of 3 transactions:
-- requesting re-issuance
-- re-issuance
-- unlocking re-issued tokens
+- requesting reissuance
+- reissuance
+- unlocking reissued tokens
 <pre>
 Flow completed with result: [313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6, 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6, C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875]
 </pre>
 
-Now try to spend re-issued tokens again:
+Now try to spend reissued tokens again:
 <pre>
 flow start GiveCandyCoupons newHolderParty: Bob, couponRefsStrings: [313A033B99D3A8B3E27B49C8886CD104C818CFF2AB02BC8B11B312BEE3D03EA6(2)]
 </pre>
@@ -456,22 +447,22 @@ The flow should return a set of both transactions before and after reissuance. T
 `ReconstructTransactionBackChain` returns a set, not a list, is the same as for `GetTransactionBackChain` - it's 
 impossible for fungible states (it's possible for linear states though).
 
-#### Rejected re-issuance request
-As mentioned before, CandyShop doesn't have to accept re-issuance request. To reject it, they should run:
+#### Rejected reissuance request
+As mentioned before, CandyShop doesn't have to accept reissuance request. To reject it, they should run:
 <pre>
 <i>CandyShop's node:</i> flow start RejectCandyCouponsReissuanceRequest reissuanceRequestRefString: C70355369E941A530089552C36D2DE07E51D4BE898788B7FCED27BC7B82B6875(0)
 </pre>
 
-#### Original tokens have been consumed, and it's impossible to unlock re-issued states
-If at least one of coupons to be re-issued have been consumed after their locked copies have been created (lets say 
-Alice gave 1 coupon to Bob), all re-issued coupons are useless - they will never be unlocked. 
-In that case, re-issued coupons and corresponding re-issuance lock can be exited from the ledger:
+#### Original tokens have been consumed, and it's impossible to unlock reissued states
+If at least one of coupons to be reissued have been consumed after their locked copies have been created (lets say 
+Alice gave 1 coupon to Bob), all reissued coupons are useless - they will never be unlocked. 
+In that case, reissued coupons and corresponding reissuance lock can be exited from the ledger:
 <pre>
 <i>Alice's node:</i> flow start DeleteReissuedCandyCouponsAndCorrespondingLock reissuedStatesRefStrings: [69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(0), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(1), 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(2)], reissuanceLockRefString: 69DA870A2939C4D1C78C0492D721F04D5D5F7931D76ADB19BCC0B3C1382E80C6(3)
 </pre>
 
-### BuyCandies flow can't be used to unlock re-issued states
-We said that to unlock re-issued states, transaction which exits the original states is required. If you were thinking 
+### BuyCandies flow can't be used to unlock reissued states
+We said that to unlock reissued states, transaction which exits the original states is required. If you were thinking 
 about cheating by using `BuyCandies` flow (it exits coupons from the ledger and additionally we get candies, right?!) 
 instead of `TearUpCandyCoupons`, you can't do that. There is an additional requirement that the transaction used as 
 a proof of asset exit can't produce any outputs.
