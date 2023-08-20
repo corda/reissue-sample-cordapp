@@ -1,12 +1,12 @@
 buildscript { //properties that you need to build the project
 
-    ext.artifactory_contextUrl = "https://software.r3.com/artifactory"
+    ext.publicArtifactURL='https://download.corda.net/maven'
 
     repositories {
         mavenLocal()
         mavenCentral()
         jcenter()
-        maven { url "${artifactory_contextUrl}/corda-releases" }
+        maven { url "${publicArtifactURL}/corda-releases" }
     }
 
     dependencies {
@@ -31,10 +31,6 @@ if (! project.hasProperty('cordaArtifactoryPassword') || !ext.cordaArtifactoryPa
             ?: System.getProperty('corda.artifactory.password')
 }
 
-// Tell the user if we can't proceed.
-if (!ext.cordaArtifactoryUsername?.trim() || !ext.cordaArtifactoryPassword?.trim()) {
-    throw new IllegalArgumentException("ERROR: Either 'cordaArtifactoryUsername' or 'cordaArtifactoryPassword' is null!")
-}
 
 allprojects { //Properties that you need to compile your project (The application)
     apply from: "${rootProject.projectDir}/repositories.gradle"
@@ -44,9 +40,9 @@ allprojects { //Properties that you need to compile your project (The applicatio
         mavenLocal()
         jcenter()
         mavenCentral()
-        maven { url 'https://software.r3.com/artifactory/corda' }
         maven { url 'https://jitpack.io' }
-        maven { url "${artifactory_contextUrl}/corda-lib" }
+        maven { url "${publicArtifactURL}/corda-dependencies" }
+        maven { url "${publicArtifactURL}/corda-lib" }
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
