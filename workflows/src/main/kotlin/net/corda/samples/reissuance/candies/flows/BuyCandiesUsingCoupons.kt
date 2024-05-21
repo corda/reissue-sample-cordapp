@@ -24,7 +24,7 @@ class BuyCandiesUsingCoupons(
         val couponRefs = couponRefsStrings.map { parseStateReference(it) }
         val couponsToUse = subFlow(ListCandyCoupons(ourIdentity, couponRefs = couponRefs))
         val candyShop = couponsToUse[0].state.data.issuer
-        val couponCandies = couponsToUse.sumBy { it.state.data.amount.quantity.toInt() }
+        val couponCandies = couponsToUse.sumOf { it.state.data.amount.quantity.toInt() }
 
         val transactionBuilder = TransactionBuilder(notary = getPreferredNotary(serviceHub))
         addTokensToRedeem(transactionBuilder, couponsToUse, null)
