@@ -37,7 +37,7 @@ class CandyContract: Contract {
             "At least one input of type CandyCoupon is expected" using candyCouponInputs.isNotEmpty()
             "No outputs of type CandyCoupon are allowed" using candyCouponOutputs.isEmpty()
 
-            val couponCandies = candyCouponInputs.sumBy { it.amount.quantity.toInt() }
+            val couponCandies = candyCouponInputs.sumOf { it.amount.quantity.toInt() }
             val boughtCandies = candyOutputs.size
             "Number of coupon candies and bought candies must be equal" using (couponCandies == boughtCandies)
 
