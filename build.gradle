@@ -5,8 +5,8 @@ buildscript { //properties that you need to build the project
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
         maven { url "${publicArtifactURL}/corda-releases" }
+        maven { url "${publicArtifactURL}/jcenter-backup" }
     }
 
     dependencies {
