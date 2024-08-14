@@ -5,8 +5,8 @@ buildscript { //properties that you need to build the project
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
         maven { url "${publicArtifactURL}/corda-releases" }
+        maven { url "${publicArtifactURL}/jcenter-backup" }
     }
 
     dependencies {
@@ -38,11 +38,11 @@ allprojects { //Properties that you need to compile your project (The applicatio
 
     repositories {
         mavenLocal()
-        jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url "${publicArtifactURL}/corda-dependencies" }
         maven { url "${publicArtifactURL}/corda-lib" }
+        maven { url "${publicArtifactURL}/jcenter-backup" }
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
