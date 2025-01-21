@@ -31,16 +31,16 @@ private inline fun <T> measureTimeMillis(block: () -> T): Pair<Long, T> {
 
 @CordaSerializable
 private class IssueCandyCouponsInfo(
-        val couponHolderParty: Party,
-        val couponCandies: Int
+    val couponHolderParty: Party,
+    val couponCandies: Int
 )
 
 @InitiatingFlow
 @StartableByRPC
 class RequestIssueCandyCoupons(
-        private val candyShopParty: Party,
-        private val couponHolderParty: Party,
-        private val couponCandies: Int
+    private val candyShopParty: Party,
+    private val couponHolderParty: Party,
+    private val couponCandies: Int
 ) : FlowLogic<SecureHash>() {
     companion object {
         private val TIMEOUT = 1.minutes
@@ -51,10 +51,10 @@ class RequestIssueCandyCoupons(
         val session = initiateFlow(candyShopParty)
 
         val txId = session.sendAndReceive<SecureHash>(
-                IssueCandyCouponsInfo(
-                        couponHolderParty,
-                        couponCandies
-                )
+            IssueCandyCouponsInfo(
+                couponHolderParty,
+                couponCandies
+            )
         ).unwrap { data -> data }
 
         return serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT).id
@@ -68,10 +68,10 @@ class RequestIssueCandyCouponsResponder(private val counterpartySession: FlowSes
         val issueCandyCouponsInfo = counterpartySession.receive<IssueCandyCouponsInfo>().unwrap { data -> data }
 
         val txId = subFlow(
-                IssueCandyCoupons(
-                        issueCandyCouponsInfo.couponHolderParty,
-                        issueCandyCouponsInfo.couponCandies
-                )
+            IssueCandyCoupons(
+                issueCandyCouponsInfo.couponHolderParty,
+                issueCandyCouponsInfo.couponCandies
+            )
         )
 
         counterpartySession.send(txId)
@@ -81,8 +81,8 @@ class RequestIssueCandyCouponsResponder(private val counterpartySession: FlowSes
 @InitiatingFlow
 @StartableByRPC
 class RequestReissueCandyCouponsAcceptance(
-        private val candyShopParty: Party,
-        private val reissuanceRequestRefString: String
+    private val candyShopParty: Party,
+    private val reissuanceRequestRefString: String
 ) : FlowLogic<SecureHash>() {
     companion object {
         private val TIMEOUT = 1.minutes
@@ -109,7 +109,7 @@ class RequestReissueCandyCouponsAcceptanceResponder(private val counterpartySess
         val reissuanceRequestRefString = counterpartySession.receive<String>().unwrap { data -> data }
 
         val tx = serviceHub.validatedTransactions.trackTransaction(
-                parseStateReference(reissuanceRequestRefString).txhash
+            parseStateReference(reissuanceRequestRefString).txhash
         ).getOrThrow(TIMEOUT)
 
         var tracker: DataFeed<Vault.Page<FungibleToken>, Vault.Update<FungibleToken>>? = serviceHub.vaultService.trackBy<FungibleToken>(
@@ -124,9 +124,9 @@ class RequestReissueCandyCouponsAcceptanceResponder(private val counterpartySess
         }
 
         val txId = subFlow(
-                ReissueCandyCoupons(
-                        reissuanceRequestRefString
-                )
+            ReissueCandyCoupons(
+                reissuanceRequestRefString
+            )
         )
 
         counterpartySession.send(txId)
@@ -135,11 +135,11 @@ class RequestReissueCandyCouponsAcceptanceResponder(private val counterpartySess
 
 @StartableByRPC
 class MeasureTransactionResolutionTime(
-        private val candyShopParty: Party,
-        private val couponCandies: Int,
-        private val chainLength: Int,
-        private val counterParty: Party,
-        private val chainSnipping: Boolean
+    private val candyShopParty: Party,
+    private val couponCandies: Int,
+    private val chainLength: Int,
+    private val counterParty: Party,
+    private val chainSnipping: Boolean
 ): FlowLogic<SecureHash>() {
     companion object {
         private val TIMEOUT = 1.minutes
@@ -149,11 +149,11 @@ class MeasureTransactionResolutionTime(
     override fun call(): SecureHash {
         val (issueTime, couponsTxId) = measureTimeMillis {
             val txId = subFlow(
-                    RequestIssueCandyCoupons(
-                            candyShopParty,
-                            ourIdentity,
-                            couponCandies
-                    )
+                RequestIssueCandyCoupons(
+                    candyShopParty,
+                    ourIdentity,
+                    couponCandies
+                )
             )
 
             serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT).id
@@ -169,10 +169,10 @@ class MeasureTransactionResolutionTime(
                 val tx = serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT)
 
                 txId = subFlow(
-                        ExchangeCandyCoupons(
-                                tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() },
-                                listOf(couponCandies)
-                        )
+                    ExchangeCandyCoupons(
+                        tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() },
+                        listOf(couponCandies)
+                    )
                 )
             }
 
@@ -185,10 +185,10 @@ class MeasureTransactionResolutionTime(
                 val tx = serviceHub.validatedTransactions.getTransaction(exchangeTxId)!!
 
                 val txId = subFlow(
-                        RequestCandyCouponReissuanceAndShareRequiredTransactions(
-                                candyShopParty,
-                                tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() }
-                        )
+                    RequestCandyCouponReissuanceAndShareRequiredTransactions(
+                        candyShopParty,
+                        tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() }
+                    )
                 )
 
                 serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT).id
@@ -199,10 +199,10 @@ class MeasureTransactionResolutionTime(
                 val tx = serviceHub.validatedTransactions.getTransaction(requestReissuanceTxId)!!
 
                 val txId = subFlow(
-                        RequestReissueCandyCouponsAcceptance(
-                                candyShopParty,
-                                tx.tx.outRefsOfType<ReissuanceRequest>().single().ref.toString()
-                        )
+                    RequestReissueCandyCouponsAcceptance(
+                        candyShopParty,
+                        tx.tx.outRefsOfType<ReissuanceRequest>().single().ref.toString()
+                    )
                 )
 
                 serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT).id
@@ -213,9 +213,9 @@ class MeasureTransactionResolutionTime(
                 val tx = serviceHub.validatedTransactions.getTransaction(exchangeTxId)!!
 
                 val txId = subFlow(
-                        TearUpCandyCoupons(
-                                tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() }
-                        )
+                    TearUpCandyCoupons(
+                        tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() }
+                    )
                 )
 
                 serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT).id
@@ -226,11 +226,11 @@ class MeasureTransactionResolutionTime(
                 val tx = serviceHub.validatedTransactions.getTransaction(reissueAcceptanceTxId)!!
 
                 val txId = subFlow(
-                        UnlockReissuedCandyCoupons(
-                                tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() },
-                                tx.tx.outRefsOfType<ReissuanceLock<FungibleToken>>().single().ref.toString(),
-                                listOf(tearUpTxId)
-                        )
+                    UnlockReissuedCandyCoupons(
+                        tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() },
+                        tx.tx.outRefsOfType<ReissuanceLock<FungibleToken>>().single().ref.toString(),
+                        listOf(tearUpTxId)
+                    )
                 )
 
                 serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT).id
@@ -249,10 +249,10 @@ class MeasureTransactionResolutionTime(
             val tx = serviceHub.validatedTransactions.getTransaction(lastTxId)!!
 
             val txId = subFlow(
-                    GiveCandyCoupons(
-                            tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() },
-                            counterParty
-                    )
+                GiveCandyCoupons(
+                    tx.tx.outRefsOfType<FungibleToken>().map { it.ref.toString() },
+                    counterParty
+                )
             )
 
             serviceHub.validatedTransactions.trackTransaction(txId).getOrThrow(TIMEOUT).id
