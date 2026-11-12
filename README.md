@@ -34,6 +34,22 @@ proving that states to be reissued are valid with the candy shop
 * `UnlockReissuedCandyCoupons`, which unlocks reissued coupons and deactivates reissuance lock
 * `DeleteReissuedCandyCouponsAndCorrespondingLock`, which exits reissued coupons and lock from the ledger
 
+## Building against Corda 4.12 and 4.15
+
+The build defaults to the Corda version in `gradle.properties` (`corda_release_version=4.12`). To build, test and
+deploy against another version, override that one property on the command line; everything else (the core artifacts,
+the test nodes, the deployed `corda.jar`) follows it:
+<pre>
+./gradlew clean build -Pcorda_release_version=4.15-RC02
+./gradlew deployNodes -Pcorda_release_version=4.15-RC02
+</pre>
+Release candidates are only published on the authenticated `corda-releases` repository; set
+`CORDA_ARTIFACTORY_USERNAME` / `CORDA_ARTIFACTORY_PASSWORD` (or the `cordaArtifactoryUsername` /
+`cordaArtifactoryPassword` Gradle properties) to resolve them.
+
+Corda 4.15 moved from Hibernate 5 to Hibernate 7, so Token SDK 1.3.5 or later is required: earlier Token SDK
+releases declare Hibernate 5 as a runtime dependency, which cannot be put on one classpath with Corda 4.15.
+
 ## Running the sample
 
 ### Deploy and run the nodes

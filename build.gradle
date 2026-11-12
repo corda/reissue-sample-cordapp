@@ -4,12 +4,30 @@ import static org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9
 buildscript { //properties that you need to build the project
 
     ext.publicArtifactURL='https://download.corda.net/maven'
+    ext.artifactoryContextUrl='https://software.r3.com/artifactory'
+
+    // The core artifacts always follow the Corda version (-Pcorda_release_version=... overrides gradle.properties).
+    ext.corda_core_release_version = corda_release_version
 
     repositories {
         mavenLocal()
         mavenCentral()
         jcenter()
         maven { url "${publicArtifactURL}/corda-releases" }
+        // Release candidates (e.g. 4.15-RC02) are only on the authenticated corda-releases repository.
+        maven {
+            url "${artifactoryContextUrl}/corda-releases"
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = findProperty('cordaArtifactoryUsername') ?: System.getenv('CORDA_ARTIFACTORY_USERNAME')
+                password = findProperty('cordaArtifactoryPassword') ?: System.getenv('CORDA_ARTIFACTORY_PASSWORD')
+            }
+            content {
+                includeGroupByRegex 'net\\.corda(\\..*)?'
+            }
+        }
     }
 
     dependencies {
@@ -56,6 +74,38 @@ allprojects { //Properties that you need to compile your project (The applicatio
         maven { url "${publicArtifactURL}/corda-lib" }
         maven { url 'https://download.corda.net/maven/corda-dev' }
         maven { url 'https://download.corda.net/maven/r3-corda-dev' }
+        // Release candidates (e.g. 4.15-RC02) are only on the authenticated corda-releases repository.
+        maven {
+            url "${artifactoryContextUrl}/corda-releases"
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = cordaArtifactoryUsername
+                password = cordaArtifactoryPassword
+            }
+            content {
+                includeGroupByRegex 'net\\.corda(\\..*)?'
+            }
+        }
+    }
+
+    // Libraries built against a later Corda patch release (Token SDK 1.3.5 was built against 4.12.13) would otherwise
+    // pull that release's corda-core next to the node jars of the version requested here, and the mixed jars fail at
+    // runtime (NoSuchMethodError in the node). Keep every net.corda artifact at the version of this build.
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == corda_release_group) {
+                details.useVersion corda_release_version
+                details.because "all net.corda artifacts follow corda_release_version"
+            }
+        }
+    }
+
+    // TestCordapp.findCordapp builds the sibling CorDapp modules in a nested Gradle build started from the test JVM;
+    // pass the Corda version on so that build compiles against the same version as the outer one.
+    tasks.withType(Test).configureEach {
+        environment 'ORG_GRADLE_PROJECT_corda_release_version', corda_release_version
     }
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
